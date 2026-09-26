@@ -5,6 +5,10 @@ export interface SiteSettings {
   institute_name: string
   tagline: string
   about: string
+  founder_name: string
+  founder_title: string
+  founder_bio: string
+  founder_image_url: string
   notice_ticker: string
   address: string
   phone: string
@@ -28,26 +32,30 @@ export interface SiteSettings {
 
 export const defaultSettings: SiteSettings = {
   institute_name: 'SS Tutorial',
-  tagline: '',
-  about: '',
-  notice_ticker: '',
-  address: '',
+  tagline: 'ACHIEVING EXCELLENCE TOGETHER ~',
+  about: 'Welcome to SS TUTORIAL CLASSES - Your Ultimate Math Learning Hub! We simplify complex topics and help you master math with fun, clarity, and confidence. Specializing in SSC Board & CBSE coaching for School Classes and High School.',
+  founder_name: 'Aniket Gupta',
+  founder_title: 'Founder & Director',
+  founder_bio: 'Dedicated educator and founder of SS Tutorial, passionate about simplifying mathematics and guiding students toward academic excellence through conceptual clarity and disciplined practice.',
+  founder_image_url: '',
+  notice_ticker: "Education Can't SNATCH By Anyone ~ Admissions Open for Class 6 to 12 (CBSE & SSC)",
+  address: '002, (B) WING, VEER 10, UMROLI (EAST)',
   phone: '',
   email: '',
-  working_hours: '',
+  working_hours: 'Mon - Sat: 8:00 AM - 8:00 PM',
   whatsapp_number: '',
   whatsapp_message: 'Hello SS Tutorial, I would like to inquire about courses and admissions.',
-  footer_note: '',
+  footer_note: '© SS Tutorial. All Rights Reserved.',
   logo_url: '/logo.png',
   hero_image_url: '',
   map_embed_url: '',
   instagram_url: 'https://www.instagram.com/ss__tutorial',
   facebook_url: '',
-  youtube_url: '',
+  youtube_url: 'https://www.youtube.com/@SS__tutorial2025',
   twitter_url: '',
   linkedin_url: '',
-  meta_title: 'SS Tutorial | Coaching Institute',
-  meta_description: 'Welcome to SS Tutorial. Follow us on Instagram @ss__tutorial.',
+  meta_title: 'SS Tutorial | Achieving Excellence Together',
+  meta_description: 'Welcome to SS Tutorial - Your Ultimate Math Learning Hub. Located at 002, (B) Wing, Veer 10, Umroli (East). Follow us on Instagram @ss__tutorial and YouTube @SS__tutorial2025.',
 }
 
 interface SiteSettingsContextType {

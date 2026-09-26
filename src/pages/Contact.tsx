@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   AlertCircle,
   Instagram,
+  Youtube,
 } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
@@ -185,6 +186,19 @@ export const ContactPage: React.FC = () => {
               <Instagram className="w-5 h-5" />
               <span>Follow @ss__tutorial on Instagram</span>
             </a>
+
+            {/* YouTube Link */}
+            {settings.youtube_url && (
+              <a
+                href={settings.youtube_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-3 p-4 rounded-2xl bg-gradient-to-r from-red-600 to-rose-700 text-white font-bold text-sm shadow-md transition"
+              >
+                <Youtube className="w-5 h-5" />
+                <span>Subscribe @SS__tutorial2025 on YouTube</span>
+              </a>
+            )}
 
             {/* Google Maps Embed */}
             {settings.map_embed_url && settings.map_embed_url.trim() !== '' && (

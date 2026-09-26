@@ -39,6 +39,7 @@ export const AdminDashboard: React.FC = () => {
     | 'admissions'
     | 'users'
     | 'courses'
+    | 'subjects'
     | 'batches'
     | 'fees'
     | 'exams'
@@ -73,6 +74,12 @@ export const AdminDashboard: React.FC = () => {
   const [batchesList, setBatchesList] = useState<any[]>([])
   const [editingCourse, setEditingCourse] = useState<any | null>(null)
   const [editingBatch, setEditingBatch] = useState<any | null>(null)
+  const emptyCourse = { title: '', board: 'SSC', target_class: 'Class 10', subjects: '', description: '', syllabus: '', duration: '', fee: '', batch_info: '', faculty_name: '', is_active: true, display_order: 0 }
+
+  // --- SUBJECTS STATE ---
+  const [subjectsList, setSubjectsList] = useState<any[]>([])
+  const [editingSubject, setEditingSubject] = useState<any | null>(null)
+  const emptySubject = { name: '', code: '', board: 'SSC', target_class: 'Class 10', description: '', is_active: true, display_order: 0 }
 
   // --- FEES STATE ---
   const [feesList, setFeesList] = useState<any[]>([])
@@ -133,7 +140,18 @@ export const AdminDashboard: React.FC = () => {
       }
       if (tab === 'overview' || tab === 'courses') {
         const { data } = await supabase.from('courses').select('*').order('display_order', { ascending: true })
-        if (data) setCoursesList(data)
+        if (data) setCoursesList(data.map((item: any) => ({
+          ...item,
+          board: item.board || 'Both',
+          target_class: item.target_class || item.category || 'School Classes',
+          subjects: item.subjects || '',
+          batch_info: item.batch_info || '',
+          faculty_name: item.faculty_name || '',
+        })))
+      }
+      if (tab === 'subjects') {
+        const { data } = await supabase.from('subjects').select('*').order('display_order', { ascending: true })
+        if (data) setSubjectsList(data)
       }
       if (tab === 'batches') {
         const { data } = await supabase.from('batches').select('*, courses(title)').order('created_at', { ascending: false })
@@ -321,7 +339,8 @@ export const AdminDashboard: React.FC = () => {
             { id: 'overview', label: 'Overview', icon: LayoutDashboard },
             { id: 'admissions', label: 'Admissions', icon: FileCheck },
             { id: 'users', label: 'Users & Roles', icon: Users },
-            { id: 'courses', label: 'Courses', icon: BookOpen },
+            { id: 'courses', label: 'Courses Manager', icon: BookOpen },
+            { id: 'subjects', label: 'Subjects Manager', icon: BookOpen },
             { id: 'batches', label: 'Batches', icon: Calendar },
             { id: 'fees', label: 'Fees & Dues', icon: CreditCard },
             { id: 'exams', label: 'Exams & Marks', icon: Award },
@@ -557,6 +576,328 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* COURSES MANAGER TAB */}
+        {activeTab === 'courses' && (
+          <div className="space-y-8">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                {editingCourse?.id ? 'Edit Course' : 'Add New Course'}
+              </h2>
+
+              {(() => {
+                const form = editingCourse || emptyCourse
+                const setForm = (val: any) => setEditingCourse(val)
+                const isEdit = !!editingCourse?.id
+
+                const handleSave = async () => {
+                  if (!form.title) { showNotice('Course title is required.'); return }
+                  const slug = form.slug || form.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'course-' + Date.now()
+                  const payload: any = {
+                    title: form.title,
+                    slug,
+                    board: form.board || 'Both',
+                    target_class: form.target_class || 'School Classes',
+                    subjects: form.subjects || '',
+                    description: form.description || '',
+                    syllabus: form.syllabus || '',
+                    duration: form.duration || '',
+                    fee: form.fee || '',
+                    batch_info: form.batch_info || '',
+                    faculty_name: form.faculty_name || '',
+                    category: form.target_class || '',
+                    image_url: form.image_url || '',
+                    is_active: form.is_active !== false,
+                    display_order: Number(form.display_order) || 0,
+                    updated_at: new Date().toISOString(),
+                  }
+
+                  if (isEdit) {
+                    await supabase.from('courses').update(payload).eq('id', form.id)
+                    showNotice('Course updated!')
+                  } else {
+                    await supabase.from('courses').insert({ ...payload, id: undefined })
+                    showNotice('Course added!')
+                  }
+
+                  setEditingCourse(null)
+                  loadTabData('courses')
+                }
+
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Course Name *</label>
+                      <input type="text" value={form.title || ''} onChange={(e) => setForm({...form, title: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="e.g. Class 10 Math Foundation" />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Board</label>
+                      <select value={form.board || 'Both'} onChange={(e) => setForm({...form, board: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold">
+                        <option value="SSC">SSC Board</option>
+                        <option value="CBSE">CBSE Board</option>
+                        <option value="Both">Both Boards</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Class / Level</label>
+                      <select value={form.target_class || 'Class 10'} onChange={(e) => setForm({...form, target_class: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold">
+                        <option value="School Classes">School Classes (General)</option>
+                        <option value="Class 6">Class 6</option>
+                        <option value="Class 7">Class 7</option>
+                        <option value="Class 8">Class 8</option>
+                        <option value="Class 9">Class 9</option>
+                        <option value="Class 10">Class 10</option>
+                        <option value="Class 11">Class 11 (Higher Secondary)</option>
+                        <option value="Class 12">Class 12 (Higher Secondary)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Subjects (comma separated)</label>
+                      <input type="text" value={form.subjects || ''} onChange={(e) => setForm({...form, subjects: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="e.g. Mathematics, Science" />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Duration</label>
+                      <input type="text" value={form.duration || ''} onChange={(e) => setForm({...form, duration: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="e.g. 6 Months" />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Fees</label>
+                      <input type="text" value={form.fee || ''} onChange={(e) => setForm({...form, fee: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="e.g. Rs. 1500/month" />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Batch Info / Schedule</label>
+                      <input type="text" value={form.batch_info || ''} onChange={(e) => setForm({...form, batch_info: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="e.g. Morning 9AM–11AM" />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Faculty / Teacher</label>
+                      <input type="text" value={form.faculty_name || ''} onChange={(e) => setForm({...form, faculty_name: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="Leave blank if not decided" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="font-bold text-slate-500 mb-1 block">Course Description</label>
+                      <textarea rows={3} value={form.description || ''} onChange={(e) => setForm({...form, description: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="Short description of this course" />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="font-bold text-slate-500 mb-1 block">Syllabus / Topics</label>
+                      <textarea rows={3} value={form.syllabus || ''} onChange={(e) => setForm({...form, syllabus: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="List of topics covered in this course" />
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <label className="font-bold text-slate-500">Published</label>
+                      <input type="checkbox" checked={form.is_active !== false} onChange={(e) => setForm({...form, is_active: e.target.checked})} className="w-4 h-4 accent-emerald-700" />
+                    </div>
+                    <div className="sm:col-span-2 flex gap-3">
+                      <button type="button" onClick={handleSave} className="px-6 py-2.5 rounded-xl font-bold text-xs text-white bg-emerald-800 hover:bg-emerald-700">
+                        {isEdit ? 'Save Changes' : 'Add Course'}
+                      </button>
+                      {isEdit && (
+                        <button type="button" onClick={() => setEditingCourse(null)} className="px-6 py-2.5 rounded-xl font-bold text-xs bg-slate-200 dark:bg-slate-800">
+                          Cancel
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )
+              })()}
+            </div>
+
+            {/* Courses List */}
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <h3 className="font-bold text-base mb-6">All Courses ({coursesList.length})</h3>
+              {coursesList.length > 0 ? (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                      <tr>
+                        <th className="p-3">Course</th>
+                        <th className="p-3">Board</th>
+                        <th className="p-3">Class</th>
+                        <th className="p-3">Subjects</th>
+                        <th className="p-3">Fee</th>
+                        <th className="p-3">Status</th>
+                        <th className="p-3">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {coursesList.map((course: any) => (
+                        <tr key={course.id}>
+                          <td className="p-3 font-bold text-slate-900 dark:text-white max-w-xs">
+                            <p>{course.title}</p>
+                            {course.faculty_name && <p className="text-slate-400 font-normal">{course.faculty_name}</p>}
+                          </td>
+                          <td className="p-3">
+                            <span className="px-2 py-0.5 rounded font-bold text-[10px] bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-300 uppercase">{course.board || '-'}</span>
+                          </td>
+                          <td className="p-3 text-slate-600 dark:text-slate-300">{course.target_class || '-'}</td>
+                          <td className="p-3 text-slate-500 max-w-xs truncate">{course.subjects || '-'}</td>
+                          <td className="p-3 font-bold text-emerald-700 dark:text-emerald-400">{course.fee || '-'}</td>
+                          <td className="p-3">
+                            <span className={`px-2 py-0.5 rounded-full font-bold uppercase text-[10px] ${course.is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-500'}`}>
+                              {course.is_active ? 'Published' : 'Unpublished'}
+                            </span>
+                          </td>
+                          <td className="p-3 space-x-2">
+                            <button type="button" onClick={() => setEditingCourse(course)} className="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 font-bold text-[11px] hover:bg-amber-200">Edit</button>
+                            <button type="button" onClick={async () => {
+                              if (window.confirm('Delete this course?')) {
+                                await supabase.from('courses').delete().eq('id', course.id)
+                                showNotice('Course deleted')
+                                loadTabData('courses')
+                              }
+                            }} className="px-3 py-1 rounded-lg bg-red-100 text-red-700 font-bold text-[11px] hover:bg-red-200">Delete</button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className="text-xs text-slate-400 italic">No courses added yet. Use the form above to add your first course.</p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* SUBJECTS MANAGER TAB */}
+        {activeTab === 'subjects' && (
+          <div className="space-y-8">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                {editingSubject?.id ? 'Edit Subject' : 'Add New Subject'}
+              </h2>
+
+              {(() => {
+                const form = editingSubject || emptySubject
+                const setForm = (val: any) => setEditingSubject(val)
+                const isEdit = !!editingSubject?.id
+
+                const handleSave = async () => {
+                  if (!form.name) { showNotice('Subject name is required.'); return }
+                  const payload: any = {
+                    name: form.name,
+                    code: form.code || '',
+                    board: form.board || 'SSC',
+                    target_class: form.target_class || 'Class 10',
+                    description: form.description || '',
+                    is_active: form.is_active !== false,
+                    display_order: Number(form.display_order) || 0,
+                    updated_at: new Date().toISOString(),
+                  }
+
+                  if (isEdit) {
+                    await supabase.from('subjects').update(payload).eq('id', form.id)
+                    showNotice('Subject updated!')
+                  } else {
+                    await supabase.from('subjects').insert(payload)
+                    showNotice('Subject added!')
+                  }
+
+                  setEditingSubject(null)
+                  loadTabData('subjects')
+                }
+
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Subject Name *</label>
+                      <input type="text" value={form.name || ''} onChange={(e) => setForm({...form, name: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="e.g. Mathematics" />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Subject Code</label>
+                      <input type="text" value={form.code || ''} onChange={(e) => setForm({...form, code: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="e.g. MATH10" />
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Board</label>
+                      <select value={form.board || 'SSC'} onChange={(e) => setForm({...form, board: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold">
+                        <option value="SSC">SSC Board</option>
+                        <option value="CBSE">CBSE Board</option>
+                        <option value="Both">Both Boards</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="font-bold text-slate-500 mb-1 block">Class / Level</label>
+                      <select value={form.target_class || 'Class 10'} onChange={(e) => setForm({...form, target_class: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold">
+                        <option value="School Classes">School Classes (General)</option>
+                        <option value="Class 6">Class 6</option>
+                        <option value="Class 7">Class 7</option>
+                        <option value="Class 8">Class 8</option>
+                        <option value="Class 9">Class 9</option>
+                        <option value="Class 10">Class 10</option>
+                        <option value="Class 11">Class 11 (Higher Secondary)</option>
+                        <option value="Class 12">Class 12 (Higher Secondary)</option>
+                      </select>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="font-bold text-slate-500 mb-1 block">Description (optional)</label>
+                      <textarea rows={2} value={form.description || ''} onChange={(e) => setForm({...form, description: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" placeholder="Brief description of topics in this subject" />
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <label className="font-bold text-slate-500">Active</label>
+                      <input type="checkbox" checked={form.is_active !== false} onChange={(e) => setForm({...form, is_active: e.target.checked})} className="w-4 h-4 accent-emerald-700" />
+                    </div>
+                    <div className="sm:col-span-2 flex gap-3">
+                      <button type="button" onClick={handleSave} className="px-6 py-2.5 rounded-xl font-bold text-xs text-white bg-emerald-800 hover:bg-emerald-700">
+                        {isEdit ? 'Save Changes' : 'Add Subject'}
+                      </button>
+                      {isEdit && (
+                        <button type="button" onClick={() => setEditingSubject(null)} className="px-6 py-2.5 rounded-xl font-bold text-xs bg-slate-200 dark:bg-slate-800">
+                          Cancel
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )
+              })()}
+            </div>
+
+            {/* Subjects List */}
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <h3 className="font-bold text-base mb-6">All Subjects ({subjectsList.length})</h3>
+              {subjectsList.length > 0 ? (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                      <tr>
+                        <th className="p-3">Subject</th>
+                        <th className="p-3">Code</th>
+                        <th className="p-3">Board</th>
+                        <th className="p-3">Class</th>
+                        <th className="p-3">Status</th>
+                        <th className="p-3">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {subjectsList.map((subject: any) => (
+                        <tr key={subject.id}>
+                          <td className="p-3 font-bold text-slate-900 dark:text-white">{subject.name}</td>
+                          <td className="p-3 text-slate-400 font-mono">{subject.code || '-'}</td>
+                          <td className="p-3">
+                            <span className="px-2 py-0.5 rounded font-bold text-[10px] bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-300 uppercase">{subject.board || '-'}</span>
+                          </td>
+                          <td className="p-3 text-slate-600 dark:text-slate-300">{subject.target_class || '-'}</td>
+                          <td className="p-3">
+                            <span className={`px-2 py-0.5 rounded-full font-bold uppercase text-[10px] ${subject.is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-500'}`}>
+                              {subject.is_active ? 'Active' : 'Inactive'}
+                            </span>
+                          </td>
+                          <td className="p-3 space-x-2">
+                            <button type="button" onClick={() => setEditingSubject(subject)} className="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 font-bold text-[11px] hover:bg-amber-200">Edit</button>
+                            <button type="button" onClick={async () => {
+                              if (window.confirm('Delete this subject?')) {
+                                await supabase.from('subjects').delete().eq('id', subject.id)
+                                showNotice('Subject deleted')
+                                loadTabData('subjects')
+                              }
+                            }} className="px-3 py-1 rounded-lg bg-red-100 text-red-700 font-bold text-[11px] hover:bg-red-200">Delete</button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className="text-xs text-slate-400 italic">No subjects added yet. Use the form above to add subjects.</p>
+              )}
+            </div>
           </div>
         )}
 
@@ -848,6 +1189,8 @@ export const AdminDashboard: React.FC = () => {
               {[
                 { key: 'institute_name', label: 'Institute Name' },
                 { key: 'tagline', label: 'Tagline / Slogan' },
+                { key: 'founder_name', label: 'Founder Name' },
+                { key: 'founder_title', label: 'Founder Title / Designation' },
                 { key: 'phone', label: 'Phone Number' },
                 { key: 'email', label: 'Official Email' },
                 { key: 'whatsapp_number', label: 'WhatsApp Number' },
@@ -883,6 +1226,31 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.about || ''}
                   onChange={(e) => updateSetting('about', e.target.value)}
                   className="w-full px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Founder Biography (displayed on About page)
+                </label>
+                <textarea
+                  rows={4}
+                  value={settings.founder_bio || ''}
+                  onChange={(e) => updateSetting('founder_bio', e.target.value)}
+                  placeholder="Enter the founder's biography. Leave blank to hide."
+                  className="w-full px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <FileUpload
+                  label="Founder Profile Photo"
+                  currentUrl={settings.founder_image_url}
+                  folder="branding"
+                  onUploadSuccess={(res) => {
+                    updateSetting('founder_image_url', res.url)
+                    showNotice('Founder photo updated!')
+                  }}
                 />
               </div>
 

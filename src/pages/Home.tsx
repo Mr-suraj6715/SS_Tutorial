@@ -5,12 +5,14 @@ import {
   Award,
   CheckCircle,
   Instagram,
+  Youtube,
   ChevronRight,
   Star,
   ExternalLink,
 } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
+import { fetchAcademicCourses } from '@/lib/services/coursesService'
 import { updatePageMeta } from '@/lib/utils/seo'
 
 export const HomePage: React.FC = () => {
@@ -45,7 +47,12 @@ export const HomePage: React.FC = () => {
           supabase.from('testimonials').select('*').eq('is_published', true).limit(3),
           supabase.from('blogs').select('*').eq('is_published', true).order('published_at', { ascending: false }).limit(3),
         ])
-        if (coursesRes.data) setCourses(coursesRes.data)
+        if (coursesRes.data && coursesRes.data.length > 0) {
+          setCourses(coursesRes.data)
+        } else {
+          const fallbackCourses = await fetchAcademicCourses()
+          setCourses(fallbackCourses.filter((c) => c.is_active !== false).slice(0, 6))
+        }
         if (facilitiesRes.data) setFacilities(facilitiesRes.data)
         if (achievementsRes.data) setAchievements(achievementsRes.data)
         if (galleryRes.data) setGalleryItems(galleryRes.data)
@@ -76,11 +83,21 @@ export const HomePage: React.FC = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 text-xs font-medium text-emerald-300">
-                <Instagram className="w-3.5 h-3.5" />
-                <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors">
-                  @ss__tutorial
-                </a>
+              <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-emerald-300">
+                <div className="inline-flex items-center gap-1.5">
+                  <Instagram className="w-3.5 h-3.5 text-pink-400" />
+                  <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors">
+                    @ss__tutorial
+                  </a>
+                </div>
+                {settings.youtube_url && (
+                  <div className="inline-flex items-center gap-1.5">
+                    <Youtube className="w-3.5 h-3.5 text-red-400" />
+                    <a href={settings.youtube_url} target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors">
+                      @SS__tutorial2025
+                    </a>
+                  </div>
+                )}
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">

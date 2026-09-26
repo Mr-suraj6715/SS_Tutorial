@@ -272,6 +272,50 @@ export const AboutPage: React.FC = () => {
         </section>
       )}
 
+      {/* FOUNDER SECTION */}
+      <section className="py-20 bg-white dark:bg-slate-950">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">
+              Leadership
+            </span>
+            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
+              About the Founder
+            </h2>
+          </div>
+          <div className="flex flex-col md:flex-row items-center gap-10 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8">
+            {settings.founder_image_url ? (
+              <img
+                src={settings.founder_image_url}
+                alt={settings.founder_name || 'Founder'}
+                className="w-32 h-32 rounded-full object-cover border-4 border-emerald-700 shrink-0"
+              />
+            ) : (
+              <div className="w-32 h-32 rounded-full bg-emerald-950 flex items-center justify-center shrink-0 border-4 border-emerald-700">
+                <GraduationCap className="w-14 h-14 text-amber-400" />
+              </div>
+            )}
+            <div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                {settings.founder_name || 'Aniket Gupta'}
+              </h3>
+              <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400 mt-1">
+                {settings.founder_title || 'Founder & Director, SS Tutorial'}
+              </p>
+              {settings.founder_bio && settings.founder_bio.trim() !== '' ? (
+                <p className="mt-4 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                  {settings.founder_bio}
+                </p>
+              ) : (
+                <p className="mt-4 text-slate-400 text-sm italic">
+                  Biography can be added from the Admin Dashboard under Institute Settings.
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   )
 }
