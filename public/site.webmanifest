@@ -1,0 +1,21 @@
+{
+  "name": "SS Tutorial",
+  "short_name": "SS Tutorial",
+  "description": "Official website of SS Tutorial Coaching Institute",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#064e3b",
+  "theme_color": "#064e3b",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
