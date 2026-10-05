@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Video, Youtube, Instagram, Play } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
-import { supabase } from '@/lib/supabase/client'
 import { updatePageMeta } from '@/lib/utils/seo'
 
 export const VideosPage: React.FC = () => {
@@ -19,13 +18,11 @@ export const VideosPage: React.FC = () => {
     const fetchVideos = async () => {
       try {
         setLoading(true)
-        const { data, error } = await supabase
-          .from('videos')
-          .select('*')
-          .eq('is_active', true)
-          .order('display_order', { ascending: true })
-
-        if (data) setVideos(data)
+        const res = await fetch('/api/content/videos')
+        if (res.ok) {
+          const data = await res.json()
+          setVideos(data.videos || [])
+        }
       } catch (err) {
         console.warn('Error fetching videos:', err)
       } finally {
