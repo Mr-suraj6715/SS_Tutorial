@@ -66,8 +66,25 @@ export const HomePage: React.FC = () => {
           setCourses(fallbackCourses.filter((c) => c.is_active !== false).slice(0, 6))
         }
 
-        if (testimonialsRes.data) setTestimonials(testimonialsRes.data)
-        if (galleryRes.data) setGalleryItems(galleryRes.data)
+        if (testimonialsRes.data && testimonialsRes.data.length > 0) {
+          setTestimonials(testimonialsRes.data)
+        } else {
+          const res = await fetch('/api/content/testimonials').catch(() => null)
+          if (res?.ok) {
+            const d = await res.json()
+            if (d.testimonials?.length) setTestimonials(d.testimonials.slice(0, 4))
+          }
+        }
+
+        if (galleryRes.data && galleryRes.data.length > 0) {
+          setGalleryItems(galleryRes.data)
+        } else {
+          const res = await fetch('/api/gallery').catch(() => null)
+          if (res?.ok) {
+            const d = await res.json()
+            if (d.gallery?.length) setGalleryItems(d.gallery.slice(0, 6))
+          }
+        }
       } catch (err) {
         console.warn('Error fetching homepage data:', err)
       } finally {

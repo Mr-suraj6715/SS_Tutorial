@@ -34,9 +34,35 @@ export const AboutPage: React.FC = () => {
           supabase.from('achievements').select('*').order('display_order', { ascending: true }),
         ])
 
-        if (facRes.data) setFaculty(facRes.data)
-        if (fclRes.data) setFacilities(fclRes.data)
-        if (achRes.data) setAchievements(achRes.data)
+        if (facRes.data && facRes.data.length > 0) {
+          setFaculty(facRes.data)
+        } else {
+          const res = await fetch('/api/content/faculty').catch(() => null)
+          if (res?.ok) {
+            const d = await res.json()
+            if (d.faculty?.length) setFaculty(d.faculty)
+          }
+        }
+
+        if (fclRes.data && fclRes.data.length > 0) {
+          setFacilities(fclRes.data)
+        } else {
+          const res = await fetch('/api/content/facilities').catch(() => null)
+          if (res?.ok) {
+            const d = await res.json()
+            if (d.facilities?.length) setFacilities(d.facilities)
+          }
+        }
+
+        if (achRes.data && achRes.data.length > 0) {
+          setAchievements(achRes.data)
+        } else {
+          const res = await fetch('/api/content/achievements').catch(() => null)
+          if (res?.ok) {
+            const d = await res.json()
+            if (d.achievements?.length) setAchievements(d.achievements)
+          }
+        }
       } catch (err) {
         console.warn('Error fetching about data:', err)
       } finally {

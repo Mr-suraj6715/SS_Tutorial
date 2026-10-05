@@ -102,9 +102,50 @@ export const VideosPage: React.FC = () => {
               >
                 {/* Embed iframe or Video Player */}
                 <div className="relative aspect-video bg-black flex items-center justify-center overflow-hidden">
-                  {video.embed_url ? (
+
+                  {/* Instagram: Cannot be embedded in iframes — show a styled link card instead */}
+                  {video.platform === 'instagram' ? (
+                    <a
+                      href={video.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full h-full flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-pink-600 via-rose-600 to-orange-500 hover:from-pink-500 hover:to-orange-400 transition-all duration-300 group"
+                    >
+                      <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl">
+                        <Instagram className="w-8 h-8 text-white" />
+                      </div>
+                      <div className="text-center px-4">
+                        <p className="text-white font-bold text-sm">{video.title}</p>
+                        <p className="text-white/80 text-xs mt-1">Tap to watch on Instagram →</p>
+                      </div>
+                    </a>
+                  ) : video.platform === 'youtube' && (video.embed_url || video.url) ? (
+                    /* YouTube: Use iframe with embed URL */
                     <iframe
-                      src={video.embed_url}
+                      src={(() => {
+                        let base = video.embed_url || video.url || ''
+                        if (!base.includes('youtube.com/embed/')) {
+                          if (base.includes('youtu.be/')) {
+                            const vidId = base.split('youtu.be/')[1]?.split('?')[0]?.split('&')[0]
+                            base = `https://www.youtube.com/embed/${vidId}`
+                          } else if (base.includes('youtube.com/watch')) {
+                            const match = base.match(/[?&]v=([^&]+)/)
+                            const vidId = match ? match[1] : base.split('watch?v=')[1]?.split('&')[0]
+                            base = `https://www.youtube.com/embed/${vidId}`
+                          } else if (base.includes('youtube.com/shorts/')) {
+                            const vidId = base.split('youtube.com/shorts/')[1]?.split('?')[0]
+                            base = `https://www.youtube.com/embed/${vidId}`
+                          }
+                        }
+                        // Append start/end params if available in video object
+                        const params: string[] = []
+                        if (video.start_time && !base.includes('start=')) params.push(`start=${video.start_time}`)
+                        if (video.end_time && !base.includes('end=')) params.push(`end=${video.end_time}`)
+                        if (params.length > 0) {
+                          base += (base.includes('?') ? '&' : '?') + params.join('&')
+                        }
+                        return base
+                      })()}
                       title={video.title}
                       className="w-full h-full border-0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -129,10 +170,15 @@ export const VideosPage: React.FC = () => {
                       </div>
                     </a>
                   ) : (
-                    <div className="text-slate-500 text-xs flex flex-col items-center gap-2">
-                      <Video className="w-8 h-8" />
-                      <span>Video player preview</span>
-                    </div>
+                    <a
+                      href={video.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col items-center gap-3 text-white/70 hover:text-white transition"
+                    >
+                      <Play className="w-12 h-12" />
+                      <span className="text-xs font-medium">Click to Watch</span>
+                    </a>
                   )}
 
                   {/* Platform Badge */}
@@ -142,13 +188,9 @@ export const VideosPage: React.FC = () => {
                     }`}
                   >
                     {video.platform === 'youtube' ? (
-                      <>
-                        <Youtube className="w-3 h-3" /> YouTube
-                      </>
+                      <><Youtube className="w-3 h-3" /> YouTube</>
                     ) : (
-                      <>
-                        <Instagram className="w-3 h-3" /> Instagram
-                      </>
+                      <><Instagram className="w-3 h-3" /> Instagram</>
                     )}
                   </span>
                 </div>

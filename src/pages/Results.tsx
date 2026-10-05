@@ -24,8 +24,26 @@ export const ResultsPage: React.FC = () => {
           supabase.from('gallery').select('*').eq('placement', 'results').eq('is_published', true),
         ])
 
-        if (achRes.data) setAchievements(achRes.data)
-        if (resultsRes.data) setToppers(resultsRes.data)
+        if (achRes.data && achRes.data.length > 0) {
+          setAchievements(achRes.data)
+        } else {
+          const res = await fetch('/api/content/achievements').catch(() => null)
+          if (res?.ok) {
+            const d = await res.json()
+            if (d.achievements?.length) setAchievements(d.achievements)
+          }
+        }
+
+        if (resultsRes.data && resultsRes.data.length > 0) {
+          setToppers(resultsRes.data)
+        } else {
+          const res = await fetch('/api/gallery').catch(() => null)
+          if (res?.ok) {
+            const d = await res.json()
+            const toppersFromGallery = (d.gallery || []).filter((g: any) => g.placement === 'results')
+            if (toppersFromGallery.length) setToppers(toppersFromGallery)
+          }
+        }
       } catch (err) {
         console.warn('Error fetching results:', err)
       } finally {
