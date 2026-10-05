@@ -637,7 +637,7 @@ export const AdminDashboard: React.FC = () => {
                   required
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
-                  placeholder="••••••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl text-xs bg-slate-800/80 border border-slate-700 text-white placeholder:text-slate-500 focus:ring-2 focus:ring-amber-400 focus:outline-none"
                 />
               </div>
@@ -794,7 +794,7 @@ export const AdminDashboard: React.FC = () => {
                 className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-left hover:border-amber-400 transition shadow-sm"
               >
                 <FileCheck className="w-6 h-6 text-amber-500 mb-2" />
-                <h4 className="font-bold text-sm">Review Admissions</h4>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-white">Review Admissions</h4>
                 <p className="text-xs text-slate-400 mt-1">Approve or reject student applications</p>
               </button>
 
@@ -804,7 +804,7 @@ export const AdminDashboard: React.FC = () => {
                 className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-left hover:border-emerald-500 transition shadow-sm"
               >
                 <ImageIcon className="w-6 h-6 text-emerald-600 mb-2" />
-                <h4 className="font-bold text-sm">Upload Photos</h4>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-white">Upload Photos</h4>
                 <p className="text-xs text-slate-400 mt-1">Bulk upload with automatic WebP generation</p>
               </button>
 
@@ -814,7 +814,7 @@ export const AdminDashboard: React.FC = () => {
                 className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-left hover:border-blue-500 transition shadow-sm"
               >
                 <SettingsIcon className="w-6 h-6 text-blue-600 mb-2" />
-                <h4 className="font-bold text-sm">Update Institute Info</h4>
+                <h4 className="font-bold text-sm text-slate-900 dark:text-white">Update Institute Info</h4>
                 <p className="text-xs text-slate-400 mt-1">Logo, phone, address, timings, WhatsApp</p>
               </button>
             </div>
@@ -1083,7 +1083,7 @@ export const AdminDashboard: React.FC = () => {
                         value={newUserForm.password}
                         onChange={(e) => setNewUserForm({ ...newUserForm, password: e.target.value })}
                         className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
-                        placeholder="••••••••"
+                        placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                       />
                     </div>
                     <div>
@@ -1223,7 +1223,7 @@ export const AdminDashboard: React.FC = () => {
                     </div>
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Fees</label>
-                      <input type="text" value={form.fee || ''} onChange={(e) => setForm({...form, fee: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="e.g. ₹1500 / month" />
+                      <input type="text" value={form.fee || ''} onChange={(e) => setForm({...form, fee: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="e.g. â‚¹1500 / month" />
                     </div>
                     <div className="sm:col-span-2">
                       <label className="font-bold text-slate-500 mb-1 block">Description</label>
@@ -1485,7 +1485,7 @@ export const AdminDashboard: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="font-bold text-slate-500 mb-1 block">Amount (₹) *</label>
+                  <label className="font-bold text-slate-500 mb-1 block">Amount (â‚¹) *</label>
                   <input
                     type="number"
                     required
@@ -1533,8 +1533,8 @@ export const AdminDashboard: React.FC = () => {
                       <tr key={f.id}>
                         <td className="p-3 font-bold text-slate-900 dark:text-white">{f.student_name}</td>
                         <td className="p-3 text-slate-500">{f.batch_name || '-'}</td>
-                        <td className="p-3 font-bold">₹{f.amount}</td>
-                        <td className="p-3 font-bold text-emerald-600">₹{f.paid_amount || 0}</td>
+                        <td className="p-3 font-bold">â‚¹{f.amount}</td>
+                        <td className="p-3 font-bold text-emerald-600">â‚¹{f.paid_amount || 0}</td>
                         <td className="p-3 text-slate-500">{f.due_date}</td>
                         <td className="p-3">
                           <span className={`px-2 py-0.5 rounded-full font-bold uppercase text-[10px] ${f.status === 'paid' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
@@ -1568,7 +1568,7 @@ export const AdminDashboard: React.FC = () => {
                 <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl max-w-sm w-full border border-slate-200 dark:border-slate-800 shadow-xl space-y-4 text-xs">
                   <h3 className="font-bold text-sm text-slate-900 dark:text-white">Record Fee Payment</h3>
                   <div>
-                    <label className="font-bold text-slate-500 mb-1 block">Amount Received (₹)</label>
+                    <label className="font-bold text-slate-500 mb-1 block">Amount Received (â‚¹)</label>
                     <input
                       type="number"
                       value={paymentAmount}
@@ -1875,7 +1875,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4">Published Articles ({blogsList.length})</h3>
+              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Published Articles ({blogsList.length})</h3>
               <div className="space-y-3">
                 {blogsList.map((blog) => (
                   <div key={blog.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
@@ -1967,7 +1967,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4">Faculty Members ({facultyList.length})</h3>
+              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Faculty Members ({facultyList.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {facultyList.map((fac) => (
                   <div key={fac.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
@@ -2040,7 +2040,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4">Campus Facilities ({facilitiesList.length})</h3>
+              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Campus Facilities ({facilitiesList.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {facilitiesList.map((f) => (
                   <div key={f.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
@@ -2122,7 +2122,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4">Toppers & Achievements ({achievementsList.length})</h3>
+              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Toppers & Achievements ({achievementsList.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {achievementsList.map((a) => (
                   <div key={a.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
@@ -2202,7 +2202,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4">Testimonials ({testimonialsList.length})</h3>
+              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Testimonials ({testimonialsList.length})</h3>
               <div className="space-y-3">
                 {testimonialsList.map((t) => (
                   <div key={t.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
@@ -2300,13 +2300,13 @@ export const AdminDashboard: React.FC = () => {
 
             {/* Video List */}
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <h3 className="font-bold text-base">Active Videos ({videosList.length})</h3>
+              <h3 className="font-bold text-base text-slate-900 dark:text-white">Active Videos ({videosList.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {videosList.map((v) => (
                   <div key={v.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
                     <div>
                       <span className="text-[10px] font-bold uppercase text-amber-500">{v.platform}</span>
-                      <h4 className="font-bold text-sm mt-1">{v.title}</h4>
+                      <h4 className="font-bold text-sm mt-1 text-slate-900 dark:text-white">{v.title}</h4>
                     </div>
                     <button
                       type="button"
