@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { Award, Trophy, Star, Sparkles } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
@@ -55,18 +55,18 @@ export const ResultsPage: React.FC = () => {
   }, [settings])
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12">
+    <div className="min-h-screen bg-slate-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 text-xs font-bold mb-3 border border-amber-300 dark:border-amber-800">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-700 text-xs font-bold mb-3 border border-amber-300">
             <Trophy className="w-3.5 h-3.5" /> Proven Track Record of Success
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
             Our Top Scorers & Achievements
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-3">
+          <p className="text-slate-600 text-sm sm:text-base mt-3">
             Celebrating the determination, hard work, and remarkable scores achieved by students under our faculty's guidance.
           </p>
         </div>
@@ -74,16 +74,16 @@ export const ResultsPage: React.FC = () => {
         {/* Major Achievements Showcase */}
         {achievements.length > 0 && (
           <div className="mb-16">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-2">
               <Award className="w-6 h-6 text-amber-500" /> Major Academic Milestones
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {achievements.map((ach) => (
                 <div
                   key={ach.id}
-                  className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition"
+                  className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-lg transition"
                 >
-                  <div className="h-52 bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                  <div className="h-52 bg-slate-100 overflow-hidden">
                     {ach.image_url ? (
                       <img
                         src={ach.image_url}
@@ -98,14 +98,14 @@ export const ResultsPage: React.FC = () => {
                   </div>
                   <div className="p-6">
                     {ach.category && (
-                      <span className="text-xs font-bold uppercase text-amber-600 dark:text-amber-400 tracking-wider">
+                      <span className="text-xs font-bold uppercase text-amber-600 tracking-wider">
                         {ach.category}
                       </span>
                     )}
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-1">
+                    <h3 className="text-lg font-bold text-slate-900 mt-1">
                       {ach.title}
                     </h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
                       {ach.description}
                     </p>
                     {ach.date && (
@@ -123,16 +123,16 @@ export const ResultsPage: React.FC = () => {
         {/* Toppers Gallery Gallery Images with placement='results' */}
         {toppers.length > 0 && (
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-2">
               <Star className="w-6 h-6 text-amber-500 fill-amber-500" /> Honor Roll & Topper Gallery
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {toppers.map((t) => (
                 <div
                   key={t.id}
-                  className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm"
+                  className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm"
                 >
-                  <div className="h-56 overflow-hidden bg-slate-100 dark:bg-slate-800">
+                  <div className="h-56 overflow-hidden bg-slate-100">
                     <img
                       src={t.webp_url || t.image_url}
                       alt={t.alt_text || t.title}
@@ -140,9 +140,9 @@ export const ResultsPage: React.FC = () => {
                     />
                   </div>
                   <div className="p-4 text-center">
-                    <h4 className="font-bold text-sm text-slate-900 dark:text-white">{t.title}</h4>
+                    <h4 className="font-bold text-sm text-slate-900">{t.title}</h4>
                     {t.caption && (
-                      <p className="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1">
+                      <p className="text-xs text-emerald-700 font-medium mt-1">
                         {t.caption}
                       </p>
                     )}
@@ -154,9 +154,9 @@ export const ResultsPage: React.FC = () => {
         )}
 
         {achievements.length === 0 && toppers.length === 0 && (
-          <div className="p-16 text-center bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+          <div className="p-16 text-center bg-white rounded-2xl border border-dashed border-slate-300">
             <Trophy className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <p className="text-slate-700 dark:text-slate-200 font-bold text-base">
+            <p className="text-slate-700 font-bold text-base">
               Results and achievements list will appear here once added in the dashboard.
             </p>
           </div>

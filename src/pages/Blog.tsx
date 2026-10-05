@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { BookOpen, Calendar, User, ArrowRight } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
@@ -36,18 +36,18 @@ export const BlogPage: React.FC = () => {
   }, [settings])
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12">
+    <div className="min-h-screen bg-slate-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">
+          <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             Study Guidance
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
+          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
             Articles & Academic Insights
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-2">
+          <p className="text-slate-600 text-sm sm:text-base mt-2">
             Proven preparation techniques, time-management tips, and subject walkthroughs curated by our faculty.
           </p>
         </div>
@@ -59,10 +59,10 @@ export const BlogPage: React.FC = () => {
               <a
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="h-52 overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
+                  <div className="h-52 overflow-hidden bg-slate-100 relative">
                     {post.cover_url ? (
                       <img
                         src={post.cover_url}
@@ -92,17 +92,17 @@ export const BlogPage: React.FC = () => {
                       )}
                     </div>
 
-                    <h2 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">
+                    <h2 className="text-xl font-bold text-slate-900 group-hover:text-emerald-700:text-emerald-400 transition">
                       {post.title}
                     </h2>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed">
                       {post.excerpt}
                     </p>
                   </div>
                 </div>
 
                 <div className="p-6 pt-0">
-                  <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 dark:text-emerald-400 group-hover:text-amber-500 transition">
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 group-hover:text-amber-500 transition">
                     Read Complete Article <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
@@ -110,9 +110,9 @@ export const BlogPage: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="p-16 text-center bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+          <div className="p-16 text-center bg-white rounded-2xl border border-dashed border-slate-300">
             <BookOpen className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <p className="text-slate-700 dark:text-slate-200 font-bold text-base">
+            <p className="text-slate-700 font-bold text-base">
               No blog posts published yet.
             </p>
             <p className="text-xs text-slate-400 mt-1">

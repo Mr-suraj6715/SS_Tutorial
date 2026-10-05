@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Video, Youtube, Instagram, Play } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { updatePageMeta } from '@/lib/utils/seo'
+import { supabase } from '@/lib/supabase/client'
 
 export const VideosPage: React.FC = () => {
   const { settings } = useSiteSettings()
@@ -18,11 +19,14 @@ export const VideosPage: React.FC = () => {
     const fetchVideos = async () => {
       try {
         setLoading(true)
-        const res = await fetch('/api/content/videos')
-        if (res.ok) {
-          const data = await res.json()
-          setVideos(data.videos || [])
-        }
+        const { data, error } = await supabase
+          .from('videos')
+          .select('*')
+          .eq('is_published', true)
+          .order('created_at', { ascending: false })
+          
+        if (error) throw error
+        if (data) setVideos(data)
       } catch (err) {
         console.warn('Error fetching videos:', err)
       } finally {
@@ -39,18 +43,18 @@ export const VideosPage: React.FC = () => {
   })
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12">
+    <div className="min-h-screen bg-slate-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">
+          <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             Media & Learning
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
+          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
             Video Lectures & Instagram Reels
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-2">
+          <p className="text-slate-600 text-sm sm:text-base mt-2">
             Watch concept explanations, exam motivation, solving techniques, and student tips.
           </p>
         </div>
@@ -63,7 +67,7 @@ export const VideosPage: React.FC = () => {
             className={`px-5 py-2.5 rounded-full text-xs font-bold transition ${
               filter === 'all'
                 ? 'bg-emerald-800 text-white shadow'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
+                : 'bg-white text-slate-600 border border-slate-200'
             }`}
           >
             All Videos
@@ -74,7 +78,7 @@ export const VideosPage: React.FC = () => {
             className={`px-5 py-2.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition ${
               filter === 'youtube'
                 ? 'bg-red-600 text-white shadow'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
+                : 'bg-white text-slate-600 border border-slate-200'
             }`}
           >
             <Youtube className="w-3.5 h-3.5" /> YouTube
@@ -85,7 +89,7 @@ export const VideosPage: React.FC = () => {
             className={`px-5 py-2.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition ${
               filter === 'instagram'
                 ? 'bg-pink-600 text-white shadow'
-                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
+                : 'bg-white text-slate-600 border border-slate-200'
             }`}
           >
             <Instagram className="w-3.5 h-3.5" /> Instagram Reels
@@ -98,12 +102,12 @@ export const VideosPage: React.FC = () => {
             {filteredVideos.map((video) => (
               <div
                 key={video.id}
-                className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between"
+                className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between"
               >
                 {/* Embed iframe or Video Player */}
                 <div className="relative aspect-video bg-black flex items-center justify-center overflow-hidden">
 
-                  {/* Instagram: Cannot be embedded in iframes — show a styled link card instead */}
+                  {/* Instagram: Cannot be embedded in iframes â€” show a styled link card instead */}
                   {video.platform === 'instagram' ? (
                     <a
                       href={video.url}
@@ -116,7 +120,7 @@ export const VideosPage: React.FC = () => {
                       </div>
                       <div className="text-center px-4">
                         <p className="text-white font-bold text-sm">{video.title}</p>
-                        <p className="text-white/80 text-xs mt-1">Tap to watch on Instagram →</p>
+                        <p className="text-white/80 text-xs mt-1">Tap to watch on Instagram â†’</p>
                       </div>
                     </a>
                   ) : video.platform === 'youtube' && (video.embed_url || video.url) ? (
@@ -196,11 +200,11 @@ export const VideosPage: React.FC = () => {
                 </div>
 
                 <div className="p-6">
-                  <h3 className="font-bold text-base text-slate-900 dark:text-white">
+                  <h3 className="font-bold text-base text-slate-900">
                     {video.title}
                   </h3>
                   {video.description && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">
+                    <p className="text-xs text-slate-500 mt-2 line-clamp-2">
                       {video.description}
                     </p>
                   )}
@@ -209,9 +213,9 @@ export const VideosPage: React.FC = () => {
                       href={video.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:underline"
+                      className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:underline"
                     >
-                      Watch on {video.platform === 'youtube' ? 'YouTube' : 'Instagram'} →
+                      Watch on {video.platform === 'youtube' ? 'YouTube' : 'Instagram'} â†’
                     </a>
                   )}
                 </div>
@@ -219,9 +223,9 @@ export const VideosPage: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="p-16 text-center bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+          <div className="p-16 text-center bg-white rounded-2xl border border-dashed border-slate-300">
             <Video className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <p className="text-slate-700 dark:text-slate-200 font-bold text-base">
+            <p className="text-slate-700 font-bold text-base">
               No videos currently listed in this category.
             </p>
             <p className="text-xs text-slate-400 mt-1">

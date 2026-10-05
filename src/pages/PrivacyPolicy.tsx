@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+﻿import React, { useEffect } from 'react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { updatePageMeta } from '@/lib/utils/seo'
 
@@ -8,7 +8,7 @@ export const PrivacyPolicyPage: React.FC = () => {
   useEffect(() => {
     updatePageMeta({
       title: 'Privacy Policy',
-      description: `Privacy Policy of ${settings.institute_name || 'SS Tutorial'} — how we collect, use, and protect your personal information.`,
+      description: `Privacy Policy of ${settings.institute_name || 'SS Tutorial'} â€” how we collect, use, and protect your personal information.`,
     }, settings.institute_name)
   }, [settings])
 
@@ -17,7 +17,7 @@ export const PrivacyPolicyPage: React.FC = () => {
   const today = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950">
+    <div className="min-h-screen bg-white">
       <section className="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950 text-white py-14 lg:py-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">Legal</span>
@@ -27,11 +27,11 @@ export const PrivacyPolicyPage: React.FC = () => {
       </section>
 
       <section className="py-14">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-slate dark:prose-invert max-w-none">
-          <div className="space-y-8 text-slate-700 dark:text-slate-300 text-base leading-relaxed">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-slate max-w-none">
+          <div className="space-y-8 text-slate-700 text-base leading-relaxed">
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">1. Introduction</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">1. Introduction</h2>
               <p>
                 {instituteName} ("we", "our", or "us") operates this website. This Privacy Policy explains how we collect,
                 use, disclose, and protect information when you visit our website or submit information through our
@@ -43,7 +43,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">2. Information We Collect</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">2. Information We Collect</h2>
               <p>We may collect the following types of information:</p>
               <ul className="list-disc pl-6 mt-2 space-y-1">
                 <li>
@@ -63,7 +63,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">3. How We Use Your Information</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">3. How We Use Your Information</h2>
               <p>Information we collect is used to:</p>
               <ul className="list-disc pl-6 mt-2 space-y-1">
                 <li>Respond to your inquiry or admission application.</li>
@@ -76,7 +76,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">4. Data Storage and Security</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">4. Data Storage and Security</h2>
               <p>
                 Your data is stored securely using Supabase (hosted infrastructure). We take reasonable technical and
                 organizational measures to protect your information from unauthorized access, alteration, disclosure, or
@@ -86,7 +86,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">5. Cookies</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">5. Cookies</h2>
               <p>
                 Our website may use essential cookies to maintain session state for logged-in users. We do not use
                 tracking cookies for advertising purposes. You can configure your browser to refuse cookies, though
@@ -95,7 +95,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">6. Third-Party Links</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">6. Third-Party Links</h2>
               <p>
                 Our website may contain links to third-party websites such as Instagram or YouTube. We are not
                 responsible for the privacy practices of those websites and encourage you to review their respective
@@ -104,7 +104,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">7. Children's Privacy</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">7. Children's Privacy</h2>
               <p>
                 Our services are intended for use by students, parents, and guardians. If a student is under the age of
                 13, account registration must be completed by a parent or guardian. We do not knowingly collect personal
@@ -113,7 +113,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">8. Your Rights</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">8. Your Rights</h2>
               <p>You have the right to:</p>
               <ul className="list-disc pl-6 mt-2 space-y-1">
                 <li>Request access to the personal data we hold about you.</li>
@@ -127,7 +127,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">9. Changes to This Policy</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">9. Changes to This Policy</h2>
               <p>
                 We may update this Privacy Policy from time to time. Changes will be reflected by updating the "Last
                 updated" date at the top of this page. We encourage you to review this page periodically.
@@ -135,23 +135,23 @@ export const PrivacyPolicyPage: React.FC = () => {
             </div>
 
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-3">10. Contact Us</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-3">10. Contact Us</h2>
               <p>
                 If you have any questions about this Privacy Policy or your personal data, please contact us:
               </p>
-              <div className="mt-3 p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
-                <p className="font-semibold text-slate-900 dark:text-white">{instituteName}</p>
+              <div className="mt-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <p className="font-semibold text-slate-900">{instituteName}</p>
                 {contactEmail && (
                   <p className="mt-1 text-sm">
                     Email:{' '}
-                    <a href={`mailto:${contactEmail}`} className="text-emerald-700 dark:text-emerald-400 hover:underline">
+                    <a href={`mailto:${contactEmail}`} className="text-emerald-700 hover:underline">
                       {contactEmail}
                     </a>
                   </p>
                 )}
                 <p className="mt-1 text-sm">
                   You can also reach us through the{' '}
-                  <a href="/contact" className="text-emerald-700 dark:text-emerald-400 hover:underline">Contact page</a>.
+                  <a href="/contact" className="text-emerald-700 hover:underline">Contact page</a>.
                 </p>
               </div>
             </div>

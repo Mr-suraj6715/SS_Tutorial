@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import {
   Users,
   Calendar,
@@ -78,7 +78,7 @@ export const ParentDashboard: React.FC = () => {
   }, [selectedStudentId])
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       <div className="bg-emerald-950 text-white border-b border-emerald-900 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -107,20 +107,20 @@ export const ParentDashboard: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+        <h2 className="text-2xl font-bold text-slate-900 mb-6">
           Child Performance & Academic Tracker
         </h2>
 
         {linkedStudents.length > 0 ? (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
               <label className="block text-xs font-bold text-slate-500 uppercase mb-2">
                 Select Child
               </label>
               <select
                 value={selectedStudentId}
                 onChange={(e) => setSelectedStudentId(e.target.value)}
-                className="w-full sm:w-80 px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold"
+                className="w-full sm:w-80 px-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl font-bold"
               >
                 {linkedStudents.map((link) => (
                   <option key={link.id} value={link.student_id || link.id}>
@@ -134,14 +134,14 @@ export const ParentDashboard: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               {/* Attendance Card */}
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h3 className="font-bold text-base text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 className="font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-emerald-600" /> Attendance Records
                 </h3>
                 {attendance.length > 0 ? (
                   <div className="space-y-2 text-xs">
                     {attendance.slice(0, 5).map((a) => (
-                      <div key={a.id} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800">
+                      <div key={a.id} className="flex items-center justify-between p-2 rounded-lg bg-slate-50">
                         <span>{new Date(a.date).toLocaleDateString()}</span>
                         <span className={`px-2 py-0.5 rounded font-bold uppercase text-[10px] ${a.status === 'present' ? 'text-emerald-700 bg-emerald-100' : 'text-red-700 bg-red-100'}`}>
                           {a.status}
@@ -155,17 +155,17 @@ export const ParentDashboard: React.FC = () => {
               </div>
 
               {/* Fees Card */}
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                <h3 className="font-bold text-base text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 className="font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
                   <CreditCard className="w-5 h-5 text-amber-500" /> Fee Status & Receipts
                 </h3>
                 {fees.length > 0 ? (
                   <div className="space-y-2 text-xs">
                     {fees.map((f) => (
-                      <div key={f.id} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800">
+                      <div key={f.id} className="flex items-center justify-between p-2 rounded-lg bg-slate-50">
                         <div>
-                          <p className="font-bold">Total: ₹{f.amount}</p>
-                          <p className="text-slate-400">Paid: ₹{f.paid_amount}</p>
+                          <p className="font-bold">Total: â‚¹{f.amount}</p>
+                          <p className="text-slate-400">Paid: â‚¹{f.paid_amount}</p>
                         </div>
                         <span className={`px-2 py-0.5 rounded font-bold uppercase text-[10px] ${f.status === 'paid' ? 'text-emerald-700 bg-emerald-100' : 'text-red-700 bg-red-100'}`}>
                           {f.status}
@@ -181,14 +181,14 @@ export const ParentDashboard: React.FC = () => {
             </div>
 
             {/* Results */}
-            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
                 <Award className="w-5 h-5 text-amber-500" /> Assessment Marks & Grades
               </h3>
               {results.length > 0 ? (
                 <div className="space-y-3">
                   {results.map((r) => (
-                    <div key={r.id} className="flex items-center justify-between p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <div key={r.id} className="flex items-center justify-between p-3 rounded-xl border border-slate-100">
                       <div>
                         <h4 className="font-bold text-xs">{r.exams?.title || 'Class Test'}</h4>
                         <p className="text-[11px] text-slate-400">Passing: {r.exams?.passing_marks} marks</p>
@@ -206,9 +206,9 @@ export const ParentDashboard: React.FC = () => {
 
           </div>
         ) : (
-          <div className="p-16 text-center bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+          <div className="p-16 text-center bg-white rounded-2xl border border-dashed border-slate-300">
             <Users className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <p className="text-slate-700 dark:text-slate-200 font-bold text-base">
+            <p className="text-slate-700 font-bold text-base">
               No linked student accounts found.
             </p>
             <p className="text-xs text-slate-400 mt-1">

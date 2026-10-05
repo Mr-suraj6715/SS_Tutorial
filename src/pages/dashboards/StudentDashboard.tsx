@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import {
   User,
   Calendar,
@@ -54,7 +54,7 @@ export const StudentDashboard: React.FC = () => {
   const attendancePct = totalClasses > 0 ? Math.round((presentClasses / totalClasses) * 100) : 100
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       
       {/* Dashboard Top Header */}
       <div className="bg-emerald-950 text-white border-b border-emerald-900 px-6 py-4">
@@ -86,7 +86,7 @@ export const StudentDashboard: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 border-b border-slate-200">
           {[
             { id: 'overview', label: 'Overview', icon: User },
             { id: 'attendance', label: 'Attendance', icon: Calendar },
@@ -103,7 +103,7 @@ export const StudentDashboard: React.FC = () => {
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap ${
                   isActive
                     ? 'bg-emerald-800 text-white shadow-md'
-                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 border border-slate-200 dark:border-slate-800'
+                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -117,9 +117,9 @@ export const StudentDashboard: React.FC = () => {
         {activeTab === 'overview' && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <p className="text-xs text-slate-400 font-bold uppercase">Attendance Rate</p>
-                <p className="text-3xl font-extrabold text-emerald-700 dark:text-emerald-400 mt-2">
+                <p className="text-3xl font-extrabold text-emerald-700 mt-2">
                   {attendancePct}%
                 </p>
                 <p className="text-xs text-slate-500 mt-1">
@@ -127,7 +127,7 @@ export const StudentDashboard: React.FC = () => {
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <p className="text-xs text-slate-400 font-bold uppercase">Exams Taken</p>
                 <p className="text-3xl font-extrabold text-amber-500 mt-2">
                   {results.length}
@@ -135,9 +135,9 @@ export const StudentDashboard: React.FC = () => {
                 <p className="text-xs text-slate-500 mt-1">Evaluated assessments</p>
               </div>
 
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <p className="text-xs text-slate-400 font-bold uppercase">Study Materials</p>
-                <p className="text-3xl font-extrabold text-slate-900 dark:text-white mt-2">
+                <p className="text-3xl font-extrabold text-slate-900 mt-2">
                   {materials.length}
                 </p>
                 <p className="text-xs text-slate-500 mt-1">Downloadable documents</p>
@@ -145,24 +145,24 @@ export const StudentDashboard: React.FC = () => {
             </div>
 
             {/* Profile Info */}
-            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base text-slate-900 dark:text-white mb-4">Student Profile</h3>
+            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base text-slate-900 mb-4">Student Profile</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <span className="text-slate-400 block font-medium">Full Name</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">{profile?.full_name || 'N/A'}</span>
+                  <span className="font-bold text-slate-800">{profile?.full_name || 'N/A'}</span>
                 </div>
                 <div>
                   <span className="text-slate-400 block font-medium">Registered Email</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">{user?.email || 'N/A'}</span>
+                  <span className="font-bold text-slate-800">{user?.email || 'N/A'}</span>
                 </div>
                 <div>
                   <span className="text-slate-400 block font-medium">Contact Phone</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">{profile?.phone || 'Not provided'}</span>
+                  <span className="font-bold text-slate-800">{profile?.phone || 'Not provided'}</span>
                 </div>
                 <div>
                   <span className="text-slate-400 block font-medium">Role Status</span>
-                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold">
+                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold">
                     Active Student
                   </span>
                 </div>
@@ -173,22 +173,22 @@ export const StudentDashboard: React.FC = () => {
 
         {/* Tab 2: Attendance */}
         {activeTab === 'attendance' && (
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
-            <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Attendance Log</h3>
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <h3 className="font-bold text-lg text-slate-900 mb-4">Attendance Log</h3>
             {attendance.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-200">
                     <tr>
                       <th className="p-3">Date</th>
                       <th className="p-3">Batch</th>
                       <th className="p-3">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100">
                     {attendance.map((row) => (
                       <tr key={row.id}>
-                        <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">
+                        <td className="p-3 font-semibold text-slate-800">
                           {new Date(row.date).toLocaleDateString()}
                         </td>
                         <td className="p-3 text-slate-500">{row.batches?.name || 'Class Batch'}</td>
@@ -196,10 +196,10 @@ export const StudentDashboard: React.FC = () => {
                           <span
                             className={`inline-block px-2.5 py-0.5 rounded-full font-bold uppercase text-[10px] ${
                               row.status === 'present'
-                                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                                ? 'bg-emerald-100 text-emerald-800'
                                 : row.status === 'late'
-                                ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
-                                : 'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300'
+                                ? 'bg-amber-100 text-amber-800'
+                                : 'bg-red-100 text-red-800'
                             }`}
                           >
                             {row.status}
@@ -218,12 +218,12 @@ export const StudentDashboard: React.FC = () => {
 
         {/* Tab 3: Fees */}
         {activeTab === 'fees' && (
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
-            <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Fee Invoices & Dues</h3>
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <h3 className="font-bold text-lg text-slate-900 mb-4">Fee Invoices & Dues</h3>
             {fees.length > 0 ? (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-200">
                     <tr>
                       <th className="p-3">Batch</th>
                       <th className="p-3">Total Amount</th>
@@ -232,12 +232,12 @@ export const StudentDashboard: React.FC = () => {
                       <th className="p-3">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100">
                     {fees.map((f) => (
                       <tr key={f.id}>
-                        <td className="p-3 font-semibold text-slate-800 dark:text-slate-200">{f.batches?.name || 'Academic Batch'}</td>
-                        <td className="p-3 font-bold">₹{f.amount}</td>
-                        <td className="p-3 text-emerald-600 font-bold">₹{f.paid_amount}</td>
+                        <td className="p-3 font-semibold text-slate-800">{f.batches?.name || 'Academic Batch'}</td>
+                        <td className="p-3 font-bold">â‚¹{f.amount}</td>
+                        <td className="p-3 text-emerald-600 font-bold">â‚¹{f.paid_amount}</td>
                         <td className="p-3 text-slate-500">{f.due_date ? new Date(f.due_date).toLocaleDateString() : 'N/A'}</td>
                         <td className="p-3">
                           <span
@@ -265,14 +265,14 @@ export const StudentDashboard: React.FC = () => {
 
         {/* Tab 4: Results */}
         {activeTab === 'results' && (
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
-            <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Academic Results</h3>
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <h3 className="font-bold text-lg text-slate-900 mb-4">Academic Results</h3>
             {results.length > 0 ? (
               <div className="space-y-4">
                 {results.map((r) => (
-                  <div key={r.id} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <div key={r.id} className="p-4 rounded-xl border border-slate-200 flex items-center justify-between">
                     <div>
-                      <h4 className="font-bold text-sm text-slate-900 dark:text-white">
+                      <h4 className="font-bold text-sm text-slate-900">
                         {r.exams?.title || 'Assessment Test'}
                       </h4>
                       <p className="text-xs text-slate-500 mt-0.5">
@@ -285,7 +285,7 @@ export const StudentDashboard: React.FC = () => {
                         {r.marks_obtained} / {r.exams?.total_marks || 100}
                       </span>
                       {r.grade && (
-                        <p className="text-xs font-bold text-slate-700 dark:text-slate-300">Grade: {r.grade}</p>
+                        <p className="text-xs font-bold text-slate-700">Grade: {r.grade}</p>
                       )}
                     </div>
                   </div>
@@ -299,16 +299,16 @@ export const StudentDashboard: React.FC = () => {
 
         {/* Tab 5: Study Materials */}
         {activeTab === 'materials' && (
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
-            <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-4">Downloadable Study Materials</h3>
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+            <h3 className="font-bold text-lg text-slate-900 mb-4">Downloadable Study Materials</h3>
             {materials.length > 0 ? (
               <div className="space-y-3">
                 {materials.map((m) => (
-                  <div key={m.id} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <div key={m.id} className="p-4 rounded-xl border border-slate-200 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <BookOpen className="w-5 h-5 text-emerald-600" />
                       <div>
-                        <h4 className="font-bold text-sm text-slate-900 dark:text-white">{m.title}</h4>
+                        <h4 className="font-bold text-sm text-slate-900">{m.title}</h4>
                         {m.description && <p className="text-xs text-slate-500 mt-0.5">{m.description}</p>}
                       </div>
                     </div>

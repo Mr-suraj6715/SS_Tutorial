@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import {
   BookOpen,
   Calendar,
@@ -69,7 +69,7 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-700"></div>
       </div>
     )
@@ -77,9 +77,9 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
 
   if (!course) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-slate-50 dark:bg-slate-950">
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-slate-50">
         <BookOpen className="w-16 h-16 text-slate-400 mb-4" />
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Course Not Found</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Course Not Found</h1>
         <p className="text-slate-500 text-sm mt-2">The requested course does not exist or has been deactivated.</p>
         <a href="/courses" className="mt-6 px-6 py-2.5 rounded-xl bg-emerald-700 text-white text-sm font-semibold">
           Back to Courses
@@ -89,7 +89,7 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12">
+    <div className="min-h-screen bg-slate-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Breadcrumb & Title */}
@@ -126,12 +126,12 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
           <div className="lg:col-span-8 space-y-10">
             
             {/* Syllabus Section */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
                 Curriculum & Syllabus
               </h2>
               {course.syllabus ? (
-                <div className="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-sm leading-relaxed whitespace-pre-line">
+                <div className="prose max-w-none text-slate-700 text-sm leading-relaxed whitespace-pre-line">
                   {course.syllabus}
                 </div>
               ) : (
@@ -142,8 +142,8 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
             </div>
 
             {/* Active Batches Table */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">
                 Upcoming & Ongoing Batches
               </h2>
 
@@ -152,16 +152,16 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
                   {batches.map((b) => (
                     <div
                       key={b.id}
-                      className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                      className="p-5 rounded-xl border border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                     >
                       <div>
-                        <h3 className="font-bold text-base text-slate-900 dark:text-white">{b.name}</h3>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
+                        <h3 className="font-bold text-base text-slate-900">{b.name}</h3>
+                        <p className="text-xs text-slate-500 mt-1 flex items-center gap-2">
                           <Clock className="w-3.5 h-3.5 text-amber-500" />
                           <span>Schedule: {b.schedule || 'Regular Weekday'}</span>
                         </p>
                         {b.teacher && (
-                          <p className="text-xs text-emerald-700 dark:text-emerald-400 mt-1 flex items-center gap-1.5 font-medium">
+                          <p className="text-xs text-emerald-700 mt-1 flex items-center gap-1.5 font-medium">
                             <User className="w-3.5 h-3.5" />
                             <span>Faculty: {b.teacher.full_name}</span>
                           </p>
@@ -170,7 +170,7 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
 
                       <div className="flex items-center gap-3">
                         {b.capacity > 0 && (
-                          <span className="text-xs font-medium text-slate-500 bg-slate-200 dark:bg-slate-700 px-3 py-1.5 rounded-lg">
+                          <span className="text-xs font-medium text-slate-500 bg-slate-200 px-3 py-1.5 rounded-lg">
                             Cap: {b.capacity}
                           </span>
                         )}
@@ -195,13 +195,13 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
 
           {/* Right Column: Enrollment Card */}
           <div className="lg:col-span-4">
-            <div className="sticky top-28 bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-lg space-y-6">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Enroll in this Course</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            <div className="sticky top-28 bg-white rounded-2xl p-6 border border-slate-200 shadow-lg space-y-6">
+              <h3 className="text-lg font-bold text-slate-900">Enroll in this Course</h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
                 Submit an admission inquiry or application online to reserve your seat in the next orientation batch.
               </p>
 
-              <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+              <div className="space-y-3 text-xs text-slate-700">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-emerald-600" />
                   <span>Printed & Digital Study Notes</span>

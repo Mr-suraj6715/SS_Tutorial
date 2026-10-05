@@ -20,11 +20,14 @@ export const GalleryPage: React.FC = () => {
     const fetchGallery = async () => {
       try {
         setLoading(true)
-        const res = await fetch('/api/gallery')
-        if (res.ok) {
-          const data = await res.json()
-          setImages(data.gallery || [])
-        }
+        const { data, error } = await supabase
+          .from('gallery')
+          .select('*')
+          .eq('is_published', true)
+          .order('display_order', { ascending: true })
+          
+        if (error) throw error
+        if (data) setImages(data)
       } catch (err) {
         console.warn('Error fetching gallery:', err)
       } finally {
@@ -41,18 +44,18 @@ export const GalleryPage: React.FC = () => {
   })
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12">
+    <div className="min-h-screen bg-slate-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">
+          <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             Moments & Milestones
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
+          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
             Campus Photo Gallery
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-2">
+          <p className="text-slate-600 text-sm sm:text-base mt-2">
             A glimpse into life at SS Tutorial, classroom sessions, academic celebrations, and student milestones.
           </p>
         </div>
@@ -67,7 +70,7 @@ export const GalleryPage: React.FC = () => {
               className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition ${
                 filter === tab
                   ? 'bg-emerald-800 text-white shadow-md'
-                  : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 border border-slate-200 dark:border-slate-800'
+                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
               }`}
             >
               {tab === 'all' ? 'All Images' : tab}
@@ -82,10 +85,10 @@ export const GalleryPage: React.FC = () => {
               <div
                 key={img.id}
                 onClick={() => setActiveImage(img)}
-                className="group relative break-inside-avoid rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all cursor-pointer"
+                className="group relative break-inside-avoid rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl transition-all cursor-pointer"
               >
                 {/* Thumbnail First with Lazy Loading */}
-                <div className="overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <div className="overflow-hidden bg-slate-100">
                   <img
                     src={img.thumbnail_url || img.webp_url || img.image_url}
                     alt={img.alt_text || img.title || 'SS Tutorial Gallery'}
@@ -116,9 +119,9 @@ export const GalleryPage: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="p-16 text-center bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+          <div className="p-16 text-center bg-white rounded-2xl border border-dashed border-slate-300">
             <ImageIcon className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <p className="text-slate-700 dark:text-slate-200 font-bold text-base">
+            <p className="text-slate-700 font-bold text-base">
               No gallery images found in this category.
             </p>
             <p className="text-xs text-slate-400 mt-1">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+﻿import React, { useEffect, useRef, useState } from 'react'
 import {
   LayoutDashboard,
   FileCheck,
@@ -687,7 +687,7 @@ export const AdminDashboard: React.FC = () => {
                   required
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
-                  placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢"
+                  placeholder="ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢"
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl text-xs bg-slate-800/80 border border-slate-700 text-white placeholder:text-slate-500 focus:ring-2 focus:ring-amber-400 focus:outline-none"
                 />
               </div>
@@ -718,7 +718,7 @@ export const AdminDashboard: React.FC = () => {
   // 2. AUTHENTICATED ADMIN DASHBOARD
   // =========================================================================
   return (
-    <div className="min-h-screen bg-slate-100 dark:bg-slate-950 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-slate-100 flex flex-col md:flex-row">
       
       {/* Sidebar Navigation */}
       <aside className="w-full md:w-64 bg-emerald-950 text-white flex flex-col shrink-0 border-r border-emerald-900">
@@ -798,7 +798,7 @@ export const AdminDashboard: React.FC = () => {
         {activeTab === 'overview' && (
           <div className="space-y-8">
             <div>
-              <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+              <h2 className="text-2xl font-extrabold text-slate-900">
                 Admin Command Center
               </h2>
               <p className="text-xs text-slate-500 mt-1">
@@ -807,30 +807,30 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <p className="text-xs text-slate-400 font-bold uppercase">Pending Admissions</p>
                 <p className="text-3xl font-black text-amber-500 mt-2">
                   {admissions.filter((a) => a.status === 'pending').length}
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <p className="text-xs text-slate-400 font-bold uppercase">Registered Users</p>
                 <p className="text-3xl font-black text-blue-600 mt-2">
                   {profilesList.length}
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <p className="text-xs text-slate-400 font-bold uppercase">Active Courses</p>
-                <p className="text-3xl font-black text-emerald-700 dark:text-emerald-400 mt-2">
+                <p className="text-3xl font-black text-emerald-700 mt-2">
                   {coursesList.length}
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <p className="text-xs text-slate-400 font-bold uppercase">Gallery Media</p>
-                <p className="text-3xl font-black text-slate-800 dark:text-slate-100 mt-2">
+                <p className="text-3xl font-black text-slate-800 mt-2">
                   {galleryList.length}
                 </p>
               </div>
@@ -841,30 +841,30 @@ export const AdminDashboard: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('admissions')}
-                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-left hover:border-amber-400 transition shadow-sm"
+                className="p-5 rounded-2xl bg-white border border-slate-200 text-left hover:border-amber-400 transition shadow-sm"
               >
                 <FileCheck className="w-6 h-6 text-amber-500 mb-2" />
-                <h4 className="font-bold text-sm text-slate-900 dark:text-white">Review Admissions</h4>
+                <h4 className="font-bold text-sm text-slate-900">Review Admissions</h4>
                 <p className="text-xs text-slate-400 mt-1">Approve or reject student applications</p>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveTab('gallery')}
-                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-left hover:border-emerald-500 transition shadow-sm"
+                className="p-5 rounded-2xl bg-white border border-slate-200 text-left hover:border-emerald-500 transition shadow-sm"
               >
                 <ImageIcon className="w-6 h-6 text-emerald-600 mb-2" />
-                <h4 className="font-bold text-sm text-slate-900 dark:text-white">Upload Photos</h4>
+                <h4 className="font-bold text-sm text-slate-900">Upload Photos</h4>
                 <p className="text-xs text-slate-400 mt-1">Bulk upload with automatic WebP generation</p>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveTab('settings')}
-                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-left hover:border-blue-500 transition shadow-sm"
+                className="p-5 rounded-2xl bg-white border border-slate-200 text-left hover:border-blue-500 transition shadow-sm"
               >
                 <SettingsIcon className="w-6 h-6 text-blue-600 mb-2" />
-                <h4 className="font-bold text-sm text-slate-900 dark:text-white">Update Institute Info</h4>
+                <h4 className="font-bold text-sm text-slate-900">Update Institute Info</h4>
                 <p className="text-xs text-slate-400 mt-1">Logo, phone, address, timings, WhatsApp</p>
               </button>
             </div>
@@ -873,12 +873,12 @@ export const AdminDashboard: React.FC = () => {
 
         {/* 2. ADMISSIONS TAB */}
         {activeTab === 'admissions' && (
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Admission Applications</h2>
+          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+            <h2 className="text-xl font-bold text-slate-900">Admission Applications</h2>
             {admissions.length > 0 ? (
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                <table className="w-full text-left text-xs text-slate-700">
+                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-200">
                     <tr>
                       <th className="p-3">Student</th>
                       <th className="p-3">Parent</th>
@@ -888,12 +888,12 @@ export const AdminDashboard: React.FC = () => {
                       <th className="p-3">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100">
                     {admissions.map((adm) => (
                       <tr key={adm.id}>
-                        <td className="p-3 font-bold text-slate-900 dark:text-white">{adm.student_name}</td>
+                        <td className="p-3 font-bold text-slate-900">{adm.student_name}</td>
                         <td className="p-3 text-slate-500">{adm.parent_name || '-'}</td>
-                        <td className="p-3 text-slate-700 dark:text-slate-300">
+                        <td className="p-3 text-slate-700">
                           <p>{adm.course_title || 'General'}</p>
                           {adm.batch_name && <p className="text-[11px] text-slate-400">{adm.batch_name}</p>}
                         </td>
@@ -948,8 +948,8 @@ export const AdminDashboard: React.FC = () => {
             {/* Reject Modal */}
             {selectedAdmission && (
               <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl max-w-md w-full border border-slate-200 dark:border-slate-800 shadow-xl space-y-4">
-                  <h3 className="font-bold text-base text-slate-900 dark:text-white">
+                <div className="bg-white p-6 rounded-2xl max-w-md w-full border border-slate-200 shadow-xl space-y-4">
+                  <h3 className="font-bold text-base text-slate-900">
                     Reject Admission Application
                   </h3>
                   <textarea
@@ -957,13 +957,13 @@ export const AdminDashboard: React.FC = () => {
                     value={rejectionReason}
                     onChange={(e) => setRejectionReason(e.target.value)}
                     placeholder="Enter reason for rejection (e.g. batch full)..."
-                    className="w-full p-3 text-xs border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    className="w-full p-3 text-xs border border-slate-200 rounded-xl bg-slate-50 text-slate-900"
                   />
                   <div className="flex justify-end gap-2">
                     <button
                       type="button"
                       onClick={() => setSelectedAdmission(null)}
-                      className="px-4 py-2 rounded-xl text-xs bg-slate-200 dark:bg-slate-800"
+                      className="px-4 py-2 rounded-xl text-xs bg-slate-200"
                     >
                       Cancel
                     </button>
@@ -984,10 +984,10 @@ export const AdminDashboard: React.FC = () => {
         {/* 3. USERS & ROLES TAB */}
         {activeTab === 'users' && (
           <div className="space-y-6">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                  <h2 className="text-xl font-bold text-slate-900">
                     User Accounts & Roles Management
                   </h2>
                   <p className="text-xs text-slate-500 mt-1">
@@ -1012,13 +1012,13 @@ export const AdminDashboard: React.FC = () => {
                     value={userSearch}
                     onChange={(e) => setUserSearch(e.target.value)}
                     placeholder="Search by name, email, or phone..."
-                    className="w-full pl-9 pr-4 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full pl-9 pr-4 py-2 text-xs rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
                 <select
                   value={userRoleFilter}
                   onChange={(e) => setUserRoleFilter(e.target.value)}
-                  className="px-3 py-2 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-semibold"
+                  className="px-3 py-2 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 font-semibold"
                 >
                   <option value="all">All Roles</option>
                   <option value="admin">Admins</option>
@@ -1030,8 +1030,8 @@ export const AdminDashboard: React.FC = () => {
 
               {/* Users Table */}
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                <table className="w-full text-left text-xs text-slate-700">
+                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-200">
                     <tr>
                       <th className="p-3">Name</th>
                       <th className="p-3">Email</th>
@@ -1041,7 +1041,7 @@ export const AdminDashboard: React.FC = () => {
                       <th className="p-3">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100">
                     {profilesList
                       .filter((u) => userRoleFilter === 'all' || u.role === userRoleFilter)
                       .filter((u) =>
@@ -1052,19 +1052,19 @@ export const AdminDashboard: React.FC = () => {
                       )
                       .map((u) => (
                         <tr key={u.id}>
-                          <td className="p-3 font-bold text-slate-900 dark:text-white">{u.full_name || 'Unnamed'}</td>
+                          <td className="p-3 font-bold text-slate-900">{u.full_name || 'Unnamed'}</td>
                           <td className="p-3 text-slate-500">{u.email}</td>
                           <td className="p-3 text-slate-500">{u.phone || '-'}</td>
                           <td className="p-3">
                             <span
                               className={`px-2 py-0.5 rounded font-bold uppercase text-[10px] ${
                                 u.role === 'admin'
-                                  ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300'
+                                  ? 'bg-amber-100 text-amber-800'
                                   : u.role === 'teacher'
-                                  ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300'
+                                  ? 'bg-purple-100 text-purple-800'
                                   : u.role === 'parent'
-                                  ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300'
-                                  : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300'
+                                  ? 'bg-blue-100 text-blue-800'
+                                  : 'bg-emerald-100 text-emerald-800'
                               }`}
                             >
                               {u.role}
@@ -1085,7 +1085,7 @@ export const AdminDashboard: React.FC = () => {
                             <button
                               type="button"
                               onClick={() => handleToggleUserActive(u)}
-                              className="px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-700 text-[11px] font-bold"
+                              className="px-2.5 py-1 rounded bg-slate-200 text-[11px] font-bold"
                             >
                               {u.is_active !== 0 ? 'Disable' : 'Enable'}
                             </button>
@@ -1100,8 +1100,8 @@ export const AdminDashboard: React.FC = () => {
             {/* Add User Modal */}
             {showAddUserModal && (
               <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl max-w-md w-full border border-slate-200 dark:border-slate-800 shadow-2xl space-y-4">
-                  <h3 className="font-bold text-base text-slate-900 dark:text-white">Create New User</h3>
+                <div className="bg-white p-6 rounded-3xl max-w-md w-full border border-slate-200 shadow-2xl space-y-4">
+                  <h3 className="font-bold text-base text-slate-900">Create New User</h3>
                   <form onSubmit={handleCreateUser} className="space-y-3 text-xs">
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Full Name *</label>
@@ -1110,7 +1110,7 @@ export const AdminDashboard: React.FC = () => {
                         required
                         value={newUserForm.full_name}
                         onChange={(e) => setNewUserForm({ ...newUserForm, full_name: e.target.value })}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                         placeholder="e.g. Ramesh Kumar"
                       />
                     </div>
@@ -1121,7 +1121,7 @@ export const AdminDashboard: React.FC = () => {
                         required
                         value={newUserForm.email}
                         onChange={(e) => setNewUserForm({ ...newUserForm, email: e.target.value })}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                         placeholder="user@sstutorial.com"
                       />
                     </div>
@@ -1132,8 +1132,8 @@ export const AdminDashboard: React.FC = () => {
                         required
                         value={newUserForm.password}
                         onChange={(e) => setNewUserForm({ ...newUserForm, password: e.target.value })}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
-                        placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
+                        placeholder="ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢"
                       />
                     </div>
                     <div>
@@ -1142,7 +1142,7 @@ export const AdminDashboard: React.FC = () => {
                         type="text"
                         value={newUserForm.phone}
                         onChange={(e) => setNewUserForm({ ...newUserForm, phone: e.target.value })}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                         placeholder="9876543210"
                       />
                     </div>
@@ -1151,7 +1151,7 @@ export const AdminDashboard: React.FC = () => {
                       <select
                         value={newUserForm.role}
                         onChange={(e) => setNewUserForm({ ...newUserForm, role: e.target.value })}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold"
+                        className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-bold"
                       >
                         <option value="teacher">Teacher / Faculty</option>
                         <option value="student">Student</option>
@@ -1164,7 +1164,7 @@ export const AdminDashboard: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setShowAddUserModal(false)}
-                        className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800"
+                        className="px-4 py-2 rounded-xl bg-slate-200"
                       >
                         Cancel
                       </button>
@@ -1185,8 +1185,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 4. COURSES MANAGER TAB */}
         {activeTab === 'courses' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+              <h2 className="text-xl font-bold text-slate-900">
                 {editingCourse?.id ? 'Edit Course' : 'Add New Course'}
               </h2>
 
@@ -1240,11 +1240,11 @@ export const AdminDashboard: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Course Name *</label>
-                      <input type="text" value={form.title || ''} onChange={(e) => setForm({...form, title: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="e.g. Class 10 Math Foundation" />
+                      <input type="text" value={form.title || ''} onChange={(e) => setForm({...form, title: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900" placeholder="e.g. Class 10 Math Foundation" />
                     </div>
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Board</label>
-                      <select value={form.board || 'Both'} onChange={(e) => setForm({...form, board: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold">
+                      <select value={form.board || 'Both'} onChange={(e) => setForm({...form, board: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-bold">
                         <option value="SSC">SSC Board</option>
                         <option value="CBSE">CBSE Board</option>
                         <option value="Both">Both Boards</option>
@@ -1252,7 +1252,7 @@ export const AdminDashboard: React.FC = () => {
                     </div>
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Class / Level</label>
-                      <select value={form.target_class || 'Class 10'} onChange={(e) => setForm({...form, target_class: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold">
+                      <select value={form.target_class || 'Class 10'} onChange={(e) => setForm({...form, target_class: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-bold">
                         <option value="School Classes">School Classes (General)</option>
                         <option value="Class 6">Class 6</option>
                         <option value="Class 7">Class 7</option>
@@ -1265,26 +1265,26 @@ export const AdminDashboard: React.FC = () => {
                     </div>
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Subjects</label>
-                      <input type="text" value={form.subjects || ''} onChange={(e) => setForm({...form, subjects: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="e.g. Mathematics, Science" />
+                      <input type="text" value={form.subjects || ''} onChange={(e) => setForm({...form, subjects: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900" placeholder="e.g. Mathematics, Science" />
                     </div>
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Duration</label>
-                      <input type="text" value={form.duration || ''} onChange={(e) => setForm({...form, duration: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="e.g. Full Year" />
+                      <input type="text" value={form.duration || ''} onChange={(e) => setForm({...form, duration: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900" placeholder="e.g. Full Year" />
                     </div>
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Fees</label>
-                      <input type="text" value={form.fee || ''} onChange={(e) => setForm({...form, fee: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="e.g. Ã¢â€šÂ¹1500 / month" />
+                      <input type="text" value={form.fee || ''} onChange={(e) => setForm({...form, fee: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900" placeholder="e.g. ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹1500 / month" />
                     </div>
                     <div className="sm:col-span-2">
                       <label className="font-bold text-slate-500 mb-1 block">Description</label>
-                      <textarea rows={2} value={form.description || ''} onChange={(e) => setForm({...form, description: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" />
+                      <textarea rows={2} value={form.description || ''} onChange={(e) => setForm({...form, description: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900" />
                     </div>
                     <div className="sm:col-span-2 flex gap-3">
                       <button type="button" onClick={handleSave} className="px-6 py-2.5 rounded-xl font-bold text-xs text-white bg-emerald-800 hover:bg-emerald-700">
                         {isEdit ? 'Save Changes' : 'Add Course'}
                       </button>
                       {isEdit && (
-                        <button type="button" onClick={() => setEditingCourse(null)} className="px-6 py-2.5 rounded-xl font-bold text-xs bg-slate-200 dark:bg-slate-800">
+                        <button type="button" onClick={() => setEditingCourse(null)} className="px-6 py-2.5 rounded-xl font-bold text-xs bg-slate-200">
                           Cancel
                         </button>
                       )}
@@ -1295,11 +1295,11 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             {/* Courses List */}
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">All Courses ({coursesList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-6 text-slate-900">All Courses ({coursesList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                <table className="w-full text-left text-xs text-slate-700">
+                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-200">
                     <tr>
                       <th className="p-3">Course</th>
                       <th className="p-3">Board</th>
@@ -1309,10 +1309,10 @@ export const AdminDashboard: React.FC = () => {
                       <th className="p-3">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100">
                     {coursesList.map((course: any) => (
                       <tr key={course.id}>
-                        <td className="p-3 font-bold text-slate-900 dark:text-white">{course.title}</td>
+                        <td className="p-3 font-bold text-slate-900">{course.title}</td>
                         <td className="p-3">{course.board}</td>
                         <td className="p-3">{course.target_class}</td>
                         <td className="p-3 font-bold text-emerald-600">{course.fee || '-'}</td>
@@ -1322,7 +1322,7 @@ export const AdminDashboard: React.FC = () => {
                           </span>
                         </td>
                         <td className="p-3 space-x-2">
-                          <button type="button" onClick={() => setEditingCourse(course)} className="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 font-bold text-[11px]">Edit</button>
+                          <button type="button" onClick={() => setEditingCourse(course)} className="px-3 py-1 rounded-lg bg-slate-200 font-bold text-[11px]">Edit</button>
                         </td>
                       </tr>
                     ))}
@@ -1336,8 +1336,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 5. SUBJECTS MANAGER TAB */}
         {activeTab === 'subjects' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+              <h2 className="text-xl font-bold text-slate-900">
                 {editingSubject?.id ? 'Edit Subject' : 'Add New Subject'}
               </h2>
               {(() => {
@@ -1365,11 +1365,11 @@ export const AdminDashboard: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Subject Name *</label>
-                      <input type="text" value={form.name || ''} onChange={(e) => setForm({...form, name: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="e.g. Mathematics" />
+                      <input type="text" value={form.name || ''} onChange={(e) => setForm({...form, name: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900" placeholder="e.g. Mathematics" />
                     </div>
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Subject Code</label>
-                      <input type="text" value={form.code || ''} onChange={(e) => setForm({...form, code: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="MATH10" />
+                      <input type="text" value={form.code || ''} onChange={(e) => setForm({...form, code: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900" placeholder="MATH10" />
                     </div>
                     <div className="sm:col-span-2 flex gap-3">
                       <button type="button" onClick={handleSave} className="px-6 py-2.5 rounded-xl font-bold text-xs text-white bg-emerald-800 hover:bg-emerald-700">
@@ -1381,11 +1381,11 @@ export const AdminDashboard: React.FC = () => {
               })()}
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">All Subjects ({subjectsList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-6 text-slate-900">All Subjects ({subjectsList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                <table className="w-full text-left text-xs text-slate-700">
+                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-200">
                     <tr>
                       <th className="p-3">Subject</th>
                       <th className="p-3">Code</th>
@@ -1394,15 +1394,15 @@ export const AdminDashboard: React.FC = () => {
                       <th className="p-3">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100">
                     {subjectsList.map((subject: any) => (
                       <tr key={subject.id}>
-                        <td className="p-3 font-bold text-slate-900 dark:text-white">{subject.name}</td>
+                        <td className="p-3 font-bold text-slate-900">{subject.name}</td>
                         <td className="p-3 font-mono text-slate-400">{subject.code || '-'}</td>
                         <td className="p-3">{subject.board}</td>
                         <td className="p-3">{subject.target_class}</td>
                         <td className="p-3">
-                          <button type="button" onClick={() => setEditingSubject(subject)} className="px-3 py-1 rounded bg-slate-200 dark:bg-slate-700 font-bold text-[11px]">Edit</button>
+                          <button type="button" onClick={() => setEditingSubject(subject)} className="px-3 py-1 rounded bg-slate-200 font-bold text-[11px]">Edit</button>
                         </td>
                       </tr>
                     ))}
@@ -1416,8 +1416,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 6. BATCHES TAB */}
         {activeTab === 'batches' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Create New Batch</h2>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+              <h2 className="text-xl font-bold text-slate-900">Create New Batch</h2>
               <form onSubmit={handleCreateBatch} className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="font-bold text-slate-500 mb-1 block">Batch Name *</label>
@@ -1426,7 +1426,7 @@ export const AdminDashboard: React.FC = () => {
                     required
                     value={newBatchForm.name}
                     onChange={(e) => setNewBatchForm({ ...newBatchForm, name: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="e.g. Class 10 Morning Achievers"
                   />
                 </div>
@@ -1436,7 +1436,7 @@ export const AdminDashboard: React.FC = () => {
                     required
                     value={newBatchForm.course_id}
                     onChange={(e) => setNewBatchForm({ ...newBatchForm, course_id: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-bold"
                   >
                     <option value="">-- Choose Course --</option>
                     {coursesList.map((c) => (
@@ -1450,7 +1450,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newBatchForm.schedule}
                     onChange={(e) => setNewBatchForm({ ...newBatchForm, schedule: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="Mon-Fri, 7:00 AM - 9:00 AM"
                   />
                 </div>
@@ -1460,7 +1460,7 @@ export const AdminDashboard: React.FC = () => {
                     type="number"
                     value={newBatchForm.capacity}
                     onChange={(e) => setNewBatchForm({ ...newBatchForm, capacity: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -1471,11 +1471,11 @@ export const AdminDashboard: React.FC = () => {
               </form>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">Active Batches ({batchesList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-6 text-slate-900">Active Batches ({batchesList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                <table className="w-full text-left text-xs text-slate-700">
+                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-200">
                     <tr>
                       <th className="p-3">Batch Name</th>
                       <th className="p-3">Course</th>
@@ -1484,11 +1484,11 @@ export const AdminDashboard: React.FC = () => {
                       <th className="p-3">Capacity</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100">
                     {batchesList.map((b) => (
                       <tr key={b.id}>
-                        <td className="p-3 font-bold text-slate-900 dark:text-white">{b.name}</td>
-                        <td className="p-3 text-slate-600 dark:text-slate-300">{b.course_title || '-'}</td>
+                        <td className="p-3 font-bold text-slate-900">{b.name}</td>
+                        <td className="p-3 text-slate-600">{b.course_title || '-'}</td>
                         <td className="p-3 text-slate-500">{b.schedule || '-'}</td>
                         <td className="p-3 font-bold text-amber-500">{b.enrolled || 0}</td>
                         <td className="p-3">{b.capacity}</td>
@@ -1504,8 +1504,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 7. FEES & DUES TAB */}
         {activeTab === 'fees' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Create Fee Record</h2>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+              <h2 className="text-xl font-bold text-slate-900">Create Fee Record</h2>
               <form onSubmit={handleCreateFee} className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="font-bold text-slate-500 mb-1 block">Student *</label>
@@ -1513,7 +1513,7 @@ export const AdminDashboard: React.FC = () => {
                     required
                     value={newFeeForm.student_id}
                     onChange={(e) => setNewFeeForm({ ...newFeeForm, student_id: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-bold"
                   >
                     <option value="">-- Choose Student --</option>
                     {profilesList.filter(p => p.role === 'student').map((s) => (
@@ -1526,7 +1526,7 @@ export const AdminDashboard: React.FC = () => {
                   <select
                     value={newFeeForm.batch_id}
                     onChange={(e) => setNewFeeForm({ ...newFeeForm, batch_id: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-bold"
                   >
                     <option value="">-- Choose Batch --</option>
                     {batchesList.map((b) => (
@@ -1535,13 +1535,13 @@ export const AdminDashboard: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="font-bold text-slate-500 mb-1 block">Amount (Ã¢â€šÂ¹) *</label>
+                  <label className="font-bold text-slate-500 mb-1 block">Amount (ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹) *</label>
                   <input
                     type="number"
                     required
                     value={newFeeForm.amount}
                     onChange={(e) => setNewFeeForm({ ...newFeeForm, amount: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="2500"
                   />
                 </div>
@@ -1552,7 +1552,7 @@ export const AdminDashboard: React.FC = () => {
                     required
                     value={newFeeForm.due_date}
                     onChange={(e) => setNewFeeForm({ ...newFeeForm, due_date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -1563,11 +1563,11 @@ export const AdminDashboard: React.FC = () => {
               </form>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">Fee Invoices & Dues ({feesList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-6 text-slate-900">Fee Invoices & Dues ({feesList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                <table className="w-full text-left text-xs text-slate-700">
+                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-200">
                     <tr>
                       <th className="p-3">Student</th>
                       <th className="p-3">Batch</th>
@@ -1578,13 +1578,13 @@ export const AdminDashboard: React.FC = () => {
                       <th className="p-3">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100">
                     {feesList.map((f) => (
                       <tr key={f.id}>
-                        <td className="p-3 font-bold text-slate-900 dark:text-white">{f.student_name}</td>
+                        <td className="p-3 font-bold text-slate-900">{f.student_name}</td>
                         <td className="p-3 text-slate-500">{f.batch_name || '-'}</td>
-                        <td className="p-3 font-bold">Ã¢â€šÂ¹{f.amount}</td>
-                        <td className="p-3 font-bold text-emerald-600">Ã¢â€šÂ¹{f.paid_amount || 0}</td>
+                        <td className="p-3 font-bold">ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹{f.amount}</td>
+                        <td className="p-3 font-bold text-emerald-600">ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹{f.paid_amount || 0}</td>
                         <td className="p-3 text-slate-500">{f.due_date}</td>
                         <td className="p-3">
                           <span className={`px-2 py-0.5 rounded-full font-bold uppercase text-[10px] ${f.status === 'paid' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
@@ -1615,15 +1615,15 @@ export const AdminDashboard: React.FC = () => {
             {/* Collect Payment Modal */}
             {recordPaymentFeeId && (
               <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl max-w-sm w-full border border-slate-200 dark:border-slate-800 shadow-xl space-y-4 text-xs">
-                  <h3 className="font-bold text-sm text-slate-900 dark:text-white">Record Fee Payment</h3>
+                <div className="bg-white p-6 rounded-2xl max-w-sm w-full border border-slate-200 shadow-xl space-y-4 text-xs">
+                  <h3 className="font-bold text-sm text-slate-900">Record Fee Payment</h3>
                   <div>
-                    <label className="font-bold text-slate-500 mb-1 block">Amount Received (Ã¢â€šÂ¹)</label>
+                    <label className="font-bold text-slate-500 mb-1 block">Amount Received (ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¹)</label>
                     <input
                       type="number"
                       value={paymentAmount}
                       onChange={(e) => setPaymentAmount(e.target.value)}
-                      className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-bold"
+                      className="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold"
                     />
                   </div>
                   <div>
@@ -1631,7 +1631,7 @@ export const AdminDashboard: React.FC = () => {
                     <select
                       value={paymentMethod}
                       onChange={(e) => setPaymentMethod(e.target.value)}
-                      className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-bold"
+                      className="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold"
                     >
                       <option value="Cash">Cash</option>
                       <option value="UPI">UPI / GPay / PhonePe</option>
@@ -1639,7 +1639,7 @@ export const AdminDashboard: React.FC = () => {
                     </select>
                   </div>
                   <div className="flex justify-end gap-2 pt-2">
-                    <button type="button" onClick={() => setRecordPaymentFeeId(null)} className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800">
+                    <button type="button" onClick={() => setRecordPaymentFeeId(null)} className="px-4 py-2 rounded-xl bg-slate-200">
                       Cancel
                     </button>
                     <button type="button" onClick={() => handleRecordPayment(recordPaymentFeeId)} className="px-4 py-2 rounded-xl bg-emerald-800 text-white font-bold">
@@ -1655,8 +1655,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 8. EXAMS & MARKS TAB */}
         {activeTab === 'exams' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Schedule New Test / Exam</h2>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+              <h2 className="text-xl font-bold text-slate-900">Schedule New Test / Exam</h2>
               <form onSubmit={handleCreateExam} className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="font-bold text-slate-500 mb-1 block">Exam Title *</label>
@@ -1665,7 +1665,7 @@ export const AdminDashboard: React.FC = () => {
                     required
                     value={newExamForm.title}
                     onChange={(e) => setNewExamForm({ ...newExamForm, title: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="e.g. Chapter 4 Quadratic Equations Test"
                   />
                 </div>
@@ -1675,7 +1675,7 @@ export const AdminDashboard: React.FC = () => {
                     required
                     value={newExamForm.batch_id}
                     onChange={(e) => setNewExamForm({ ...newExamForm, batch_id: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-bold"
                   >
                     <option value="">-- Choose Batch --</option>
                     {batchesList.map((b) => (
@@ -1690,7 +1690,7 @@ export const AdminDashboard: React.FC = () => {
                     required
                     value={newExamForm.date}
                     onChange={(e) => setNewExamForm({ ...newExamForm, date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
                 <div>
@@ -1699,7 +1699,7 @@ export const AdminDashboard: React.FC = () => {
                     type="number"
                     value={newExamForm.total_marks}
                     onChange={(e) => setNewExamForm({ ...newExamForm, total_marks: Number(e.target.value) })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -1710,11 +1710,11 @@ export const AdminDashboard: React.FC = () => {
               </form>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">Exams & Tests ({examsList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-6 text-slate-900">Exams & Tests ({examsList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
+                <table className="w-full text-left text-xs text-slate-700">
+                  <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-200">
                     <tr>
                       <th className="p-3">Exam Title</th>
                       <th className="p-3">Batch</th>
@@ -1724,10 +1724,10 @@ export const AdminDashboard: React.FC = () => {
                       <th className="p-3">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tbody className="divide-y divide-slate-100">
                     {examsList.map((ex) => (
                       <tr key={ex.id}>
-                        <td className="p-3 font-bold text-slate-900 dark:text-white">{ex.title}</td>
+                        <td className="p-3 font-bold text-slate-900">{ex.title}</td>
                         <td className="p-3 text-slate-500">{ex.batch_name || '-'}</td>
                         <td className="p-3 text-slate-500">{ex.date}</td>
                         <td className="p-3 font-bold">{ex.total_marks}</td>
@@ -1759,9 +1759,9 @@ export const AdminDashboard: React.FC = () => {
         {/* 9. GALLERY MANAGER TAB (Working local uploads + WebP) */}
         {activeTab === 'gallery' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
               <div>
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900">
                   Gallery Manager & Bulk Photo Uploader
                 </h2>
                 <p className="text-xs text-slate-500 mt-1">
@@ -1775,7 +1775,7 @@ export const AdminDashboard: React.FC = () => {
                   <select
                     value={batchPlacement}
                     onChange={(e) => setBatchPlacement(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-bold"
                   >
                     <option value="gallery">General Gallery</option>
                     <option value="classroom">Classroom ("Inside our classrooms")</option>
@@ -1791,20 +1791,20 @@ export const AdminDashboard: React.FC = () => {
                     value={batchCaption}
                     onChange={(e) => setBatchCaption(e.target.value)}
                     placeholder="Caption applied to uploaded images"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
               </div>
 
               {/* Upload Zone */}
-              <div className="border-2 border-dashed border-emerald-700/40 rounded-2xl p-8 text-center bg-slate-50/50 dark:bg-slate-800/30">
+              <div className="border-2 border-dashed border-emerald-700/40 rounded-2xl p-8 text-center bg-slate-50/50">
                 <div className="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center mx-auto mb-3">
                   <Scissors className="w-6 h-6 text-amber-500" />
                 </div>
-                <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
-                  Select Photos — Crop Before Uploading
+                <p className="text-sm font-bold text-slate-800">
+                  Select Photos â€” Crop Before Uploading
                 </p>
-                <p className="text-xs text-slate-400 mt-1">PNG, JPG, JPEG, WebP supported · Each photo opens in the cropper</p>
+                <p className="text-xs text-slate-400 mt-1">PNG, JPG, JPEG, WebP supported Â· Each photo opens in the cropper</p>
                 <label className="inline-flex items-center gap-2 mt-4 px-6 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-emerald-950 font-bold text-xs cursor-pointer shadow-md transition">
                   {isUploadingGallery ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
                   <span>{isUploadingGallery ? 'Uploading & Converting...' : 'Choose Photos From Computer'}</span>
@@ -1818,18 +1818,18 @@ export const AdminDashboard: React.FC = () => {
                   />
                 </label>
                 <p className="text-[11px] text-slate-400 mt-3">
-                  💡 After selecting photos, a <strong className="text-amber-600">Crop Editor</strong> will open for each image — you can adjust, rotate, zoom, then upload. Click <em>"Skip (Upload As-Is)"</em> to bypass cropping.
+                  ðŸ’¡ After selecting photos, a <strong className="text-amber-600">Crop Editor</strong> will open for each image â€” you can adjust, rotate, zoom, then upload. Click <em>"Skip (Upload As-Is)"</em> to bypass cropping.
                 </p>
               </div>
             </div>
 
             {/* Gallery Grid */}
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">Published Gallery Media ({galleryList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-6 text-slate-900">Published Gallery Media ({galleryList.length})</h3>
               {galleryList.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                   {galleryList.map((item) => (
-                    <div key={item.id} className="group relative rounded-xl overflow-hidden aspect-square border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800">
+                    <div key={item.id} className="group relative rounded-xl overflow-hidden aspect-square border border-slate-200 bg-slate-100">
                       <img
                         src={item.thumbnail_url || item.webp_url || item.image_url}
                         alt={item.title || 'SS Tutorial Photo'}
@@ -1891,8 +1891,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 10. BLOG POSTS TAB */}
         {activeTab === 'blogs' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Write Educational Article / Blog</h2>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+              <h2 className="text-xl font-bold text-slate-900">Write Educational Article / Blog</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="font-bold text-slate-500 mb-1 block">Blog Title *</label>
@@ -1900,7 +1900,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newBlogForm.title}
                     onChange={(e) => setNewBlogForm({ ...newBlogForm, title: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="e.g. 5 Strategies to Score 95+ in Board Math"
                   />
                 </div>
@@ -1910,7 +1910,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newBlogForm.author}
                     onChange={(e) => setNewBlogForm({ ...newBlogForm, author: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -1919,7 +1919,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newBlogForm.excerpt}
                     onChange={(e) => setNewBlogForm({ ...newBlogForm, excerpt: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -1928,7 +1928,7 @@ export const AdminDashboard: React.FC = () => {
                     rows={6}
                     value={newBlogForm.content}
                     onChange={(e) => setNewBlogForm({ ...newBlogForm, content: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
               </div>
@@ -1954,13 +1954,13 @@ export const AdminDashboard: React.FC = () => {
               </button>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Published Articles ({blogsList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-4 text-slate-900">Published Articles ({blogsList.length})</h3>
               <div className="space-y-3">
                 {blogsList.map((blog) => (
-                  <div key={blog.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <div key={blog.id} className="p-4 rounded-2xl border border-slate-200 flex items-center justify-between">
                     <div>
-                      <h4 className="font-bold text-sm text-slate-900 dark:text-white">{blog.title}</h4>
+                      <h4 className="font-bold text-sm text-slate-900">{blog.title}</h4>
                       <p className="text-xs text-slate-500 mt-0.5">{blog.author} &bull; {blog.created_at}</p>
                     </div>
                     <button
@@ -1984,8 +1984,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 11. FACULTY TAB */}
         {activeTab === 'faculty' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Add Faculty Member</h2>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+              <h2 className="text-xl font-bold text-slate-900">Add Faculty Member</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="font-bold text-slate-500 mb-1 block">Full Name *</label>
@@ -1993,7 +1993,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newFacultyForm.name}
                     onChange={(e) => setNewFacultyForm({ ...newFacultyForm, name: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="e.g. Ankit Gupta"
                   />
                 </div>
@@ -2003,7 +2003,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newFacultyForm.designation}
                     onChange={(e) => setNewFacultyForm({ ...newFacultyForm, designation: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="Founder & Senior Faculty"
                   />
                 </div>
@@ -2013,7 +2013,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newFacultyForm.subjects}
                     onChange={(e) => setNewFacultyForm({ ...newFacultyForm, subjects: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="Mathematics, Physics"
                   />
                 </div>
@@ -2023,7 +2023,7 @@ export const AdminDashboard: React.FC = () => {
                     rows={2}
                     value={newFacultyForm.bio}
                     onChange={(e) => setNewFacultyForm({ ...newFacultyForm, bio: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
               </div>
@@ -2046,13 +2046,13 @@ export const AdminDashboard: React.FC = () => {
               </button>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Faculty Members ({facultyList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-4 text-slate-900">Faculty Members ({facultyList.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {facultyList.map((fac) => (
-                  <div key={fac.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <div key={fac.id} className="p-4 rounded-2xl border border-slate-200 flex items-center justify-between">
                     <div>
-                      <h4 className="font-bold text-sm text-slate-900 dark:text-white">{fac.name}</h4>
+                      <h4 className="font-bold text-sm text-slate-900">{fac.name}</h4>
                       <p className="text-xs text-emerald-600 font-semibold">{fac.designation}</p>
                       <p className="text-[11px] text-slate-500 mt-1">{fac.subjects}</p>
                     </div>
@@ -2077,8 +2077,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 12. FACILITIES TAB */}
         {activeTab === 'facilities' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Add Facility Feature</h2>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+              <h2 className="text-xl font-bold text-slate-900">Add Facility Feature</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="font-bold text-slate-500 mb-1 block">Facility Title *</label>
@@ -2086,7 +2086,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newFacilityForm.title}
                     onChange={(e) => setNewFacilityForm({ ...newFacilityForm, title: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="e.g. AC Classrooms & Smart Boards"
                   />
                 </div>
@@ -2096,7 +2096,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newFacilityForm.description}
                     onChange={(e) => setNewFacilityForm({ ...newFacilityForm, description: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
               </div>
@@ -2119,13 +2119,13 @@ export const AdminDashboard: React.FC = () => {
               </button>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Campus Facilities ({facilitiesList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-4 text-slate-900">Campus Facilities ({facilitiesList.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {facilitiesList.map((f) => (
-                  <div key={f.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <div key={f.id} className="p-4 rounded-2xl border border-slate-200 flex items-center justify-between">
                     <div>
-                      <h4 className="font-bold text-sm text-slate-900 dark:text-white">{f.title}</h4>
+                      <h4 className="font-bold text-sm text-slate-900">{f.title}</h4>
                       <p className="text-xs text-slate-500 mt-1">{f.description}</p>
                     </div>
                     <button
@@ -2149,8 +2149,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 13. ACHIEVEMENTS & TOPPERS TAB */}
         {activeTab === 'achievements' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Add Student Achievement / Topper</h2>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+              <h2 className="text-xl font-bold text-slate-900">Add Student Achievement / Topper</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="font-bold text-slate-500 mb-1 block">Title / Score *</label>
@@ -2158,7 +2158,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newAchievementForm.title}
                     onChange={(e) => setNewAchievementForm({ ...newAchievementForm, title: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="e.g. Rahul Sharma - 98.4% SSC Board"
                   />
                 </div>
@@ -2168,7 +2168,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newAchievementForm.date}
                     onChange={(e) => setNewAchievementForm({ ...newAchievementForm, date: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="2026 Batch"
                   />
                 </div>
@@ -2178,7 +2178,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newAchievementForm.description}
                     onChange={(e) => setNewAchievementForm({ ...newAchievementForm, description: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
               </div>
@@ -2201,13 +2201,13 @@ export const AdminDashboard: React.FC = () => {
               </button>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Toppers & Achievements ({achievementsList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-4 text-slate-900">Toppers & Achievements ({achievementsList.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {achievementsList.map((a) => (
-                  <div key={a.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <div key={a.id} className="p-4 rounded-2xl border border-slate-200 flex items-center justify-between">
                     <div>
-                      <h4 className="font-bold text-sm text-slate-900 dark:text-white">{a.title}</h4>
+                      <h4 className="font-bold text-sm text-slate-900">{a.title}</h4>
                       <p className="text-xs text-amber-500 font-semibold mt-0.5">{a.date}</p>
                     </div>
                     <button
@@ -2231,8 +2231,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 14. TESTIMONIALS TAB */}
         {activeTab === 'testimonials' && (
           <div className="space-y-8">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Add Review / Testimonial</h2>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+              <h2 className="text-xl font-bold text-slate-900">Add Review / Testimonial</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="font-bold text-slate-500 mb-1 block">Student / Parent Name *</label>
@@ -2240,7 +2240,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newTestimonialForm.student_name}
                     onChange={(e) => setNewTestimonialForm({ ...newTestimonialForm, student_name: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
                 <div>
@@ -2249,7 +2249,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newTestimonialForm.course}
                     onChange={(e) => setNewTestimonialForm({ ...newTestimonialForm, course: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -2258,7 +2258,7 @@ export const AdminDashboard: React.FC = () => {
                     rows={3}
                     value={newTestimonialForm.text}
                     onChange={(e) => setNewTestimonialForm({ ...newTestimonialForm, text: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                   />
                 </div>
               </div>
@@ -2281,13 +2281,13 @@ export const AdminDashboard: React.FC = () => {
               </button>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-4 text-slate-900 dark:text-white">Testimonials ({testimonialsList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+              <h3 className="font-bold text-base mb-4 text-slate-900">Testimonials ({testimonialsList.length})</h3>
               <div className="space-y-3">
                 {testimonialsList.map((t) => (
-                  <div key={t.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <div key={t.id} className="p-4 rounded-2xl border border-slate-200 flex items-center justify-between">
                     <div>
-                      <h4 className="font-bold text-sm text-slate-900 dark:text-white">{t.student_name}</h4>
+                      <h4 className="font-bold text-sm text-slate-900">{t.student_name}</h4>
                       <p className="text-xs text-slate-500 mt-0.5">"{t.text}"</p>
                     </div>
                     <button
@@ -2311,8 +2311,8 @@ export const AdminDashboard: React.FC = () => {
         {/* 15. VIDEO MANAGER TAB */}
         {activeTab === 'videos' && (
           <div className="space-y-6">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">Add Video Lecture or Reel</h2>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+              <h2 className="text-xl font-bold text-slate-900">Add Video Lecture or Reel</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
                   <label className="font-bold text-slate-500 mb-1 block">Video Title *</label>
@@ -2320,7 +2320,7 @@ export const AdminDashboard: React.FC = () => {
                     type="text"
                     value={newVideo.title}
                     onChange={(e) => setNewVideo({ ...newVideo, title: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="e.g. Tips for Board Exam Prep"
                   />
                 </div>
@@ -2329,7 +2329,7 @@ export const AdminDashboard: React.FC = () => {
                   <select
                     value={newVideo.platform}
                     onChange={(e) => setNewVideo({ ...newVideo, platform: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-bold"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-bold"
                   >
                     <option value="youtube">YouTube</option>
                     <option value="instagram">Instagram Reel</option>
@@ -2341,7 +2341,7 @@ export const AdminDashboard: React.FC = () => {
                     type="url"
                     value={newVideo.url}
                     onChange={(e) => setNewVideo({ ...newVideo, url: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
                     placeholder="https://www.youtube.com/watch?v=..."
                   />
                 </div>
@@ -2349,10 +2349,10 @@ export const AdminDashboard: React.FC = () => {
 
               {/* YouTube Start / End time trimming */}
               {newVideo.platform === 'youtube' && (
-                <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800">
+                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200">
                   <div className="flex items-center gap-2 mb-3">
                     <Scissors className="w-4 h-4 text-amber-600" />
-                    <span className="text-xs font-bold text-amber-700 dark:text-amber-400">YouTube Video Trimming (optional)</span>
+                    <span className="text-xs font-bold text-amber-700">YouTube Video Trimming (optional)</span>
                   </div>
                   <div className="grid grid-cols-2 gap-3 text-xs">
                     <div>
@@ -2362,7 +2362,7 @@ export const AdminDashboard: React.FC = () => {
                         min="0"
                         value={newVideo.startTime}
                         onChange={(e) => setNewVideo({ ...newVideo, startTime: e.target.value })}
-                        className="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                        className="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900"
                         placeholder="e.g. 30"
                       />
                     </div>
@@ -2373,12 +2373,12 @@ export const AdminDashboard: React.FC = () => {
                         min="0"
                         value={newVideo.endTime}
                         onChange={(e) => setNewVideo({ ...newVideo, endTime: e.target.value })}
-                        className="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                        className="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900"
                         placeholder="e.g. 120"
                       />
                     </div>
                   </div>
-                  <p className="text-[11px] text-amber-600/80 dark:text-amber-400/70 mt-2">Leave blank to play full video. Enter seconds to control where the embed starts and ends.</p>
+                  <p className="text-[11px] text-amber-600/80 mt-2">Leave blank to play full video. Enter seconds to control where the embed starts and ends.</p>
                 </div>
               )}
 
@@ -2422,14 +2422,14 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             {/* Video List */}
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-              <h3 className="font-bold text-base text-slate-900 dark:text-white">Active Videos ({videosList.length})</h3>
+            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+              <h3 className="font-bold text-base text-slate-900">Active Videos ({videosList.length})</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {videosList.map((v) => (
-                  <div key={v.id} className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+                  <div key={v.id} className="p-4 rounded-2xl border border-slate-200 flex flex-col justify-between">
                     <div>
                       <span className="text-[10px] font-bold uppercase text-amber-500">{v.platform}</span>
-                      <h4 className="font-bold text-sm mt-1 text-slate-900 dark:text-white">{v.title}</h4>
+                      <h4 className="font-bold text-sm mt-1 text-slate-900">{v.title}</h4>
                     </div>
                     <button
                       type="button"
@@ -2451,19 +2451,19 @@ export const AdminDashboard: React.FC = () => {
 
         {/* 16. INQUIRIES INBOX TAB */}
         {activeTab === 'messages' && (
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Contact Inquiries Inbox</h2>
+          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+            <h2 className="text-xl font-bold text-slate-900">Contact Inquiries Inbox</h2>
             {messagesList.length > 0 ? (
               <div className="space-y-4">
                 {messagesList.map((m) => (
-                  <div key={m.id} className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div key={m.id} className="p-5 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <h4 className="font-bold text-sm text-slate-900 dark:text-white">{m.name}</h4>
+                        <h4 className="font-bold text-sm text-slate-900">{m.name}</h4>
                         <span className="text-xs text-slate-400">&bull; {m.email} &bull; {m.phone || 'No phone'}</span>
                       </div>
                       <p className="text-xs font-semibold text-emerald-600">{m.subject || 'General Inquiry'}</p>
-                      <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{m.message}</p>
+                      <p className="text-xs text-slate-600 mt-1">{m.message}</p>
                       <span className="text-[10px] text-slate-400">{m.created_at}</span>
                     </div>
                     <button
@@ -2488,9 +2488,9 @@ export const AdminDashboard: React.FC = () => {
 
         {/* 17. MASTER SETTINGS TAB */}
         {activeTab === 'settings' && (
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-8 max-w-4xl">
+          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-8 max-w-4xl">
             <div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+              <h2 className="text-xl font-bold text-slate-900">
                 Master Institute Settings
               </h2>
               <p className="text-xs text-slate-500 mt-1">
@@ -2548,44 +2548,44 @@ export const AdminDashboard: React.FC = () => {
                 { key: 'about_mission_text', label: 'About Us Mission Text' },
               ].map((field) => (
                 <div key={field.key} className={['address', 'notice_ticker', 'homepage_hero_title', 'homepage_hero_subtitle', 'about_vision_text', 'about_mission_text'].includes(field.key) ? 'sm:col-span-2' : ''}>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     {field.label}
                   </label>
                   <input
                     type="text"
                     value={settings[field.key] || ''}
                     onChange={(e) => updateSetting(field.key, e.target.value)}
-                    className="w-full px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-4 py-2 text-xs bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                   />
                 </div>
               ))}
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   About Institute (History, Vision, Mission)
                 </label>
                 <textarea
                   rows={4}
                   value={settings.about || ''}
                   onChange={(e) => updateSetting('about', e.target.value)}
-                  className="w-full px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                  className="w-full px-4 py-2 text-xs bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Founder Biography (displayed on About page)
                 </label>
                 <textarea
                   rows={4}
                   value={settings.founder_bio || ''}
                   onChange={(e) => updateSetting('founder_bio', e.target.value)}
-                  className="w-full px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                  className="w-full px-4 py-2 text-xs bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Homepage FAQs (JSON Format)
                 </label>
                 <textarea
@@ -2593,12 +2593,12 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.faqs_json || ''}
                   onChange={(e) => updateSetting('faqs_json', e.target.value)}
                   placeholder={'[\n  { "q": "Question?", "a": "Answer" }\n]'}
-                  className="w-full font-mono px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                  className="w-full font-mono px-4 py-2 text-xs bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Homepage Schedule (JSON Format)
                 </label>
                 <textarea
@@ -2606,7 +2606,7 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.schedule_json || ''}
                   onChange={(e) => updateSetting('schedule_json', e.target.value)}
                   placeholder={'{\n  "Monday": [\n    { "time": "7:00 AM", "tag": "ADV", "title": "Math", "instructor": "Ankit", "seats": "3 left" }\n  ]\n}'}
-                  className="w-full font-mono px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                  className="w-full font-mono px-4 py-2 text-xs bg-slate-50 border border-slate-200 text-slate-900 rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                 />
               </div>
 

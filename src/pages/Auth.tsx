@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { GraduationCap, Mail, Lock, User, AlertCircle, ArrowRight } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { useAuth } from '@/lib/hooks/useAuth'
@@ -60,7 +60,7 @@ export const AuthPage: React.FC = () => {
         // Try backend login first
         const { error: backendErr } = await backendSignIn(cleanEmail, password)
         if (!backendErr) {
-          // Backend login succeeded — sync useAuth state and redirect
+          // Backend login succeeded â€” sync useAuth state and redirect
           await refreshAuth()
           const userStr = localStorage.getItem('ss_user')
           const u = userStr ? JSON.parse(userStr) : null
@@ -119,10 +119,10 @@ export const AuthPage: React.FC = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="bg-white dark:bg-slate-900 py-8 px-6 sm:px-10 rounded-3xl shadow-2xl border border-emerald-800/40">
+        <div className="bg-white py-8 px-6 sm:px-10 rounded-3xl shadow-2xl border border-emerald-800/40">
           
           {/* Mode Switcher Tabs */}
-          <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl mb-6">
+          <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-xl mb-6">
             <button
               type="button"
               onClick={() => {
@@ -131,7 +131,7 @@ export const AuthPage: React.FC = () => {
               }}
               className={`py-2 text-xs font-bold rounded-lg transition ${
                 mode === 'login'
-                  ? 'bg-white dark:bg-slate-900 text-emerald-800 dark:text-emerald-300 shadow-sm'
+                  ? 'bg-white text-emerald-800 shadow-sm'
                   : 'text-slate-500 hover:text-slate-900'
               }`}
             >
@@ -145,7 +145,7 @@ export const AuthPage: React.FC = () => {
               }}
               className={`py-2 text-xs font-bold rounded-lg transition ${
                 mode === 'signup'
-                  ? 'bg-white dark:bg-slate-900 text-emerald-800 dark:text-emerald-300 shadow-sm'
+                  ? 'bg-white text-emerald-800 shadow-sm'
                   : 'text-slate-500 hover:text-slate-900'
               }`}
             >
@@ -157,7 +157,7 @@ export const AuthPage: React.FC = () => {
           <button
             type="button"
             onClick={handleGoogleSignIn}
-            className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-slate-300 dark:border-slate-700 rounded-xl shadow-sm text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
+            className="w-full flex items-center justify-center gap-3 py-2.5 px-4 border border-slate-300 rounded-xl shadow-sm text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50:bg-slate-700 transition"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
               <path
@@ -182,10 +182,10 @@ export const AuthPage: React.FC = () => {
 
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200 dark:border-slate-800" />
+              <div className="w-full border-t border-slate-200" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white dark:bg-slate-900 px-3 text-slate-400">
+              <span className="bg-white px-3 text-slate-400">
                 Or with email
               </span>
             </div>
@@ -195,7 +195,7 @@ export const AuthPage: React.FC = () => {
             {mode === 'signup' && (
               <>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     Full Name
                   </label>
                   <div className="relative">
@@ -205,23 +205,23 @@ export const AuthPage: React.FC = () => {
                       required
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400:text-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                       placeholder="e.g. John Doe"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     I am registering as:
                   </label>
                   <select
                     value={desiredRole}
                     onChange={(e: any) => setDesiredRole(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-600 focus:outline-none font-medium"
+                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none font-medium"
                   >
-                    <option value="student" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">Student</option>
-                    <option value="parent" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">Parent / Guardian</option>
+                    <option value="student" className="bg-white text-slate-900">Student</option>
+                    <option value="parent" className="bg-white text-slate-900">Parent / Guardian</option>
                   </select>
                   <p className="text-[10px] text-slate-400 mt-1">
                     * Administrator and Faculty accounts are created internally and cannot be registered publicly.
@@ -231,7 +231,7 @@ export const AuthPage: React.FC = () => {
             )}
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Email Address
               </label>
               <div className="relative">
@@ -241,14 +241,14 @@ export const AuthPage: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400:text-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                   placeholder="name@example.com"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Password
               </label>
               <div className="relative">
@@ -258,8 +258,8 @@ export const AuthPage: React.FC = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                  placeholder="••••••••"
+                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 placeholder:text-slate-400:text-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                 />
               </div>
             </div>

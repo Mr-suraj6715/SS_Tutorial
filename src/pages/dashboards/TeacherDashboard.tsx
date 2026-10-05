@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import {
   Users,
   Calendar,
@@ -161,7 +161,7 @@ export const TeacherDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Top Header */}
       <div className="bg-emerald-950 text-white border-b border-emerald-900 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -192,7 +192,7 @@ export const TeacherDashboard: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 border-b border-slate-200">
           {[
             { id: 'batches', label: 'My Batches', icon: Users },
             { id: 'attendance', label: 'Mark Attendance', icon: Calendar },
@@ -208,7 +208,7 @@ export const TeacherDashboard: React.FC = () => {
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap ${
                   isActive
                     ? 'bg-emerald-800 text-white shadow-md'
-                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 border border-slate-200 dark:border-slate-800'
+                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -219,7 +219,7 @@ export const TeacherDashboard: React.FC = () => {
         </div>
 
         {savedMsg && (
-          <div className="mb-6 p-4 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-200 text-xs font-bold flex items-center gap-2">
+          <div className="mb-6 p-4 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" /> {savedMsg}
           </div>
         )}
@@ -227,16 +227,16 @@ export const TeacherDashboard: React.FC = () => {
         {/* Tab 1: Batches */}
         {activeTab === 'batches' && (
           <div className="space-y-6">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Assigned Academic Batches</h2>
+            <h2 className="text-xl font-bold text-slate-900">Assigned Academic Batches</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {batches.map((b) => (
-                <div key={b.id} className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                  <span className="text-[11px] font-bold uppercase text-amber-600 dark:text-amber-400">
+                <div key={b.id} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                  <span className="text-[11px] font-bold uppercase text-amber-600">
                     {b.courses?.title || 'Academic Course'}
                   </span>
-                  <h3 className="font-bold text-lg text-slate-900 dark:text-white mt-1">{b.name}</h3>
+                  <h3 className="font-bold text-lg text-slate-900 mt-1">{b.name}</h3>
                   <p className="text-xs text-slate-500 mt-1">Schedule: {b.schedule || 'Regular'}</p>
-                  <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                  <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                     <span className="text-slate-400">Capacity: {b.capacity}</span>
                     <button
                       type="button"
@@ -244,9 +244,9 @@ export const TeacherDashboard: React.FC = () => {
                         setSelectedBatchId(b.id)
                         setActiveTab('attendance')
                       }}
-                      className="font-bold text-emerald-700 dark:text-emerald-400 hover:underline"
+                      className="font-bold text-emerald-700 hover:underline"
                     >
-                      Mark Attendance →
+                      Mark Attendance â†’
                     </button>
                   </div>
                 </div>
@@ -257,10 +257,10 @@ export const TeacherDashboard: React.FC = () => {
 
         {/* Tab 2: Mark Attendance */}
         {activeTab === 'attendance' && (
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100">
               <div>
-                <h3 className="font-bold text-lg text-slate-900 dark:text-white">Daily Attendance Marking</h3>
+                <h3 className="font-bold text-lg text-slate-900">Daily Attendance Marking</h3>
                 <p className="text-xs text-slate-400">Select batch and date to record attendance</p>
               </div>
 
@@ -268,7 +268,7 @@ export const TeacherDashboard: React.FC = () => {
                 <select
                   value={selectedBatchId}
                   onChange={(e) => setSelectedBatchId(e.target.value)}
-                  className="px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold"
+                  className="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl font-bold"
                 >
                   {batches.map((b) => (
                     <option key={b.id} value={b.id}>{b.name}</option>
@@ -279,7 +279,7 @@ export const TeacherDashboard: React.FC = () => {
                   type="date"
                   value={attendanceDate}
                   onChange={(e) => setAttendanceDate(e.target.value)}
-                  className="px-3 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold"
+                  className="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl font-bold"
                 >
                 </input>
               </div>
@@ -288,9 +288,9 @@ export const TeacherDashboard: React.FC = () => {
             {students.length > 0 ? (
               <div className="space-y-3">
                 {students.map((st) => (
-                  <div key={st.id} className="p-3 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <div key={st.id} className="p-3 rounded-xl border border-slate-100 flex items-center justify-between">
                     <div>
-                      <p className="font-bold text-sm text-slate-900 dark:text-white">{st.full_name}</p>
+                      <p className="font-bold text-sm text-slate-900">{st.full_name}</p>
                       <p className="text-xs text-slate-400">{st.phone || 'No phone'}</p>
                     </div>
 
@@ -307,7 +307,7 @@ export const TeacherDashboard: React.FC = () => {
                                 : status === 'late'
                                 ? 'bg-amber-500 text-white'
                                 : 'bg-red-600 text-white'
-                              : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+                              : 'bg-slate-100 text-slate-500'
                           }`}
                         >
                           {status}
@@ -333,15 +333,15 @@ export const TeacherDashboard: React.FC = () => {
 
         {/* Tab 3: Upload Materials */}
         {activeTab === 'materials' && (
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm max-w-2xl space-y-6">
-            <h3 className="font-bold text-lg text-slate-900 dark:text-white">Upload Class Study Material</h3>
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm max-w-2xl space-y-6">
+            <h3 className="font-bold text-lg text-slate-900">Upload Class Study Material</h3>
             <form onSubmit={handleUploadMaterial} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold text-slate-500 mb-1">Target Batch</label>
                 <select
                   value={selectedBatchId}
                   onChange={(e) => setSelectedBatchId(e.target.value)}
-                  className="w-full px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                  className="w-full px-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl"
                 >
                   {batches.map((b) => (
                     <option key={b.id} value={b.id}>{b.name}</option>
@@ -357,7 +357,7 @@ export const TeacherDashboard: React.FC = () => {
                   value={materialTitle}
                   onChange={(e) => setMaterialTitle(e.target.value)}
                   placeholder="e.g. Chapter 4 Practice Questions & Notes"
-                  className="w-full px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                  className="w-full px-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl"
                 />
               </div>
 
@@ -368,7 +368,7 @@ export const TeacherDashboard: React.FC = () => {
                   value={materialDesc}
                   onChange={(e) => setMaterialDesc(e.target.value)}
                   placeholder="Brief note on topic coverage..."
-                  className="w-full px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                  className="w-full px-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl"
                 />
               </div>
 
@@ -393,10 +393,10 @@ export const TeacherDashboard: React.FC = () => {
 
         {/* Tab 4: Enter Exam Marks */}
         {activeTab === 'results' && (
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100">
               <div>
-                <h3 className="font-bold text-lg text-slate-900 dark:text-white">Exam Score Entry</h3>
+                <h3 className="font-bold text-lg text-slate-900">Exam Score Entry</h3>
                 <p className="text-xs text-slate-400">Enter evaluated marks for batch students</p>
               </div>
 
@@ -404,7 +404,7 @@ export const TeacherDashboard: React.FC = () => {
                 <select
                   value={selectedExamId}
                   onChange={(e) => setSelectedExamId(e.target.value)}
-                  className="px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold"
+                  className="px-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl font-bold"
                 >
                   {exams.map((ex) => (
                     <option key={ex.id} value={ex.id}>{ex.title} (Max: {ex.total_marks})</option>
@@ -418,14 +418,14 @@ export const TeacherDashboard: React.FC = () => {
             ) : students.length > 0 ? (
               <div className="space-y-3">
                 {students.map((st) => (
-                  <div key={st.id} className="p-3 rounded-xl border border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                    <p className="font-bold text-sm text-slate-900 dark:text-white">{st.full_name}</p>
+                  <div key={st.id} className="p-3 rounded-xl border border-slate-100 flex items-center justify-between">
+                    <p className="font-bold text-sm text-slate-900">{st.full_name}</p>
                     <input
                       type="number"
                       placeholder="Marks"
                       value={marksState[st.id] ?? ''}
                       onChange={(e) => setMarksState({ ...marksState, [st.id]: Number(e.target.value) })}
-                      className="w-24 px-3 py-1.5 text-xs text-right bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-bold"
+                      className="w-24 px-3 py-1.5 text-xs text-right bg-slate-50 border border-slate-200 rounded-lg font-bold"
                     />
                   </div>
                 ))}
