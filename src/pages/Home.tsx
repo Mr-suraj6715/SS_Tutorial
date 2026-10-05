@@ -17,6 +17,7 @@ import {
   GraduationCap,
   ShieldCheck,
   Zap,
+  Trophy,
 } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
@@ -225,75 +226,69 @@ export const HomePage: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 selection:bg-amber-400 selection:text-emerald-950">
 
       {/* =========================================================
-          1. HERO SECTION (Template style: badge + bold typography + dual CTAs + stats)
+          1. HERO SECTION (Concept 2 Clean Light Theme + Results First Layout)
           ========================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-emerald-950 via-emerald-900 to-slate-950 text-white pt-16 pb-24 lg:pt-24 lg:pb-32">
-        {/* Subtle grid pattern background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative overflow-hidden bg-white dark:bg-slate-950 pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-slate-200 dark:border-slate-800">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           
-          {/* Top Pill Badge (Matches template's "NEW OFFER | 100% Free Class") */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/80 border border-emerald-700/60 shadow-inner mb-8 text-xs font-semibold text-emerald-200">
-            <span className="px-2 py-0.5 rounded-full bg-amber-400 text-emerald-950 font-bold uppercase tracking-wider text-[10px]">
-              {settings.homepage_hero_badge ? settings.homepage_hero_badge.split('|')[0] : 'New Batch 2026-27'}
-            </span>
-            <span className="flex items-center gap-1 text-emerald-100">
-              {settings.homepage_hero_badge && settings.homepage_hero_badge.includes('|') ? settings.homepage_hero_badge.split('|')[1] : 'Your First Demo Class is 100% Free'}
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            </span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/40 border border-emerald-200 dark:border-emerald-800 mb-8 text-xs font-bold text-emerald-800 dark:text-emerald-300">
+            <Trophy className="w-4 h-4 text-amber-500" />
+            {settings.homepage_hero_badge || 'Celebrating 98% Board Pass Rate in 2025'}
           </div>
 
-          {/* Main Display Headline (Matching template's "Martial Arts Worth the Journey.") */}
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-4xl mx-auto text-white whitespace-pre-wrap">
+          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-5xl mx-auto text-slate-900 dark:text-white whitespace-pre-wrap">
             {settings.homepage_hero_title || (
               <>
-                Academic Excellence <br className="hidden sm:inline" />
-                Worth the <span className="text-amber-400 underline decoration-amber-400/40 decoration-wavy underline-offset-8">Journey.</span>
+                Join the highest scoring <br className="hidden sm:inline" />
+                students in the <span className="text-emerald-700 dark:text-emerald-400">city.</span>
               </>
             )}
           </h1>
 
-          {/* Subheading */}
-          <p className="mt-6 text-base sm:text-lg lg:text-xl text-emerald-100/90 max-w-2xl mx-auto font-normal leading-relaxed whitespace-pre-wrap">
-            {settings.homepage_hero_subtitle || 'Forge unwavering discipline, master board exams, and honor conceptual clarity. Your journey to top scores starts exactly here at SS Tutorial.'}
+          <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto font-normal leading-relaxed whitespace-pre-wrap">
+            {settings.homepage_hero_subtitle || 'Trusted by parents and proven by results. Master mathematics and science with expert tutors, personalized attention, and a highly competitive yet supportive environment.'}
           </p>
 
-          {/* Dual Action Buttons */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="/courses"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-emerald-950 bg-amber-400 hover:bg-amber-300 shadow-xl hover:shadow-amber-400/20 hover:-translate-y-0.5 transition-all duration-200"
+              href="/admission"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-white bg-emerald-700 hover:bg-emerald-800 shadow-xl shadow-emerald-700/20 hover:-translate-y-0.5 transition-all duration-200"
             >
-              <span>Explore Courses</span>
+              <span>Book a Free Demo</span>
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
-              href="/admission"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-sm text-white bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-700/60 hover:-translate-y-0.5 transition-all duration-200 backdrop-blur-sm"
+              href="/results"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
             >
-              <Calendar className="w-4 h-4 text-amber-300" />
-              <span>Book a Free Demo</span>
+              <Award className="w-4 h-4 text-amber-500" />
+              <span>View Past Results</span>
             </a>
           </div>
 
-          {/* Social Links Pill Bar */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-xs text-emerald-300/80 font-medium">
-            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-300 transition">
-              <Instagram className="w-4 h-4 text-pink-400" />
-              <span>Instagram: @ss__tutorial</span>
-            </a>
-            <span className="w-1 h-1 rounded-full bg-emerald-700" />
-            <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-300 transition">
-              <Youtube className="w-4 h-4 text-red-400" />
-              <span>YouTube: @SS__tutorial2025</span>
-            </a>
-            <span className="w-1 h-1 rounded-full bg-emerald-700 hidden sm:inline-block" />
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-emerald-300">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" /> SSC & CBSE Board Syllabus
-            </span>
+          {/* Massive Hero Image representing Top Students / Results */}
+          <div className="mt-16 relative max-w-5xl mx-auto rounded-3xl p-2 sm:p-4 bg-slate-50 dark:bg-slate-800/50 shadow-2xl border border-slate-200 dark:border-slate-800">
+            <div className="aspect-[16/9] sm:aspect-[21/9] overflow-hidden rounded-2xl relative">
+              <img 
+                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                alt="Students celebrating top scores" 
+                className="w-full h-full object-cover object-[center_30%]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end justify-center pb-6 sm:pb-8">
+                <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 shadow-xl">
+                  <div className="flex -space-x-3">
+                    <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="Student" />
+                    <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" alt="Student" />
+                    <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Student" />
+                  </div>
+                  <div className="text-white text-left">
+                    <p className="text-sm font-bold">500+ Top Scorers</p>
+                    <p className="text-[10px] text-white/80">Maharashtra Board & CBSE</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
         </div>
       </section>
 
