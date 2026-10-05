@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   LayoutDashboard,
   FileCheck,
@@ -26,10 +26,12 @@ import {
   Lock,
   Mail,
   Search,
+  Scissors,
 } from 'lucide-react'
 import { useAuth, UserRole } from '@/lib/hooks/useAuth'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { FileUpload } from '@/components/media/FileUpload'
+import { ImageCropperModal } from '@/components/media/ImageCropperModal'
 import { uploadOptimizedImage } from '@/lib/utils/image'
 
 export const AdminDashboard: React.FC = () => {
@@ -149,6 +151,12 @@ export const AdminDashboard: React.FC = () => {
   const [batchCaption, setBatchCaption] = useState('')
   const [isUploadingGallery, setIsUploadingGallery] = useState(false)
 
+  // --- IMAGE CROP QUEUE ---
+  const [cropQueue, setCropQueue] = useState<File[]>([])
+  const [cropCurrentSrc, setCropCurrentSrc] = useState<string>('')
+  const cropQueueRef = useRef<File[]>([])
+  const [cropUploadedCount, setCropUploadedCount] = useState(0)
+
   const [blogsList, setBlogsList] = useState<any[]>([])
   const [newBlogForm, setNewBlogForm] = useState({
     title: '',
@@ -191,7 +199,7 @@ export const AdminDashboard: React.FC = () => {
 
   const [messagesList, setMessagesList] = useState<any[]>([])
   const [videosList, setVideosList] = useState<any[]>([])
-  const [newVideo, setNewVideo] = useState({ title: '', description: '', url: '', platform: 'youtube' })
+  const [newVideo, setNewVideo] = useState({ title: '', description: '', url: '', platform: 'youtube', startTime: '', endTime: '' })
 
   // Helper for authenticated API calls
   const authHeaders = () => {
@@ -408,38 +416,80 @@ export const AdminDashboard: React.FC = () => {
   }
 
   // --- GALLERY ACTIONS ---
-  const handleBulkGalleryUpload = async (files: FileList) => {
-    setIsUploadingGallery(true)
-    showNotice(`Uploading ${files.length} images...`)
+  // Internal helper that uploads a single (possibly cropped) File/Blob
+  const uploadSingleGalleryFile = async (file: File) => {
+    const uploadRes = await uploadOptimizedImage(file, 'gallery')
+    await fetch('/api/gallery', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({
+        title: file.name.replace(/\.[^/.]+$/, '').replace(/^cropped_/, ''),
+        caption: batchCaption || '',
+        alt_text: file.name,
+        image_url: uploadRes.imageUrl,
+        webp_url: uploadRes.webpUrl,
+        thumbnail_url: uploadRes.thumbnailUrl,
+        placement: batchPlacement,
+        is_published: 1,
+      }),
+    })
+  }
 
-    let uploadedCount = 0
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i]
+  // Starts the crop-then-upload queue for selected files
+  const handleBulkGalleryUpload = (files: FileList) => {
+    const arr = Array.from(files)
+    cropQueueRef.current = arr
+    setCropUploadedCount(0)
+    setCropQueue([...arr])
+    // Show cropper for first file
+    if (arr.length > 0) {
+      const url = URL.createObjectURL(arr[0])
+      setCropCurrentSrc(url)
+    }
+  }
+
+  // Called when admin confirms crop for the current image
+  const handleCropConfirm = async (_blob: Blob, croppedFile: File) => {
+    setIsUploadingGallery(true)
+    try {
+      await uploadSingleGalleryFile(croppedFile)
+      setCropUploadedCount(c => c + 1)
+    } catch (err) {
+      console.error('Upload failed:', err)
+    }
+    advanceCropQueue()
+  }
+
+  // Called when admin skips crop (upload original)
+  const handleCropSkip = async () => {
+    const current = cropQueueRef.current[0]
+    if (current) {
+      setIsUploadingGallery(true)
       try {
-        const uploadRes = await uploadOptimizedImage(file, 'gallery')
-        await fetch('/api/gallery', {
-          method: 'POST',
-          headers: authHeaders(),
-          body: JSON.stringify({
-            title: file.name.replace(/\.[^/.]+$/, ''),
-            caption: batchCaption || '',
-            alt_text: file.name,
-            image_url: uploadRes.imageUrl,
-            webp_url: uploadRes.webpUrl,
-            thumbnail_url: uploadRes.thumbnailUrl,
-            placement: batchPlacement,
-            is_published: 1,
-          }),
-        })
-        uploadedCount++
+        await uploadSingleGalleryFile(current)
+        setCropUploadedCount(c => c + 1)
       } catch (err) {
-        console.error('Failed to upload image:', file.name, err)
+        console.error('Upload failed:', err)
       }
     }
+    advanceCropQueue()
+  }
 
-    setIsUploadingGallery(false)
-    showNotice(`${uploadedCount} image(s) uploaded successfully!`)
-    loadTabData('gallery')
+  const advanceCropQueue = () => {
+    // Release object URL for current
+    if (cropCurrentSrc) URL.revokeObjectURL(cropCurrentSrc)
+    cropQueueRef.current = cropQueueRef.current.slice(1)
+    if (cropQueueRef.current.length > 0) {
+      const nextUrl = URL.createObjectURL(cropQueueRef.current[0])
+      setCropCurrentSrc(nextUrl)
+      setCropQueue([...cropQueueRef.current])
+    } else {
+      setCropCurrentSrc('')
+      setCropQueue([])
+      setIsUploadingGallery(false)
+      showNotice(`${cropUploadedCount + 1} image(s) uploaded successfully!`)
+      loadTabData('gallery')
+    }
   }
 
   // --- BATCH ACTIONS ---
@@ -1748,11 +1798,13 @@ export const AdminDashboard: React.FC = () => {
 
               {/* Upload Zone */}
               <div className="border-2 border-dashed border-emerald-700/40 rounded-2xl p-8 text-center bg-slate-50/50 dark:bg-slate-800/30">
-                <Upload className="w-12 h-12 text-emerald-600 mx-auto mb-3" />
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center mx-auto mb-3">
+                  <Scissors className="w-6 h-6 text-amber-500" />
+                </div>
                 <p className="text-sm font-bold text-slate-800 dark:text-slate-200">
-                  Select Multiple Photos to Upload
+                  Select Photos — Crop Before Uploading
                 </p>
-                <p className="text-xs text-slate-400 mt-1">PNG, JPG, JPEG, WebP supported</p>
+                <p className="text-xs text-slate-400 mt-1">PNG, JPG, JPEG, WebP supported · Each photo opens in the cropper</p>
                 <label className="inline-flex items-center gap-2 mt-4 px-6 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-emerald-950 font-bold text-xs cursor-pointer shadow-md transition">
                   {isUploadingGallery ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
                   <span>{isUploadingGallery ? 'Uploading & Converting...' : 'Choose Photos From Computer'}</span>
@@ -1765,6 +1817,9 @@ export const AdminDashboard: React.FC = () => {
                     className="hidden"
                   />
                 </label>
+                <p className="text-[11px] text-slate-400 mt-3">
+                  💡 After selecting photos, a <strong className="text-amber-600">Crop Editor</strong> will open for each image — you can adjust, rotate, zoom, then upload. Click <em>"Skip (Upload As-Is)"</em> to bypass cropping.
+                </p>
               </div>
             </div>
 
@@ -1780,7 +1835,31 @@ export const AdminDashboard: React.FC = () => {
                         alt={item.title || 'SS Tutorial Photo'}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center p-2 text-center">
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center gap-2 p-2">
+                        {/* Re-crop existing gallery image */}
+                        <label
+                          className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold text-[10px] cursor-pointer shadow transition"
+                          title="Crop & Re-upload this image"
+                        >
+                          <Scissors className="w-3 h-3" />
+                          Crop
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files[0]) {
+                                // Start a single-item crop queue for this replacement
+                                const file = e.target.files[0]
+                                cropQueueRef.current = [file]
+                                setCropUploadedCount(0)
+                                setCropQueue([file])
+                                const url = URL.createObjectURL(file)
+                                setCropCurrentSrc(url)
+                              }
+                            }}
+                          />
+                        </label>
                         <button
                           type="button"
                           onClick={async () => {
@@ -1793,9 +1872,10 @@ export const AdminDashboard: React.FC = () => {
                               showNotice('Image removed')
                             }
                           }}
-                          className="p-2 rounded-full bg-red-600 text-white hover:bg-red-700 shadow-lg"
+                          className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-[10px] shadow transition"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-3 h-3" />
+                          Delete
                         </button>
                       </div>
                     </div>
@@ -2267,6 +2347,41 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               </div>
 
+              {/* YouTube Start / End time trimming */}
+              {newVideo.platform === 'youtube' && (
+                <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Scissors className="w-4 h-4 text-amber-600" />
+                    <span className="text-xs font-bold text-amber-700 dark:text-amber-400">YouTube Video Trimming (optional)</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <label className="block font-bold text-slate-500 mb-1">Start Time (seconds)</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={newVideo.startTime}
+                        onChange={(e) => setNewVideo({ ...newVideo, startTime: e.target.value })}
+                        className="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                        placeholder="e.g. 30"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-bold text-slate-500 mb-1">End Time (seconds)</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={newVideo.endTime}
+                        onChange={(e) => setNewVideo({ ...newVideo, endTime: e.target.value })}
+                        className="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
+                        placeholder="e.g. 120"
+                      />
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-amber-600/80 dark:text-amber-400/70 mt-2">Leave blank to play full video. Enter seconds to control where the embed starts and ends.</p>
+                </div>
+              )}
+
               <button
                 type="button"
                 onClick={async () => {
@@ -2275,7 +2390,15 @@ export const AdminDashboard: React.FC = () => {
                   if (newVideo.url.includes('youtube.com/watch?v=')) {
                     embed = newVideo.url.replace('watch?v=', 'embed/')
                   } else if (newVideo.url.includes('youtu.be/')) {
-                    embed = newVideo.url.replace('youtu.be/', 'www.youtube.com/embed/')
+                    const vid = newVideo.url.split('youtu.be/')[1]?.split('?')[0]
+                    embed = `https://www.youtube.com/embed/${vid}`
+                  }
+                  // Append start/end time for trimming
+                  if (newVideo.platform === 'youtube') {
+                    const params: string[] = []
+                    if (newVideo.startTime) params.push(`start=${parseInt(newVideo.startTime)}`)
+                    if (newVideo.endTime) params.push(`end=${parseInt(newVideo.endTime)}`)
+                    if (params.length > 0) embed += (embed.includes('?') ? '&' : '?') + params.join('&')
                   }
 
                   await fetch('/api/content/videos', {
@@ -2288,7 +2411,7 @@ export const AdminDashboard: React.FC = () => {
                       platform: newVideo.platform,
                     }),
                   })
-                  setNewVideo({ title: '', description: '', url: '', platform: 'youtube' })
+                  setNewVideo({ title: '', description: '', url: '', platform: 'youtube', startTime: '', endTime: '' })
                   showNotice('Video added successfully!')
                   loadTabData('videos')
                 }}
@@ -2492,6 +2615,17 @@ export const AdminDashboard: React.FC = () => {
         )}
 
       </main>
+
+      {/* ====== IMAGE CROP MODAL (full-screen overlay) ====== */}
+      {cropQueue.length > 0 && cropCurrentSrc && (
+        <ImageCropperModal
+          key={cropCurrentSrc}
+          src={cropCurrentSrc}
+          originalFile={cropQueue[0]}
+          onConfirm={handleCropConfirm}
+          onCancel={handleCropSkip}
+        />
+      )}
     </div>
   )
 }
