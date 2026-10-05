@@ -637,7 +637,7 @@ export const AdminDashboard: React.FC = () => {
                   required
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
-                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                  placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢"
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl text-xs bg-slate-800/80 border border-slate-700 text-white placeholder:text-slate-500 focus:ring-2 focus:ring-amber-400 focus:outline-none"
                 />
               </div>
@@ -827,7 +827,7 @@ export const AdminDashboard: React.FC = () => {
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">Admission Applications</h2>
             {admissions.length > 0 ? (
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
                   <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
                     <tr>
                       <th className="p-3">Student</th>
@@ -980,7 +980,7 @@ export const AdminDashboard: React.FC = () => {
 
               {/* Users Table */}
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
                   <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
                     <tr>
                       <th className="p-3">Name</th>
@@ -1083,7 +1083,7 @@ export const AdminDashboard: React.FC = () => {
                         value={newUserForm.password}
                         onChange={(e) => setNewUserForm({ ...newUserForm, password: e.target.value })}
                         className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white"
-                        placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                        placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢"
                       />
                     </div>
                     <div>
@@ -1223,7 +1223,7 @@ export const AdminDashboard: React.FC = () => {
                     </div>
                     <div>
                       <label className="font-bold text-slate-500 mb-1 block">Fees</label>
-                      <input type="text" value={form.fee || ''} onChange={(e) => setForm({...form, fee: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="e.g. â‚¹1500 / month" />
+                      <input type="text" value={form.fee || ''} onChange={(e) => setForm({...form, fee: e.target.value})} className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" placeholder="e.g. Ã¢â€šÂ¹1500 / month" />
                     </div>
                     <div className="sm:col-span-2">
                       <label className="font-bold text-slate-500 mb-1 block">Description</label>
@@ -1246,9 +1246,9 @@ export const AdminDashboard: React.FC = () => {
 
             {/* Courses List */}
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6">All Courses ({coursesList.length})</h3>
+              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">All Courses ({coursesList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
                   <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
                     <tr>
                       <th className="p-3">Course</th>
@@ -1332,9 +1332,9 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6">All Subjects ({subjectsList.length})</h3>
+              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">All Subjects ({subjectsList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
                   <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
                     <tr>
                       <th className="p-3">Subject</th>
@@ -1422,9 +1422,9 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6">Active Batches ({batchesList.length})</h3>
+              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">Active Batches ({batchesList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
                   <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
                     <tr>
                       <th className="p-3">Batch Name</th>
@@ -1485,7 +1485,7 @@ export const AdminDashboard: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="font-bold text-slate-500 mb-1 block">Amount (â‚¹) *</label>
+                  <label className="font-bold text-slate-500 mb-1 block">Amount (Ã¢â€šÂ¹) *</label>
                   <input
                     type="number"
                     required
@@ -1514,9 +1514,9 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6">Fee Invoices & Dues ({feesList.length})</h3>
+              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">Fee Invoices & Dues ({feesList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
                   <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
                     <tr>
                       <th className="p-3">Student</th>
@@ -1533,8 +1533,8 @@ export const AdminDashboard: React.FC = () => {
                       <tr key={f.id}>
                         <td className="p-3 font-bold text-slate-900 dark:text-white">{f.student_name}</td>
                         <td className="p-3 text-slate-500">{f.batch_name || '-'}</td>
-                        <td className="p-3 font-bold">â‚¹{f.amount}</td>
-                        <td className="p-3 font-bold text-emerald-600">â‚¹{f.paid_amount || 0}</td>
+                        <td className="p-3 font-bold">Ã¢â€šÂ¹{f.amount}</td>
+                        <td className="p-3 font-bold text-emerald-600">Ã¢â€šÂ¹{f.paid_amount || 0}</td>
                         <td className="p-3 text-slate-500">{f.due_date}</td>
                         <td className="p-3">
                           <span className={`px-2 py-0.5 rounded-full font-bold uppercase text-[10px] ${f.status === 'paid' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
@@ -1568,7 +1568,7 @@ export const AdminDashboard: React.FC = () => {
                 <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl max-w-sm w-full border border-slate-200 dark:border-slate-800 shadow-xl space-y-4 text-xs">
                   <h3 className="font-bold text-sm text-slate-900 dark:text-white">Record Fee Payment</h3>
                   <div>
-                    <label className="font-bold text-slate-500 mb-1 block">Amount Received (â‚¹)</label>
+                    <label className="font-bold text-slate-500 mb-1 block">Amount Received (Ã¢â€šÂ¹)</label>
                     <input
                       type="number"
                       value={paymentAmount}
@@ -1661,9 +1661,9 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6">Exams & Tests ({examsList.length})</h3>
+              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">Exams & Tests ({examsList.length})</h3>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
                   <thead className="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase font-bold border-b border-slate-200 dark:border-slate-700">
                     <tr>
                       <th className="p-3">Exam Title</th>
@@ -1770,7 +1770,7 @@ export const AdminDashboard: React.FC = () => {
 
             {/* Gallery Grid */}
             <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h3 className="font-bold text-base mb-6">Published Gallery Media ({galleryList.length})</h3>
+              <h3 className="font-bold text-base mb-6 text-slate-900 dark:text-white">Published Gallery Media ({galleryList.length})</h3>
               {galleryList.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                   {galleryList.map((item) => (
