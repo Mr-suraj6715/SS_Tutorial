@@ -314,7 +314,7 @@ export const AboutPage: React.FC = () => {
               <img
                 src={settings.founder_image_url}
                 alt={settings.founder_name || 'Founder'}
-                className="w-32 h-32 rounded-full object-cover border-4 border-emerald-700 shrink-0"
+                className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover object-top border-4 border-emerald-700 shrink-0 shadow-lg"
               />
             ) : (
               <div className="w-32 h-32 rounded-full bg-emerald-950 flex items-center justify-center shrink-0 border-4 border-emerald-700">
