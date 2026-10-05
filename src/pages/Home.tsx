@@ -17,7 +17,6 @@ import {
   GraduationCap,
   ShieldCheck,
   Zap,
-  Trophy,
 } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
@@ -149,7 +148,7 @@ export const HomePage: React.FC = () => {
       },
       {
         q: 'Do I have to pay anything for the trial demo class?',
-        a: 'No! Your first trial class is 100% free with no commitment or registration fee. Students can attend a live class, experience Ankit Sirâ€™s teaching methodology firsthand, and see how simple math can become.',
+        a: 'No! Your first trial class is 100% free with no commitment or registration fee. Students can attend a live class, experience Ankit Sir’s teaching methodology firsthand, and see how simple math can become.',
       },
       {
         q: 'What is the student-to-teacher ratio in each batch?',
@@ -223,102 +222,108 @@ export const HomePage: React.FC = () => {
   })) : defaultPrograms
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-amber-400 selection:text-emerald-950">
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 selection:bg-amber-400 selection:text-emerald-950">
 
       {/* =========================================================
-          1. HERO SECTION (Clean Light Theme + Results First Layout)
+          1. HERO SECTION (Template style: badge + bold typography + dual CTAs + stats)
           ========================================================= */}
-      <section className="relative overflow-hidden bg-white pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-slate-200">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative overflow-hidden bg-gradient-to-b from-emerald-950 via-emerald-900 to-slate-950 text-white pt-16 pb-24 lg:pt-24 lg:pb-32">
+        {/* Subtle grid pattern background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 mb-8 text-xs font-bold text-emerald-800">
-            <Trophy className="w-4 h-4 text-amber-500" />
-            {settings.homepage_hero_badge || 'Celebrating 98% Board Pass Rate in 2025'}
+          {/* Top Pill Badge (Matches template's "NEW OFFER | 100% Free Class") */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/80 border border-emerald-700/60 shadow-inner mb-8 text-xs font-semibold text-emerald-200">
+            <span className="px-2 py-0.5 rounded-full bg-amber-400 text-emerald-950 font-bold uppercase tracking-wider text-[10px]">
+              {settings.homepage_hero_badge ? settings.homepage_hero_badge.split('|')[0] : 'New Batch 2026-27'}
+            </span>
+            <span className="flex items-center gap-1 text-emerald-100">
+              {settings.homepage_hero_badge && settings.homepage_hero_badge.includes('|') ? settings.homepage_hero_badge.split('|')[1] : 'Your First Demo Class is 100% Free'}
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            </span>
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-5xl mx-auto text-slate-900 whitespace-pre-wrap">
+          {/* Main Display Headline (Matching template's "Martial Arts Worth the Journey.") */}
+          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-4xl mx-auto text-white whitespace-pre-wrap">
             {settings.homepage_hero_title || (
               <>
-                Join the highest scoring <br className="hidden sm:inline" />
-                students in the <span className="text-emerald-700">city.</span>
+                Academic Excellence <br className="hidden sm:inline" />
+                Worth the <span className="text-amber-400 underline decoration-amber-400/40 decoration-wavy underline-offset-8">Journey.</span>
               </>
             )}
           </h1>
 
-          <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto font-normal leading-relaxed whitespace-pre-wrap">
-            {settings.homepage_hero_subtitle || 'Trusted by parents and proven by results. Master mathematics and science with expert tutors, personalized attention, and a highly competitive yet supportive environment.'}
+          {/* Subheading */}
+          <p className="mt-6 text-base sm:text-lg lg:text-xl text-emerald-100/90 max-w-2xl mx-auto font-normal leading-relaxed whitespace-pre-wrap">
+            {settings.homepage_hero_subtitle || 'Forge unwavering discipline, master board exams, and honor conceptual clarity. Your journey to top scores starts exactly here at SS Tutorial.'}
           </p>
 
+          {/* Dual Action Buttons */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="/admission"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-white bg-emerald-700 hover:bg-emerald-800 shadow-xl hover:-translate-y-0.5 transition-all duration-200"
+              href="/courses"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-emerald-950 bg-amber-400 hover:bg-amber-300 shadow-xl hover:shadow-amber-400/20 hover:-translate-y-0.5 transition-all duration-200"
             >
-              <span>Book a Free Demo</span>
+              <span>Explore Courses</span>
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
-              href="/results"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
+              href="/admission"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-sm text-white bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-700/60 hover:-translate-y-0.5 transition-all duration-200 backdrop-blur-sm"
             >
-              <Award className="w-4 h-4 text-amber-500" />
-              <span>View Past Results</span>
+              <Calendar className="w-4 h-4 text-amber-300" />
+              <span>Book a Free Demo</span>
             </a>
           </div>
 
-          {/* Hero Image */}
-          <div className="mt-16 relative max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
-            <div className="aspect-[16/9] sm:aspect-[21/9] relative">
-              <img 
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-                alt="Students celebrating top scores" 
-                className="w-full h-full object-cover object-[center_30%]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end justify-center pb-6 sm:pb-8">
-                <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 shadow-xl">
-                  <div className="flex -space-x-3">
-                    <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="Student" />
-                    <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" alt="Student" />
-                    <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Student" />
-                  </div>
-                  <div className="text-white text-left">
-                    <p className="text-sm font-bold">500+ Top Scorers</p>
-                    <p className="text-[10px] text-white/80">Maharashtra Board & CBSE</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Social Links Pill Bar */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-xs text-emerald-300/80 font-medium">
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-300 transition">
+              <Instagram className="w-4 h-4 text-pink-400" />
+              <span>Instagram: @ss__tutorial</span>
+            </a>
+            <span className="w-1 h-1 rounded-full bg-emerald-700" />
+            <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-300 transition">
+              <Youtube className="w-4 h-4 text-red-400" />
+              <span>YouTube: @SS__tutorial2025</span>
+            </a>
+            <span className="w-1 h-1 rounded-full bg-emerald-700 hidden sm:inline-block" />
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-emerald-300">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" /> SSC & CBSE Board Syllabus
+            </span>
           </div>
+
         </div>
       </section>
 
       {/* =========================================================
           2. LEGACY / STORY SECTION ("Forged in Tradition. Built for Today.")
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-white border-b border-slate-200">
+      <section className="py-20 lg:py-28 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-7 space-y-6">
-              <span className="inline-block text-xs font-extrabold uppercase tracking-widest text-amber-600">
+              <span className="inline-block text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
                 Years of Excellence
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
                 Forged in Dedication. <br className="hidden sm:inline" />
-                Built for Todayâ€™s Students.
+                Built for Today’s Students.
               </h2>
-              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
-                Located at Umroli (East), SS Tutorial has been the communityâ€™s trusted destination for authentic mathematics and school curriculum coaching. Founded by <strong className="text-slate-900 font-semibold">{settings.founder_name || 'Ankit Gupta'}</strong> with a passion to demystify complex math concepts and build lifelong academic confidence.
+              <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
+                Located at Umroli (East), SS Tutorial has been the community’s trusted destination for authentic mathematics and school curriculum coaching. Founded by <strong className="text-slate-900 dark:text-white font-semibold">{settings.founder_name || 'Ankit Gupta'}</strong> with a passion to demystify complex math concepts and build lifelong academic confidence.
               </p>
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Whether you seek board exam preparation, competitive foundation, or foundational textbook solutions â€” our classroom is your academic home. Every student, from Class 6 to Class 12, receives personalized attention and disciplined mentorship.
+              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+                Whether you seek board exam preparation, competitive foundation, or foundational textbook solutions — our classroom is your academic home. Every student, from Class 6 to Class 12, receives personalized attention and disciplined mentorship.
               </p>
 
               <div className="pt-2">
                 <a
                   href="/about"
-                  className="inline-flex items-center gap-2 font-bold text-sm text-emerald-700 hover:text-amber-500 transition"
+                  className="inline-flex items-center gap-2 font-bold text-sm text-emerald-700 dark:text-emerald-400 hover:text-amber-500 transition"
                 >
                   <span>Read our story & meet the founder</span>
                   <ArrowRight className="w-4 h-4" />
@@ -328,21 +333,21 @@ export const HomePage: React.FC = () => {
 
             {/* Stat Counters matching the Framer template layout */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1">
-                <p className="font-display text-3xl sm:text-4xl font-extrabold text-emerald-800">500+</p>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Students Mentored</p>
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
+                <p className="font-display text-3xl sm:text-4xl font-extrabold text-emerald-800 dark:text-emerald-300">500+</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Students Mentored</p>
               </div>
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
                 <p className="font-display text-3xl sm:text-4xl font-extrabold text-amber-500">98%</p>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Board Pass Rate</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Board Pass Rate</p>
               </div>
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
                 <p className="font-display text-3xl sm:text-4xl font-extrabold text-amber-500">10+</p>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Years Mastery</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Years Mastery</p>
               </div>
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1">
-                <p className="font-display text-3xl sm:text-4xl font-extrabold text-emerald-800">15</p>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500">Max Batch Size</p>
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
+                <p className="font-display text-3xl sm:text-4xl font-extrabold text-emerald-800 dark:text-emerald-300">15</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Max Batch Size</p>
               </div>
             </div>
 
@@ -354,24 +359,24 @@ export const HomePage: React.FC = () => {
       {/* =========================================================
           3. TRAINING PROGRAMS / COURSES (Template numbered card design)
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-slate-50">
+      <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
             <div>
-              <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600">
+              <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
                 Training Programs
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 mt-2">
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2">
                 Find Your Path.
               </h2>
-              <p className="text-sm sm:text-base text-slate-500 mt-2 max-w-xl">
+              <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
                 Structured, board-aligned courses crafted for concept mastery, high examination scores, and stress-free learning.
               </p>
             </div>
             <a
               href="/courses"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-xs text-emerald-800 bg-emerald-100/70 hover:bg-emerald-200/80 transition self-start md:self-end"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-100/70 dark:bg-emerald-900/40 hover:bg-emerald-200/80 transition self-start md:self-end"
             >
               <span>All programs</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -382,34 +387,34 @@ export const HomePage: React.FC = () => {
             {displayPrograms.map((prog) => (
               <div
                 key={prog.num}
-                className="group relative bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:border-amber-400/50 transition-all duration-300 flex flex-col justify-between"
+                className="group relative bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-amber-400/50 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <span className="font-mono text-xs font-bold text-amber-600 uppercase tracking-widest">
+                    <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">
                       {prog.num}
                     </span>
-                    <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 uppercase tracking-wider">
+                    <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                       {prog.badge}
                     </span>
                   </div>
 
-                  <h3 className="font-display text-2xl font-bold text-slate-900 group-hover:text-emerald-700:text-emerald-400 transition-colors">
+                  <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
                     {prog.title}
                   </h3>
 
-                  <p className="text-slate-500 text-sm mt-3 leading-relaxed">
+                  <p className="text-slate-500 dark:text-slate-400 text-sm mt-3 leading-relaxed">
                     {prog.desc}
                   </p>
 
-                  <div className="mt-6 pt-6 border-t border-slate-100 space-y-2">
+                  <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 space-y-2">
                     <p className="text-[11px] font-extrabold uppercase tracking-widest text-slate-400">
                       Key Highlights
                     </p>
-                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-700">
+                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-700 dark:text-slate-300">
                       {prog.skills.map((skill: string) => (
                         <div key={skill} className="flex items-center gap-1.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                           <span className="truncate">{skill}</span>
                         </div>
                       ))}
@@ -417,13 +422,13 @@ export const HomePage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-sm font-extrabold text-emerald-700">
+                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-sm font-extrabold text-emerald-700 dark:text-emerald-400">
                     {prog.fee}
                   </span>
                   <a
                     href={`/courses/${prog.slug}`}
-                    className="inline-flex items-center gap-1.5 font-bold text-xs text-slate-900 group-hover:text-amber-500 transition"
+                    className="inline-flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white group-hover:text-amber-500 transition"
                   >
                     <span>View Details</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -439,67 +444,67 @@ export const HomePage: React.FC = () => {
       {/* =========================================================
           4. WHY TRAIN WITH US (Bento Grid matching template)
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-white border-y border-slate-200">
+      <section className="py-20 lg:py-28 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
               Why Train With Us
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Built Different. <br />
               Teaching Different.
             </h2>
-            <p className="text-slate-500 text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
               Every detail of how we teach, who we mentor, and how we structure your student's growth is intentional.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 flex items-center justify-center">
                 <GraduationCap className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900">Expert Faculty</h3>
-                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">Expert Faculty</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
                   Led personally by Ankit Gupta, dedicated to breaking down complicated mathematics into simple, memorable steps.
                 </p>
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center">
+            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
+              <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 flex items-center justify-center">
                 <Users className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900">Small Batch Size</h3>
-                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">Small Batch Size</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
                   Strictly capped at 15 to 20 students so no student is overlooked or hesitant to ask questions.
                 </p>
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 flex items-center justify-center">
                 <Award className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900">Weekly Assessments</h3>
-                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">Weekly Assessments</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
                   Periodic unit tests mirror actual board formats, building time-management skills and eliminating exam fear.
                 </p>
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center">
+            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
+              <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 flex items-center justify-center">
                 <Zap className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900">Formula Cheatsheets</h3>
-                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">Formula Cheatsheets</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
                   Concise theorem summaries and formula banks provided for quick, stress-free revisions before every exam.
                 </p>
               </div>
@@ -513,23 +518,23 @@ export const HomePage: React.FC = () => {
       {/* =========================================================
           5. CLASS TIMINGS / WEEKLY SCHEDULE (Interactive tabs)
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-slate-50">
+      <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center mb-12 space-y-2">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
               Class Timings
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Weekly Schedule
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
               Find a slot that fits your routine and school timings.
             </p>
           </div>
 
           {/* Day Selector Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm mb-8">
+          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm mb-8">
             {Object.keys(scheduleData).map((day) => (
               <button
                 key={day}
@@ -538,7 +543,7 @@ export const HomePage: React.FC = () => {
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   activeDay === day
                     ? 'bg-emerald-800 text-white shadow-md'
-                    : 'text-slate-600 hover:text-slate-900:text-white'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {day}
@@ -551,20 +556,20 @@ export const HomePage: React.FC = () => {
             {scheduleData[activeDay]?.map((slot, index) => (
               <div
                 key={index}
-                className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-emerald-600/40 transition"
+                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-emerald-600/40 transition"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 font-mono text-xs font-extrabold flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-extrabold flex items-center justify-center shrink-0">
                     {slot.tag}
                   </div>
                   <div>
-                    <h4 className="font-bold text-sm text-slate-900">{slot.title}</h4>
+                    <h4 className="font-bold text-sm text-slate-900 dark:text-white">{slot.title}</h4>
                     <p className="text-xs text-slate-400 mt-0.5">Faculty: {slot.instructor}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100">
-                  <span className="text-xs font-semibold text-emerald-700 flex items-center gap-1.5">
+                <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100 dark:border-slate-800">
+                  <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5" />
                     {slot.time}
                   </span>
@@ -585,32 +590,32 @@ export const HomePage: React.FC = () => {
       {/* =========================================================
           6. STUDENT STORIES / TESTIMONIALS (Framer Quote card style)
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-white border-t border-slate-200">
+      <section className="py-20 lg:py-28 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           
-          <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600">
+          <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
             Student Stories
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mt-2 mb-12">
+          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2 mb-12">
             What Our Students Say.
           </h2>
 
-          <div className="relative p-8 sm:p-12 rounded-3xl bg-slate-50 border border-slate-200 shadow-xl max-w-3xl mx-auto">
+          <div className="relative p-8 sm:p-12 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-xl max-w-3xl mx-auto">
             <div className="flex justify-center gap-1 text-amber-400 mb-6">
               {[1, 2, 3, 4, 5].map((s) => (
                 <Star key={s} className="w-5 h-5 fill-amber-400" />
               ))}
             </div>
 
-            <p className="font-display text-lg sm:text-2xl text-slate-800 leading-relaxed font-medium italic">
+            <p className="font-display text-lg sm:text-2xl text-slate-800 dark:text-slate-100 leading-relaxed font-medium italic">
               "{testimonials[0]?.text || 'The conceptual clarity and personal attention my son received here is remarkable. Ankit Sir makes even the most difficult math word problems intuitive and fun. His board score went from 65% to 92%!'}"
             </p>
 
-            <div className="mt-8 pt-6 border-t border-slate-200">
-              <p className="font-bold text-base text-slate-900">
+            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
+              <p className="font-bold text-base text-slate-900 dark:text-white">
                 {testimonials[0]?.student_name || 'Rahul Sharma (Parent: Sunita Sharma)'}
               </p>
-              <p className="text-xs font-semibold text-emerald-700 mt-0.5">
+              <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 mt-0.5">
                 {testimonials[0]?.course || 'Class 10 SSC Board - 94% in Mathematics'}
               </p>
             </div>
@@ -622,17 +627,17 @@ export const HomePage: React.FC = () => {
       {/* =========================================================
           7. COMMON QUESTIONS / FAQ (Interactive Accordion)
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-slate-50">
+      <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center mb-12 space-y-2">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
               FAQ
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Common Questions
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500">
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
               Everything you need to know about joining SS Tutorial.
             </p>
           </div>
@@ -643,12 +648,12 @@ export const HomePage: React.FC = () => {
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-sm"
+                  className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                    className="w-full p-5 text-left font-bold text-sm text-slate-900 flex items-center justify-between gap-4"
+                    className="w-full p-5 text-left font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between gap-4"
                   >
                     <span>{faq.q}</span>
                     <ChevronDown
@@ -658,7 +663,7 @@ export const HomePage: React.FC = () => {
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800">
                       {faq.a}
                     </div>
                   )}
@@ -685,7 +690,7 @@ export const HomePage: React.FC = () => {
           </h2>
 
           <p className="text-base sm:text-lg text-emerald-100/90 max-w-2xl mx-auto font-normal">
-            No registration fee for demo. First class is 100% free. Just show up at our Umroli center â€” we'll handle the rest.
+            No registration fee for demo. First class is 100% free. Just show up at our Umroli center — we'll handle the rest.
           </p>
 
           <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
@@ -708,7 +713,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           <div className="pt-8 text-xs text-emerald-300/80">
-            ðŸ“ 002, (B) WING, VEER 10, UMROLI (EAST) â€¢ Admissions Open for Class 6 to 12
+            📍 002, (B) WING, VEER 10, UMROLI (EAST) • Admissions Open for Class 6 to 12
           </div>
 
         </div>
