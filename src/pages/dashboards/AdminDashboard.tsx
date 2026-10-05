@@ -2418,8 +2418,13 @@ export const AdminDashboard: React.FC = () => {
                 { key: 'instagram_url', label: 'Instagram Profile URL' },
                 { key: 'facebook_url', label: 'Facebook Page URL' },
                 { key: 'youtube_url', label: 'YouTube Channel URL' },
+                { key: 'homepage_hero_badge', label: 'Homepage Hero Badge (e.g. New Batch 2026-27)' },
+                { key: 'homepage_hero_title', label: 'Homepage Hero Title' },
+                { key: 'homepage_hero_subtitle', label: 'Homepage Hero Subtitle' },
+                { key: 'about_vision_text', label: 'About Us Vision Text' },
+                { key: 'about_mission_text', label: 'About Us Mission Text' },
               ].map((field) => (
-                <div key={field.key} className={field.key === 'address' || field.key === 'notice_ticker' ? 'sm:col-span-2' : ''}>
+                <div key={field.key} className={['address', 'notice_ticker', 'homepage_hero_title', 'homepage_hero_subtitle', 'about_vision_text', 'about_mission_text'].includes(field.key) ? 'sm:col-span-2' : ''}>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                     {field.label}
                   </label>
@@ -2453,6 +2458,32 @@ export const AdminDashboard: React.FC = () => {
                   value={settings.founder_bio || ''}
                   onChange={(e) => updateSetting('founder_bio', e.target.value)}
                   className="w-full px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Homepage FAQs (JSON Format)
+                </label>
+                <textarea
+                  rows={6}
+                  value={settings.faqs_json || ''}
+                  onChange={(e) => updateSetting('faqs_json', e.target.value)}
+                  placeholder={'[\n  { "q": "Question?", "a": "Answer" }\n]'}
+                  className="w-full font-mono px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Homepage Schedule (JSON Format)
+                </label>
+                <textarea
+                  rows={6}
+                  value={settings.schedule_json || ''}
+                  onChange={(e) => updateSetting('schedule_json', e.target.value)}
+                  placeholder={'{\n  "Monday": [\n    { "time": "7:00 AM", "tag": "ADV", "title": "Math", "instructor": "Ankit", "seats": "3 left" }\n  ]\n}'}
+                  className="w-full font-mono px-4 py-2 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                 />
               </div>
 

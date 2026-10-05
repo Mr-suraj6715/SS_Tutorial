@@ -101,7 +101,7 @@ export const AboutPage: React.FC = () => {
                   </div>
                   <h3 className="font-bold text-slate-900 dark:text-white text-base">Our Mission</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
-                    To cultivate a strong conceptual foundation, critical thinking, and disciplined study habits that help students excel in examinations and future careers.
+                    {settings.about_mission_text || 'To cultivate a strong conceptual foundation, critical thinking, and disciplined study habits that help students excel in examinations and future careers.'}
                   </p>
                 </div>
 
@@ -111,7 +111,7 @@ export const AboutPage: React.FC = () => {
                   </div>
                   <h3 className="font-bold text-slate-900 dark:text-white text-base">Our Vision</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
-                    To be the most trusted coaching institute celebrated for academic results, student care, and progressive teaching methodologies.
+                    {settings.about_vision_text || 'To be the most trusted coaching institute celebrated for academic results, student care, and progressive teaching methodologies.'}
                   </p>
                 </div>
               </div>

@@ -83,66 +83,76 @@ export const HomePage: React.FC = () => {
   const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(settings.whatsapp_message || 'Hello SS Tutorial, I want to book a free demo class.')}`
 
   // Weekly Schedule Data
-  const scheduleData: Record<string, ScheduleSlot[]> = {
-    Monday: [
-      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 SSC Math - Board Exam Prep', instructor: settings.founder_name || 'Ankit Gupta', seats: '3 seats left' },
-      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Math - Geometry & Algebra Concepts', instructor: 'Senior Faculty', seats: 'Available' },
-      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 7 & 8 - Math & Science Foundation', instructor: 'Faculty', seats: 'Available' },
-    ],
-    Tuesday: [
-      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 CBSE Math - Real Numbers & Polynomials', instructor: settings.founder_name || 'Ankit Gupta', seats: '2 seats left' },
-      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Science - Physics & Chemistry', instructor: 'Senior Faculty', seats: 'Available' },
-      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 6 - Basic Arithmetic & Foundational Tricks', instructor: 'Faculty', seats: 'Available' },
-    ],
-    Wednesday: [
-      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 SSC Math - Quadratic Equations & AP', instructor: settings.founder_name || 'Ankit Gupta', seats: 'Filling fast' },
-      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Math - Circle Theorems & Coordinate Geometry', instructor: 'Senior Faculty', seats: 'Available' },
-      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 8 - Linear Equations & Triangles', instructor: 'Faculty', seats: 'Available' },
-    ],
-    Thursday: [
-      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 CBSE Math - Trigonometry & Applications', instructor: settings.founder_name || 'Ankit Gupta', seats: '2 seats left' },
-      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Foundation - Word Problem Solving', instructor: 'Senior Faculty', seats: 'Available' },
-      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 7 - Integers & Fractions Masterclass', instructor: 'Faculty', seats: 'Available' },
-    ],
-    Friday: [
-      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 SSC Math - Weekly Unit Test & Paper Discussion', instructor: settings.founder_name || 'Ankit Gupta', seats: 'Mandatory' },
-      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Weekly Assessment & Doubts', instructor: 'Senior Faculty', seats: 'Mandatory' },
-      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 6-8 Weekly Quiz & Mental Math', instructor: 'Faculty', seats: 'Available' },
-    ],
-    Saturday: [
-      { time: '8:00 AM - 10:00 AM', tag: 'ADV', title: 'Special Board Revision & 1-on-1 Doubt Clearing', instructor: settings.founder_name || 'Ankit Gupta', seats: 'All Batches' },
-      { time: '10:30 AM - 12:30 PM', tag: 'INT', title: 'Class 9 & 10 Science Practical Explanations', instructor: 'Faculty', seats: 'Open' },
-      { time: '4:00 PM - 6:00 PM', tag: 'BEG', title: 'Parent-Teacher Interaction & Progress Review', instructor: 'All Faculty', seats: 'Scheduled' },
-    ],
+  let scheduleData: Record<string, ScheduleSlot[]> = {}
+  try {
+    scheduleData = settings.schedule_json ? JSON.parse(settings.schedule_json) : {
+      Monday: [
+        { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 SSC Math - Board Exam Prep', instructor: settings.founder_name || 'Ankit Gupta', seats: '3 seats left' },
+        { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Math - Geometry & Algebra Concepts', instructor: 'Senior Faculty', seats: 'Available' },
+        { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 7 & 8 - Math & Science Foundation', instructor: 'Faculty', seats: 'Available' },
+      ],
+      Tuesday: [
+        { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 CBSE Math - Real Numbers & Polynomials', instructor: settings.founder_name || 'Ankit Gupta', seats: '2 seats left' },
+        { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Science - Physics & Chemistry', instructor: 'Senior Faculty', seats: 'Available' },
+        { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 6 - Basic Arithmetic & Foundational Tricks', instructor: 'Faculty', seats: 'Available' },
+      ],
+      Wednesday: [
+        { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 SSC Math - Quadratic Equations & AP', instructor: settings.founder_name || 'Ankit Gupta', seats: 'Filling fast' },
+        { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Math - Circle Theorems & Coordinate Geometry', instructor: 'Senior Faculty', seats: 'Available' },
+        { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 8 - Linear Equations & Triangles', instructor: 'Faculty', seats: 'Available' },
+      ],
+      Thursday: [
+        { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 CBSE Math - Trigonometry & Applications', instructor: settings.founder_name || 'Ankit Gupta', seats: '2 seats left' },
+        { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Foundation - Word Problem Solving', instructor: 'Senior Faculty', seats: 'Available' },
+        { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 7 - Integers & Fractions Masterclass', instructor: 'Faculty', seats: 'Available' },
+      ],
+      Friday: [
+        { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 SSC Math - Weekly Unit Test & Paper Discussion', instructor: settings.founder_name || 'Ankit Gupta', seats: 'Mandatory' },
+        { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Weekly Assessment & Doubts', instructor: 'Senior Faculty', seats: 'Mandatory' },
+        { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 6-8 Weekly Quiz & Mental Math', instructor: 'Faculty', seats: 'Available' },
+      ],
+      Saturday: [
+        { time: '8:00 AM - 10:00 AM', tag: 'ADV', title: 'Special Board Revision & 1-on-1 Doubt Clearing', instructor: settings.founder_name || 'Ankit Gupta', seats: 'All Batches' },
+        { time: '10:30 AM - 12:30 PM', tag: 'INT', title: 'Class 9 & 10 Science Practical Explanations', instructor: 'Faculty', seats: 'Open' },
+        { time: '4:00 PM - 6:00 PM', tag: 'BEG', title: 'Parent-Teacher Interaction & Progress Review', instructor: 'All Faculty', seats: 'Scheduled' },
+      ],
+    }
+  } catch (e) {
+    console.error('Failed to parse schedule JSON')
   }
 
   // FAQ Data
-  const faqs = [
-    {
-      q: 'Which school boards and classes do you cater to?',
-      a: 'We specialize in Maharashtra State Board (SSC) and CBSE Board curriculum for Class 6, 7, 8, 9, 10, as well as Class 11 & 12. Our primary emphasis is on Mathematics, Science, and fundamental concept-building.',
-    },
-    {
-      q: 'Do I have to pay anything for the trial demo class?',
-      a: 'No! Your first trial class is 100% free with no commitment or registration fee. Students can attend a live class, experience Ankit Sir’s teaching methodology firsthand, and see how simple math can become.',
-    },
-    {
-      q: 'What is the student-to-teacher ratio in each batch?',
-      a: 'We maintain strictly limited batch sizes of 15 to 20 students. This guarantees that every child receives individualized attention, gets their doubts resolved immediately, and never gets lost in a crowded hall.',
-    },
-    {
-      q: 'Where is SS Tutorial located, and how do I visit?',
-      a: 'Our learning center is located at 002, (B) Wing, Veer 10, Umroli (East). You can walk in during our working hours (Mon - Sat, 8:00 AM to 8:00 PM) or call us beforehand to schedule a meeting.',
-    },
-    {
-      q: 'Do you provide study materials, worksheets, and mock exams?',
-      a: 'Yes! Every enrolled student receives chapter-wise formula revision sheets, textbook solution booklets, important question banks, and sits for structured weekly assessments mirroring the official board exam pattern.',
-    },
-    {
-      q: 'How are parents kept informed about student attendance and test results?',
-      a: 'Through our dedicated Parent Portal and direct WhatsApp reports, parents receive real-time notifications on daily attendance, weekly test scores, rank analytics, and monthly teacher remarks.',
-    },
-  ]
+  let faqs: {q: string, a: string}[] = []
+  try {
+    faqs = settings.faqs_json ? JSON.parse(settings.faqs_json) : [
+      {
+        q: 'Which school boards and classes do you cater to?',
+        a: 'We specialize in Maharashtra State Board (SSC) and CBSE Board curriculum for Class 6, 7, 8, 9, 10, as well as Class 11 & 12. Our primary emphasis is on Mathematics, Science, and fundamental concept-building.',
+      },
+      {
+        q: 'Do I have to pay anything for the trial demo class?',
+        a: 'No! Your first trial class is 100% free with no commitment or registration fee. Students can attend a live class, experience Ankit Sir’s teaching methodology firsthand, and see how simple math can become.',
+      },
+      {
+        q: 'What is the student-to-teacher ratio in each batch?',
+        a: 'We maintain strictly limited batch sizes of 15 to 20 students. This guarantees that every child receives individualized attention, gets their doubts resolved immediately, and never gets lost in a crowded hall.',
+      },
+      {
+        q: 'Where is SS Tutorial located, and how do I visit?',
+        a: 'Our learning center is located at 002, (B) Wing, Veer 10, Umroli (East). You can walk in during our working hours (Mon - Sat, 8:00 AM to 8:00 PM) or call us beforehand to schedule a meeting.',
+      },
+      {
+        q: 'Do you provide study materials, worksheets, and mock exams?',
+        a: 'Yes! Every enrolled student receives chapter-wise formula revision sheets, textbook solution booklets, important question banks, and sits for structured weekly assessments mirroring the official board exam pattern.',
+      },
+      {
+        q: 'How are parents kept informed about student attendance and test results?',
+        a: 'Through our dedicated Parent Portal and direct WhatsApp reports, parents receive real-time notifications on daily attendance, weekly test scores, rank analytics, and monthly teacher remarks.',
+      },
+    ]
+  } catch (e) {
+    console.error('Failed to parse FAQs JSON')
+  }
 
   // Default featured programs if courses list is small
   const defaultPrograms = [
@@ -209,23 +219,27 @@ export const HomePage: React.FC = () => {
           {/* Top Pill Badge (Matches template's "NEW OFFER | 100% Free Class") */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/80 border border-emerald-700/60 shadow-inner mb-8 text-xs font-semibold text-emerald-200">
             <span className="px-2 py-0.5 rounded-full bg-amber-400 text-emerald-950 font-bold uppercase tracking-wider text-[10px]">
-              New Batch 2026-27
+              {settings.homepage_hero_badge ? settings.homepage_hero_badge.split('|')[0] : 'New Batch 2026-27'}
             </span>
             <span className="flex items-center gap-1 text-emerald-100">
-              Your First Demo Class is 100% Free
+              {settings.homepage_hero_badge && settings.homepage_hero_badge.includes('|') ? settings.homepage_hero_badge.split('|')[1] : 'Your First Demo Class is 100% Free'}
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
             </span>
           </div>
 
           {/* Main Display Headline (Matching template's "Martial Arts Worth the Journey.") */}
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-4xl mx-auto text-white">
-            Academic Excellence <br className="hidden sm:inline" />
-            Worth the <span className="text-amber-400 underline decoration-amber-400/40 decoration-wavy underline-offset-8">Journey.</span>
+          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-4xl mx-auto text-white whitespace-pre-wrap">
+            {settings.homepage_hero_title || (
+              <>
+                Academic Excellence <br className="hidden sm:inline" />
+                Worth the <span className="text-amber-400 underline decoration-amber-400/40 decoration-wavy underline-offset-8">Journey.</span>
+              </>
+            )}
           </h1>
 
           {/* Subheading */}
-          <p className="mt-6 text-base sm:text-lg lg:text-xl text-emerald-100/90 max-w-2xl mx-auto font-normal leading-relaxed">
-            Forge unwavering discipline, master board exams, and honor conceptual clarity. Your journey to top scores starts exactly here at SS Tutorial.
+          <p className="mt-6 text-base sm:text-lg lg:text-xl text-emerald-100/90 max-w-2xl mx-auto font-normal leading-relaxed whitespace-pre-wrap">
+            {settings.homepage_hero_subtitle || 'Forge unwavering discipline, master board exams, and honor conceptual clarity. Your journey to top scores starts exactly here at SS Tutorial.'}
           </p>
 
           {/* Dual Action Buttons */}
