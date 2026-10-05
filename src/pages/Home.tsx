@@ -226,41 +226,66 @@ export const HomePage: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-amber-400 selection:text-emerald-950">
 
       {/* =========================================================
-          1. HERO SECTION (Image Overlay Layout)
+          1. HERO SECTION (Clean Light Theme + Results First Layout)
           ========================================================= */}
-      <section className="px-4 pt-4 sm:px-6 lg:px-8 pb-12 lg:pb-20">
-        <div className="relative w-full max-w-7xl mx-auto rounded-3xl overflow-hidden aspect-[4/3] sm:aspect-[16/9] lg:aspect-[2.5/1] shadow-2xl">
-          <img 
-            src="/hero-image.png" 
-            alt="Students studying" 
-            className="w-full h-full object-cover object-top"
-          />
-          <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-6">
-            <div className="max-w-4xl mx-auto">
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white tracking-tight drop-shadow-xl leading-[1.1]">
-                {settings.homepage_hero_title || "Empower Your Child's Academic Journey."}
-              </h1>
-              <p className="mt-6 text-lg sm:text-xl text-white font-medium drop-shadow-lg leading-relaxed">
-                {settings.homepage_hero_subtitle || (
-                  <>
-                    Trusted Tutoring for Excellence & Growth.<br className="hidden sm:inline" />
-                    Expert guidance from passionate educators.
-                  </>
-                )}
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href="/admission"
-                  className="px-8 py-3.5 rounded-full font-bold text-white bg-[#1a5b82] hover:bg-[#144766] transition-colors shadow-lg"
-                >
-                  Get Started Today
-                </a>
-                <a
-                  href="/about"
-                  className="px-8 py-3.5 rounded-full font-bold text-white bg-emerald-500/20 hover:bg-emerald-500/30 border-2 border-emerald-100 backdrop-blur-md transition-colors shadow-lg"
-                >
-                  Learn More
-                </a>
+      <section className="relative overflow-hidden bg-white pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-slate-200">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 mb-8 text-xs font-bold text-emerald-800">
+            <Trophy className="w-4 h-4 text-amber-500" />
+            {settings.homepage_hero_badge || 'Celebrating 98% Board Pass Rate in 2025'}
+          </div>
+
+          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-5xl mx-auto text-slate-900 whitespace-pre-wrap">
+            {settings.homepage_hero_title || (
+              <>
+                Join the highest scoring <br className="hidden sm:inline" />
+                students in the <span className="text-emerald-700">city.</span>
+              </>
+            )}
+          </h1>
+
+          <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto font-normal leading-relaxed whitespace-pre-wrap">
+            {settings.homepage_hero_subtitle || 'Trusted by parents and proven by results. Master mathematics and science with expert tutors, personalized attention, and a highly competitive yet supportive environment.'}
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/admission"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-white bg-emerald-700 hover:bg-emerald-800 shadow-xl hover:-translate-y-0.5 transition-all duration-200"
+            >
+              <span>Book a Free Demo</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="/results"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 hover:-translate-y-0.5 transition-all duration-200 shadow-sm"
+            >
+              <Award className="w-4 h-4 text-amber-500" />
+              <span>View Past Results</span>
+            </a>
+          </div>
+
+          {/* Hero Image */}
+          <div className="mt-16 relative max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+            <div className="aspect-[16/9] sm:aspect-[21/9] relative">
+              <img 
+                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                alt="Students celebrating top scores" 
+                className="w-full h-full object-cover object-[center_30%]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end justify-center pb-6 sm:pb-8">
+                <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 shadow-xl">
+                  <div className="flex -space-x-3">
+                    <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="Student" />
+                    <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop" alt="Student" />
+                    <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Student" />
+                  </div>
+                  <div className="text-white text-left">
+                    <p className="text-sm font-bold">500+ Top Scorers</p>
+                    <p className="text-[10px] text-white/80">Maharashtra Board & CBSE</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
