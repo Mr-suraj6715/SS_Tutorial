@@ -1,0 +1,178 @@
+{
+  "results": [
+    {
+      "tc": "TC-25",
+      "name": "API Health Check",
+      "status": "PASS",
+      "note": "{\"status\":\"ok\",\"timestamp\":\"2026-10-04T05:56:36.535Z\",\"db\":\"sqlite\"}"
+    },
+    {
+      "tc": "TC-01",
+      "name": "Student Login",
+      "status": "PASS",
+      "note": "role=student, name=Test Student"
+    },
+    {
+      "tc": "TC-02",
+      "name": "Parent Login",
+      "status": "PASS",
+      "note": "role=parent"
+    },
+    {
+      "tc": "TC-03",
+      "name": "Teacher Login",
+      "status": "PASS",
+      "note": "role=teacher"
+    },
+    {
+      "tc": "TC-04",
+      "name": "Admin Login",
+      "status": "PASS",
+      "note": "role=admin, name=Institute Administrator"
+    },
+    {
+      "tc": "TC-05",
+      "name": "Logout / Token Invalidation",
+      "status": "PASS",
+      "note": "Invalid token rejected with 401"
+    },
+    {
+      "tc": "TC-06",
+      "name": "Session Persistence (JWT /me)",
+      "status": "PASS",
+      "note": "Confirmed: student.test@example.com"
+    },
+    {
+      "tc": "TC-07",
+      "name": "Role-Based Auth Verification",
+      "status": "PASS",
+      "note": "All 3 roles confirmed correctly"
+    },
+    {
+      "tc": "TC-08",
+      "name": "Student Profile View",
+      "status": "PASS",
+      "note": "Name=Test Student, Roll=SS-8544, Class=Class 10"
+    },
+    {
+      "tc": "TC-09",
+      "name": "Parent Linked Student Info",
+      "status": "PASS",
+      "note": "Children found: Test Student"
+    },
+    {
+      "tc": "TC-10",
+      "name": "Teacher Profile & Dashboard",
+      "status": "PASS",
+      "note": "Batches=0, Exams=0"
+    },
+    {
+      "tc": "TC-11",
+      "name": "Course Access (Public, No Auth)",
+      "status": "PASS",
+      "note": "6 courses loaded without auth"
+    },
+    {
+      "tc": "TC-12",
+      "name": "Study Material Access",
+      "status": "PASS",
+      "note": "0 materials accessible in student dashboard"
+    },
+    {
+      "tc": "TC-13",
+      "name": "Assignment Functionality",
+      "status": "PASS",
+      "note": "0 assignments in dashboard (student not enrolled in test batch yet)"
+    },
+    {
+      "tc": "TC-14",
+      "name": "Attendance View",
+      "status": "PASS",
+      "note": "0 records. Student auto-filtered by role."
+    },
+    {
+      "tc": "TC-15",
+      "name": "Fee/Payment Status",
+      "status": "PASS",
+      "note": "0 fee records for student"
+    },
+    {
+      "tc": "TC-16",
+      "name": "Notice Board",
+      "status": "PASS",
+      "note": "1 notices: \"Upcoming Monthly Mock Assessment\""
+    },
+    {
+      "tc": "TC-17",
+      "name": "Admin Access Guard (No Auth)",
+      "status": "PASS",
+      "note": "/api/users → 401, /api/dashboard/stats → 401"
+    },
+    {
+      "tc": "TC-18",
+      "name": "RBAC — Student ≠ Admin",
+      "status": "PASS",
+      "note": "users→403, stats→403"
+    },
+    {
+      "tc": "TC-19",
+      "name": "RBAC — Teacher ≠ Admin",
+      "status": "PASS",
+      "note": "users→403, stats→403"
+    },
+    {
+      "tc": "TC-20",
+      "name": "Public Sign-up Security (No Admin)",
+      "status": "PASS",
+      "note": "Admin sign-up blocked: \"Forbidden: Admin accounts cannot be created via public sign-up. Please log in using existing administrator credentials.\""
+    },
+    {
+      "tc": "TC-21",
+      "name": "Admission Form Submission",
+      "status": "PASS",
+      "note": "Created ID: adm-1791093397108-ili8u"
+    },
+    {
+      "tc": "TC-22",
+      "name": "Contact Form Submission",
+      "status": "PASS",
+      "note": "{\"message\":\"Your message has been received. We will get back to you shortly!\",\"id\":\"msg-1791093397112-d469\"}"
+    },
+    {
+      "tc": "TC-23",
+      "name": "Gallery Page Load",
+      "status": "PASS",
+      "note": "0 gallery items"
+    },
+    {
+      "tc": "TC-24",
+      "name": "API 404 Route Handling",
+      "status": "PASS",
+      "note": "Returns 404: \"API endpoint not found\""
+    },
+    {
+      "tc": "TC-BONUS-1",
+      "name": "Wrong Password Rejection",
+      "status": "PASS",
+      "note": "401 returned correctly"
+    },
+    {
+      "tc": "TC-BONUS-2",
+      "name": "Admin: List All Users",
+      "status": "PASS",
+      "note": "8 users listed"
+    },
+    {
+      "tc": "TC-BONUS-3",
+      "name": "Admin Dashboard Stats",
+      "status": "PASS",
+      "note": "Students=3, Courses=6"
+    }
+  ],
+  "summary": {
+    "pass": 28,
+    "fail": 0,
+    "partial": 0,
+    "bugs": []
+  }
+}

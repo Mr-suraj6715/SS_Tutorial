@@ -55,28 +55,25 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           thumbnailUrl: result.thumbnailUrl,
         })
       } else {
-        // Document upload to 'documents' or 'media' bucket
-        const fileExt = file.name.split('.').pop()
-        const path = `${folder}/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`
+        // Document or direct file upload via /api/upload
+        const formData = new FormData()
+        formData.append('file', file)
+        const token = localStorage.getItem('ss_token')
+        const headers: Record<string, string> = {}
+        if (token) headers['Authorization'] = 'Bearer ' + token
 
-        const { error: uploadError } = await supabase.storage
-          .from(bucket)
-          .upload(path, file, { upsert: true })
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          headers,
+          body: formData,
+        })
 
-        if (uploadError) throw uploadError
-
-        let finalUrl = ''
-        if (bucket === 'media') {
-          const { data } = supabase.storage.from('media').getPublicUrl(path)
-          finalUrl = data.publicUrl
-        } else {
-          // Documents bucket uses signed URLs or path references
-          const { data } = await supabase.storage
-            .from('documents')
-            .createSignedUrl(path, 60 * 60 * 24 * 7) // 7 days
-          finalUrl = data?.signedUrl || path
+        if (!res.ok) {
+          throw new Error(`Upload failed with status ${res.status}`)
         }
 
+        const data = await res.json()
+        const finalUrl = data.url
         setPreview(finalUrl)
         onUploadSuccess({ url: finalUrl })
       }

@@ -174,11 +174,6 @@ export const Footer: React.FC = () => {
                 </a>
               )}
             </div>
-
-            <a href="/admin" className="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:text-amber-300 transition-colors">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              Admin Management Portal
-            </a>
           </div>
         </div>
 

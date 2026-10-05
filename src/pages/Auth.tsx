@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { GraduationCap, Mail, Lock, User, AlertCircle, ArrowRight } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { useAuth } from '@/lib/hooks/useAuth'
+import { useBackendAuth } from '@/lib/hooks/useBackendAuth'
 import { updatePageMeta } from '@/lib/utils/seo'
 
 export const AuthPage: React.FC = () => {
   const { settings } = useSiteSettings()
-  const { user, role, signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth()
+  // Backend auth (JWT)
+  const { signIn: backendSignIn, user: backendUser } = useBackendAuth()
+  // Primary auth hook
+  const { user, role, signInWithEmail, signUpWithEmail, signInWithGoogle, refreshAuth } = useAuth()
   
   const [mode, setMode] = useState<'login' | 'signup'>('login')
   const [email, setEmail] = useState('')
@@ -22,11 +26,15 @@ export const AuthPage: React.FC = () => {
       description: `Sign in to access your SS Tutorial student, teacher, parent, or admin dashboard.`,
     }, settings.institute_name)
 
-    // If already logged in, redirect based on role
+    // Backend user takes priority; redirect if already logged in
+    if (backendUser) {
+      redirectToDashboard(backendUser.role)
+      return
+    }
     if (user) {
       redirectToDashboard(role)
     }
-  }, [user, role, settings])
+  }, [user, role, backendUser, settings])
 
   const redirectToDashboard = (userRole: string) => {
     if (userRole === 'admin' || userRole === 'moderator') {
@@ -45,13 +53,33 @@ export const AuthPage: React.FC = () => {
     setError('')
     setLoading(true)
 
+    const cleanEmail = email.trim().toLowerCase()
+
     try {
       if (mode === 'login') {
-        const { error: err } = await signInWithEmail(email, password)
-        if (err) throw err
+        // Try backend login first
+        const { error: backendErr } = await backendSignIn(cleanEmail, password)
+        if (!backendErr) {
+          // Backend login succeeded — sync useAuth state and redirect
+          await refreshAuth()
+          const userStr = localStorage.getItem('ss_user')
+          const u = userStr ? JSON.parse(userStr) : null
+          const resolvedRole = u?.role || 'student'
+          redirectToDashboard(resolvedRole)
+          return
+        }
+        // Fallback to signInWithEmail
+        const { error: err } = await signInWithEmail(cleanEmail, password)
+        if (err) throw new Error(backendErr || err.message)
+        const userStr = localStorage.getItem('ss_user')
+        const u = userStr ? JSON.parse(userStr) : null
+        redirectToDashboard(u?.role || 'student')
       } else {
-        const { error: err } = await signUpWithEmail(email, password, fullName, desiredRole)
+        const { error: err } = await signUpWithEmail(cleanEmail, password, fullName, desiredRole)
         if (err) throw err
+        const userStr = localStorage.getItem('ss_user')
+        const u = userStr ? JSON.parse(userStr) : null
+        redirectToDashboard(u?.role || desiredRole)
       }
     } catch (err: any) {
       setError(err?.message || 'Authentication failed. Please verify your credentials.')
@@ -69,6 +97,7 @@ export const AuthPage: React.FC = () => {
       setError(err?.message || 'Google OAuth sign in failed.')
     }
   }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -176,7 +205,7 @@ export const AuthPage: React.FC = () => {
                       required
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                       placeholder="e.g. John Doe"
                     />
                   </div>
@@ -184,18 +213,19 @@ export const AuthPage: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                    Role Category
+                    I am registering as:
                   </label>
                   <select
                     value={desiredRole}
                     onChange={(e: any) => setDesiredRole(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-600 focus:outline-none font-medium"
                   >
-                    <option value="student">Student</option>
-                    <option value="parent">Parent</option>
-                    <option value="teacher">Teacher / Faculty</option>
-                    <option value="admin">Administrator</option>
+                    <option value="student" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">Student</option>
+                    <option value="parent" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">Parent / Guardian</option>
                   </select>
+                  <p className="text-[10px] text-slate-400 mt-1">
+                    * Administrator and Faculty accounts are created internally and cannot be registered publicly.
+                  </p>
                 </div>
               </>
             )}
@@ -211,7 +241,7 @@ export const AuthPage: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                   placeholder="name@example.com"
                 />
               </div>
@@ -228,7 +258,7 @@ export const AuthPage: React.FC = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                   placeholder="••••••••"
                 />
               </div>

@@ -86,6 +86,11 @@
 }
 
 /* Custom Institute Aesthetic Classes */
+.font-display {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: -0.025em;
+}
+
 .bg-brand-gradient {
   background: linear-gradient(135deg, hsl(154, 58%, 20%) 0%, hsl(154, 65%, 14%) 50%, hsl(160, 70%, 10%) 100%);
 }
@@ -113,3 +118,73 @@
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+/* ==========================================================
+   Universal Form Controls - Visible Writing Text & Options
+   ========================================================== */
+input,
+select,
+textarea {
+  color: #0f172a; /* High contrast dark text for light backgrounds */
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #64748b; /* Visible slate placeholder in light mode */
+  opacity: 1;
+}
+
+select option {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+/* Explicit dark background elements */
+input.bg-slate-800,
+input.bg-slate-900,
+input.bg-slate-950,
+select.bg-slate-800,
+select.bg-slate-900,
+textarea.bg-slate-800,
+textarea.bg-slate-900 {
+  color: #f8fafc !important;
+}
+
+/* Dark mode inputs, selects, textareas, and dropdown options */
+.dark input,
+.dark select,
+.dark textarea {
+  color: #f8fafc !important; /* Bright crisp white text for dark mode */
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #94a3b8 !important; /* Visible muted slate placeholder in dark mode */
+  opacity: 1 !important;
+}
+
+.dark select option {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+/* Browser/OS dark mode preference */
+@media (prefers-color-scheme: dark) {
+  input,
+  select,
+  textarea {
+    color: #f8fafc !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #94a3b8 !important;
+    opacity: 1 !important;
+  }
+
+  select option {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+  }
+}
+

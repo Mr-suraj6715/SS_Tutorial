@@ -3,64 +3,73 @@ import {
   ArrowRight,
   BookOpen,
   Award,
-  CheckCircle,
+  CheckCircle2,
+  Clock,
+  Calendar,
+  Users,
+  Sparkles,
+  ChevronDown,
+  Star,
   Instagram,
   Youtube,
-  ChevronRight,
-  Star,
-  ExternalLink,
+  Phone,
+  MessageCircle,
+  GraduationCap,
+  ShieldCheck,
+  Zap,
 } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
 import { fetchAcademicCourses } from '@/lib/services/coursesService'
 import { updatePageMeta } from '@/lib/utils/seo'
 
+interface ScheduleSlot {
+  time: string
+  tag: 'BEG' | 'INT' | 'ADV'
+  title: string
+  instructor: string
+  seats: string
+}
+
 export const HomePage: React.FC = () => {
   const { settings } = useSiteSettings()
   const [courses, setCourses] = useState<any[]>([])
-  const [facilities, setFacilities] = useState<any[]>([])
-  const [achievements, setAchievements] = useState<any[]>([])
-  const [galleryItems, setGalleryItems] = useState<any[]>([])
-  const [classroomItems, setClassroomItems] = useState<any[]>([])
   const [testimonials, setTestimonials] = useState<any[]>([])
-  const [blogs, setBlogs] = useState<any[]>([])
+  const [galleryItems, setGalleryItems] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+
+  // Interactive Schedule Tab state
+  const [activeDay, setActiveDay] = useState<string>('Monday')
+
+  // Interactive FAQ Accordion state
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0)
 
   useEffect(() => {
     updatePageMeta({
-      title: settings.meta_title || `${settings.institute_name} | Coaching Institute`,
-      description: settings.meta_description || 'Quality coaching with experienced faculty and structured test series.',
+      title: settings.meta_title || `${settings.institute_name || 'SS Tutorial'} | Achieving Excellence Together`,
+      description: settings.meta_description || 'Premier coaching for Class 6 to 12 SSC and CBSE Board. Master mathematics with concept clarity and personalized attention.',
     }, settings.institute_name)
 
     const fetchData = async () => {
       try {
         setLoading(true)
-        const [
-          coursesRes, facilitiesRes, achievementsRes,
-          galleryRes, classroomRes, testimonialsRes, blogsRes,
-        ] = await Promise.all([
+        const [coursesRes, testimonialsRes, galleryRes] = await Promise.all([
           supabase.from('courses').select('*').eq('is_active', true).order('display_order', { ascending: true }).limit(6),
-          supabase.from('facilities').select('*').order('display_order', { ascending: true }).limit(6),
-          supabase.from('achievements').select('*').order('display_order', { ascending: true }).limit(4),
+          supabase.from('testimonials').select('*').eq('is_published', true).limit(4),
           supabase.from('gallery').select('*').eq('is_published', true).order('display_order', { ascending: true }).limit(6),
-          supabase.from('gallery').select('*').eq('placement', 'classroom').eq('is_published', true).limit(4),
-          supabase.from('testimonials').select('*').eq('is_published', true).limit(3),
-          supabase.from('blogs').select('*').eq('is_published', true).order('published_at', { ascending: false }).limit(3),
         ])
+
         if (coursesRes.data && coursesRes.data.length > 0) {
           setCourses(coursesRes.data)
         } else {
           const fallbackCourses = await fetchAcademicCourses()
           setCourses(fallbackCourses.filter((c) => c.is_active !== false).slice(0, 6))
         }
-        if (facilitiesRes.data) setFacilities(facilitiesRes.data)
-        if (achievementsRes.data) setAchievements(achievementsRes.data)
-        if (galleryRes.data) setGalleryItems(galleryRes.data)
-        if (classroomRes.data) setClassroomItems(classroomRes.data)
+
         if (testimonialsRes.data) setTestimonials(testimonialsRes.data)
-        if (blogsRes.data) setBlogs(blogsRes.data)
+        if (galleryRes.data) setGalleryItems(galleryRes.data)
       } catch (err) {
-        console.warn('Error fetching home page data:', err)
+        console.warn('Error fetching homepage data:', err)
       } finally {
         setLoading(false)
       }
@@ -69,410 +78,613 @@ export const HomePage: React.FC = () => {
   }, [settings])
 
   const instagramUrl = settings.instagram_url || 'https://www.instagram.com/ss__tutorial'
+  const youtubeUrl = settings.youtube_url || 'https://www.youtube.com/@SS__tutorial2025'
+  const whatsappNumber = settings.whatsapp_number || '9876543210'
+  const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(settings.whatsapp_message || 'Hello SS Tutorial, I want to book a free demo class.')}`
+
+  // Weekly Schedule Data
+  const scheduleData: Record<string, ScheduleSlot[]> = {
+    Monday: [
+      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 SSC Math - Board Exam Prep', instructor: settings.founder_name || 'Ankit Gupta', seats: '3 seats left' },
+      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Math - Geometry & Algebra Concepts', instructor: 'Senior Faculty', seats: 'Available' },
+      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 7 & 8 - Math & Science Foundation', instructor: 'Faculty', seats: 'Available' },
+    ],
+    Tuesday: [
+      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 CBSE Math - Real Numbers & Polynomials', instructor: settings.founder_name || 'Ankit Gupta', seats: '2 seats left' },
+      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Science - Physics & Chemistry', instructor: 'Senior Faculty', seats: 'Available' },
+      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 6 - Basic Arithmetic & Foundational Tricks', instructor: 'Faculty', seats: 'Available' },
+    ],
+    Wednesday: [
+      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 SSC Math - Quadratic Equations & AP', instructor: settings.founder_name || 'Ankit Gupta', seats: 'Filling fast' },
+      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Math - Circle Theorems & Coordinate Geometry', instructor: 'Senior Faculty', seats: 'Available' },
+      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 8 - Linear Equations & Triangles', instructor: 'Faculty', seats: 'Available' },
+    ],
+    Thursday: [
+      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 CBSE Math - Trigonometry & Applications', instructor: settings.founder_name || 'Ankit Gupta', seats: '2 seats left' },
+      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Foundation - Word Problem Solving', instructor: 'Senior Faculty', seats: 'Available' },
+      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 7 - Integers & Fractions Masterclass', instructor: 'Faculty', seats: 'Available' },
+    ],
+    Friday: [
+      { time: '7:00 AM - 8:30 AM', tag: 'ADV', title: 'Class 10 SSC Math - Weekly Unit Test & Paper Discussion', instructor: settings.founder_name || 'Ankit Gupta', seats: 'Mandatory' },
+      { time: '4:30 PM - 6:00 PM', tag: 'INT', title: 'Class 9 Weekly Assessment & Doubts', instructor: 'Senior Faculty', seats: 'Mandatory' },
+      { time: '6:30 PM - 8:00 PM', tag: 'BEG', title: 'Class 6-8 Weekly Quiz & Mental Math', instructor: 'Faculty', seats: 'Available' },
+    ],
+    Saturday: [
+      { time: '8:00 AM - 10:00 AM', tag: 'ADV', title: 'Special Board Revision & 1-on-1 Doubt Clearing', instructor: settings.founder_name || 'Ankit Gupta', seats: 'All Batches' },
+      { time: '10:30 AM - 12:30 PM', tag: 'INT', title: 'Class 9 & 10 Science Practical Explanations', instructor: 'Faculty', seats: 'Open' },
+      { time: '4:00 PM - 6:00 PM', tag: 'BEG', title: 'Parent-Teacher Interaction & Progress Review', instructor: 'All Faculty', seats: 'Scheduled' },
+    ],
+  }
+
+  // FAQ Data
+  const faqs = [
+    {
+      q: 'Which school boards and classes do you cater to?',
+      a: 'We specialize in Maharashtra State Board (SSC) and CBSE Board curriculum for Class 6, 7, 8, 9, 10, as well as Class 11 & 12. Our primary emphasis is on Mathematics, Science, and fundamental concept-building.',
+    },
+    {
+      q: 'Do I have to pay anything for the trial demo class?',
+      a: 'No! Your first trial class is 100% free with no commitment or registration fee. Students can attend a live class, experience Ankit Sir’s teaching methodology firsthand, and see how simple math can become.',
+    },
+    {
+      q: 'What is the student-to-teacher ratio in each batch?',
+      a: 'We maintain strictly limited batch sizes of 15 to 20 students. This guarantees that every child receives individualized attention, gets their doubts resolved immediately, and never gets lost in a crowded hall.',
+    },
+    {
+      q: 'Where is SS Tutorial located, and how do I visit?',
+      a: 'Our learning center is located at 002, (B) Wing, Veer 10, Umroli (East). You can walk in during our working hours (Mon - Sat, 8:00 AM to 8:00 PM) or call us beforehand to schedule a meeting.',
+    },
+    {
+      q: 'Do you provide study materials, worksheets, and mock exams?',
+      a: 'Yes! Every enrolled student receives chapter-wise formula revision sheets, textbook solution booklets, important question banks, and sits for structured weekly assessments mirroring the official board exam pattern.',
+    },
+    {
+      q: 'How are parents kept informed about student attendance and test results?',
+      a: 'Through our dedicated Parent Portal and direct WhatsApp reports, parents receive real-time notifications on daily attendance, weekly test scores, rank analytics, and monthly teacher remarks.',
+    },
+  ]
+
+  // Default featured programs if courses list is small
+  const defaultPrograms = [
+    {
+      num: 'No. 01',
+      badge: 'Class 10 SSC Board',
+      title: 'Class 10 Math Board Exam Preparation',
+      desc: 'Complete textbook solutions, geometry theorem mastery, algebra word problem shortcuts, and 5 years of board paper drills.',
+      skills: ['Textbook Solutions', 'Geometry Theorems', 'Board Question Bank', 'Weekly Mock Tests'],
+      slug: 'class-10-ssc-math',
+      fee: 'Rs. 1500 / month',
+    },
+    {
+      num: 'No. 02',
+      badge: 'Class 10 CBSE Board',
+      title: 'Class 10 CBSE Mathematics Foundation',
+      desc: 'NCERT in-depth conceptual breakdown, exemplar problems, real-world case study questions, and step-by-step proofs.',
+      skills: ['NCERT & Exemplar', 'Case Study Mastery', 'Trigonometry & Calculus', 'Formula Sheets'],
+      slug: 'class-10-cbse-math',
+      fee: 'Rs. 1500 / month',
+    },
+    {
+      num: 'No. 03',
+      badge: 'Class 9 Foundation',
+      title: 'Class 9 Concept Building & Fun Tricks',
+      desc: 'Master foundational algebraic identities, coordinate geometry, and science basics to make Class 10 feel effortless.',
+      skills: ['Foundational Concepts', 'Speed Calculation Tricks', 'Science Basics', 'Problem Solving'],
+      slug: 'class-9-math-science',
+      fee: 'Rs. 1400 / month',
+    },
+    {
+      num: 'No. 04',
+      badge: 'Class 6 - 8 School Classes',
+      title: 'Junior Math & Science Excellence',
+      desc: 'Fun, disciplined learning designed specifically for young students to eliminate math fear and build rock-solid basics.',
+      skills: ['Fractions & Integers', 'Mental Math Fun', 'Science Exploration', 'Homework Guidance'],
+      slug: 'class-6-8-math',
+      fee: 'Rs. 1200 / month',
+    },
+  ]
+
+  const displayPrograms = courses.length >= 4 ? courses.slice(0, 4).map((c, i) => ({
+    num: `No. 0${i + 1}`,
+    badge: c.target_class || c.board || 'Academic Program',
+    title: c.title,
+    desc: c.description || 'Comprehensive curriculum-aligned coaching designed for deep understanding and exam confidence.',
+    skills: c.subjects ? c.subjects.split(',').map((s: string) => s.trim()) : ['Concept Clarity', 'Weekly Tests', 'Formula Sheets', 'Doubt Clearing'],
+    slug: c.slug || 'courses',
+    fee: c.fee || 'Affordable Fees',
+  })) : defaultPrograms
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 selection:bg-amber-400 selection:text-emerald-950">
 
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950 text-white py-20 lg:py-28">
-        {settings.hero_image_url && settings.hero_image_url.trim() !== '' && (
-          <div className="absolute inset-0 z-0 opacity-20">
-            <img src={settings.hero_image_url} alt="Institute Banner" className="w-full h-full object-cover" />
+      {/* =========================================================
+          1. HERO SECTION (Template style: badge + bold typography + dual CTAs + stats)
+          ========================================================= */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-emerald-950 via-emerald-900 to-slate-950 text-white pt-16 pb-24 lg:pt-24 lg:pb-32">
+        {/* Subtle grid pattern background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          
+          {/* Top Pill Badge (Matches template's "NEW OFFER | 100% Free Class") */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/80 border border-emerald-700/60 shadow-inner mb-8 text-xs font-semibold text-emerald-200">
+            <span className="px-2 py-0.5 rounded-full bg-amber-400 text-emerald-950 font-bold uppercase tracking-wider text-[10px]">
+              New Batch 2026-27
+            </span>
+            <span className="flex items-center gap-1 text-emerald-100">
+              Your First Demo Class is 100% Free
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            </span>
           </div>
-        )}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 space-y-6">
-              <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-emerald-300">
-                <div className="inline-flex items-center gap-1.5">
-                  <Instagram className="w-3.5 h-3.5 text-pink-400" />
-                  <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors">
-                    @ss__tutorial
-                  </a>
-                </div>
-                {settings.youtube_url && (
-                  <div className="inline-flex items-center gap-1.5">
-                    <Youtube className="w-3.5 h-3.5 text-red-400" />
-                    <a href={settings.youtube_url} target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors">
-                      @SS__tutorial2025
-                    </a>
-                  </div>
-                )}
-              </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-                Welcome to{' '}
-                <span className="text-amber-400">{settings.institute_name || 'SS Tutorial'}</span>
-              </h1>
+          {/* Main Display Headline (Matching template's "Martial Arts Worth the Journey.") */}
+          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-4xl mx-auto text-white">
+            Academic Excellence <br className="hidden sm:inline" />
+            Worth the <span className="text-amber-400 underline decoration-amber-400/40 decoration-wavy underline-offset-8">Journey.</span>
+          </h1>
 
-              <p className="text-lg text-emerald-100/90 max-w-2xl leading-relaxed">
-                {settings.tagline && settings.tagline.trim() !== ''
-                  ? settings.tagline
-                  : 'Nurturing academic excellence with experienced mentors, structured test series, and personalized attention.'}
-              </p>
+          {/* Subheading */}
+          <p className="mt-6 text-base sm:text-lg lg:text-xl text-emerald-100/90 max-w-2xl mx-auto font-normal leading-relaxed">
+            Forge unwavering discipline, master board exams, and honor conceptual clarity. Your journey to top scores starts exactly here at SS Tutorial.
+          </p>
 
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <a href="/admission" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-bold text-base text-emerald-950 bg-amber-400 hover:bg-amber-300 shadow-lg transition-colors">
-                  Apply for Admission <ArrowRight className="w-4 h-4" />
-                </a>
-                <a href="/courses" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base text-emerald-100 border border-emerald-600 hover:bg-emerald-800/50 transition-colors">
-                  Explore Courses
-                </a>
-              </div>
-
-              <div className="grid grid-cols-3 gap-6 pt-6 border-t border-emerald-800/60">
-                <div>
-                  <p className="text-sm font-semibold text-amber-400">Concept Clarity</p>
-                  <p className="text-xs text-emerald-400 mt-0.5">Focus on fundamentals</p>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-amber-400">Regular Tests</p>
-                  <p className="text-xs text-emerald-400 mt-0.5">Structured test series</p>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-amber-400">Doubt Sessions</p>
-                  <p className="text-xs text-emerald-400 mt-0.5">Dedicated support</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="w-full max-w-md bg-emerald-900/40 border border-emerald-700/50 rounded-2xl p-6 backdrop-blur-md shadow-xl space-y-5">
-                <div className="flex items-center justify-between border-b border-emerald-800 pb-4">
-                  <div>
-                    <h3 className="text-lg font-bold text-white">Admissions Open</h3>
-                    <p className="text-xs text-emerald-300 mt-0.5">Enroll for upcoming batches</p>
-                  </div>
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-amber-400/20 text-amber-300 border border-amber-400/30">Active</span>
-                </div>
-                <ul className="space-y-2.5 text-sm text-emerald-100">
-                  {['Expert and experienced faculty', 'Comprehensive study materials', 'Periodic progress reports', 'Small batches for individual care'].map((item) => (
-                    <li key={item} className="flex items-center gap-3">
-                      <CheckCircle className="w-4 h-4 text-amber-400 shrink-0" /> {item}
-                    </li>
-                  ))}
-                </ul>
-                <a href="/admission" className="w-full block text-center py-3 rounded-lg font-bold text-sm text-emerald-950 bg-amber-400 hover:bg-amber-300 transition-colors">
-                  Book a Counseling Session
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ABOUT SNIPPET */}
-      <section className="py-16 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-5">
-              <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg">
-                {settings.hero_image_url && settings.hero_image_url.trim() !== '' ? (
-                  <img src={settings.hero_image_url} alt="About SS Tutorial" className="w-full h-80 object-cover" />
-                ) : (
-                  <div className="w-full h-80 bg-gradient-to-br from-emerald-900 to-emerald-950 flex flex-col items-center justify-center text-white p-6 text-center">
-                    <BookOpen className="w-16 h-16 text-amber-400 mb-4" />
-                    <h3 className="text-xl font-bold">{settings.institute_name || 'SS Tutorial'}</h3>
-                    <p className="text-sm text-emerald-200 mt-2">Commitment to Educational Excellence</p>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">About Our Institute</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                Guiding Students Towards Consistent Academic Success
-              </h2>
-              <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
-                {settings.about && settings.about.trim() !== ''
-                  ? settings.about
-                  : 'At SS Tutorial, we believe every student possesses unique potential. Through disciplined pedagogy, regular assessments, and conceptual learning frameworks, our curriculum empowers students to achieve outstanding results in board and competitive examinations.'}
-              </p>
-              <a href="/about" className="inline-flex items-center gap-2 font-semibold text-emerald-700 dark:text-emerald-400 hover:text-amber-500 transition text-sm">
-                Learn more about our history and faculty <ChevronRight className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURED COURSES */}
-      <section className="py-20 bg-white dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-            <div>
-              <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">Our Programs</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">Featured Courses</h2>
-            </div>
-            <a href="/courses" className="mt-4 md:mt-0 inline-flex items-center gap-1.5 font-semibold text-emerald-700 dark:text-emerald-400 hover:text-amber-500 text-sm">
-              View all programs <ArrowRight className="w-4 h-4" />
+          {/* Dual Action Buttons */}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/courses"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-emerald-950 bg-amber-400 hover:bg-amber-300 shadow-xl hover:shadow-amber-400/20 hover:-translate-y-0.5 transition-all duration-200"
+            >
+              <span>Explore Courses</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="/admission"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-sm text-white bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-700/60 hover:-translate-y-0.5 transition-all duration-200 backdrop-blur-sm"
+            >
+              <Calendar className="w-4 h-4 text-amber-300" />
+              <span>Book a Free Demo</span>
             </a>
           </div>
-          {courses.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {courses.map((course) => (
-                <div key={course.id} className="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-lg transition-shadow flex flex-col">
-                  <div className="relative h-48 bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                    {course.image_url ? (
-                      <img src={course.image_url} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    ) : (
-                      <div className="w-full h-full bg-emerald-950/80 flex items-center justify-center text-amber-400">
-                        <BookOpen className="w-12 h-12" />
-                      </div>
-                    )}
-                    {course.category && (
-                      <span className="absolute top-3 right-3 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-950/80 text-amber-300 border border-emerald-700/50">{course.category}</span>
-                    )}
-                  </div>
-                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">{course.title}</h3>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">{course.description}</p>
-                    </div>
-                    <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                      <div>
-                        {course.duration && <span className="text-xs text-slate-400 block">Duration: {course.duration}</span>}
-                        {course.fee && <span className="text-base font-bold text-emerald-800 dark:text-emerald-300">{course.fee}</span>}
-                      </div>
-                      <a href={`/courses/${course.slug}`} className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:text-amber-500 transition">
-                        Details <ChevronRight className="w-4 h-4" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="p-10 text-center bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
-              <BookOpen className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-              <p className="text-slate-600 dark:text-slate-300 font-medium">No courses listed yet.</p>
-              <p className="text-xs text-slate-400 mt-1">Admin can add and publish courses via the Admin Dashboard.</p>
-            </div>
-          )}
+
+          {/* Social Links Pill Bar */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-xs text-emerald-300/80 font-medium">
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-300 transition">
+              <Instagram className="w-4 h-4 text-pink-400" />
+              <span>Instagram: @ss__tutorial</span>
+            </a>
+            <span className="w-1 h-1 rounded-full bg-emerald-700" />
+            <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-300 transition">
+              <Youtube className="w-4 h-4 text-red-400" />
+              <span>YouTube: @SS__tutorial2025</span>
+            </a>
+            <span className="w-1 h-1 rounded-full bg-emerald-700 hidden sm:inline-block" />
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-emerald-300">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" /> SSC & CBSE Board Syllabus
+            </span>
+          </div>
+
         </div>
       </section>
 
-      {/* FACILITIES */}
-      {facilities.length > 0 && (
-        <section className="py-20 bg-slate-50 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-14">
-              <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">Infrastructure</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">Learning Facilities</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {facilities.map((facility) => (
-                <div key={facility.id} className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors">
-                  <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center mb-4">
-                    <Award className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{facility.title}</h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{facility.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* =========================================================
+          2. LEGACY / STORY SECTION ("Forged in Tradition. Built for Today.")
+          ========================================================= */}
+      <section className="py-20 lg:py-28 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div className="lg:col-span-7 space-y-6">
+              <span className="inline-block text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+                Years of Excellence
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                Forged in Dedication. <br className="hidden sm:inline" />
+                Built for Today’s Students.
+              </h2>
+              <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
+                Located at Umroli (East), SS Tutorial has been the community’s trusted destination for authentic mathematics and school curriculum coaching. Founded by <strong className="text-slate-900 dark:text-white font-semibold">{settings.founder_name || 'Ankit Gupta'}</strong> with a passion to demystify complex math concepts and build lifelong academic confidence.
+              </p>
+              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+                Whether you seek board exam preparation, competitive foundation, or foundational textbook solutions — our classroom is your academic home. Every student, from Class 6 to Class 12, receives personalized attention and disciplined mentorship.
+              </p>
 
-      {/* ACHIEVEMENTS */}
-      {achievements.length > 0 && (
-        <section className="py-20 bg-white dark:bg-slate-950">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-              <div>
-                <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">Student Achievements</span>
-                <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">Top Results</h2>
-              </div>
-              <a href="/results" className="mt-4 md:mt-0 inline-flex items-center gap-1.5 font-semibold text-emerald-700 dark:text-emerald-400 hover:text-amber-500 text-sm">
-                View full results <ArrowRight className="w-4 h-4" />
-              </a>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {achievements.map((item) => (
-                <div key={item.id} className="bg-slate-50 dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm">
-                  {item.image_url ? (
-                    <div className="h-44 bg-slate-200 dark:bg-slate-800">
-                      <img src={item.image_url} alt={item.title} className="w-full h-full object-cover" />
-                    </div>
-                  ) : (
-                    <div className="h-44 bg-emerald-950 flex items-center justify-center text-amber-400">
-                      <Award className="w-12 h-12" />
-                    </div>
-                  )}
-                  <div className="p-5">
-                    {item.category && <span className="text-[11px] font-bold uppercase text-amber-600 dark:text-amber-400">{item.category}</span>}
-                    <h3 className="font-bold text-slate-900 dark:text-white mt-1 text-base">{item.title}</h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* CLASSROOM PHOTOS */}
-      {classroomItems.length > 0 && (
-        <section className="py-20 bg-slate-900 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">Life at SS Tutorial</span>
-              <h2 className="text-3xl font-extrabold tracking-tight mt-1">Inside Our Classrooms</h2>
-              <p className="text-sm text-slate-300 mt-2">Focused teaching environments where every student receives dedicated guidance.</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {classroomItems.map((item) => (
-                <div key={item.id} className="rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-md group">
-                  <div className="h-56 overflow-hidden">
-                    <img src={item.webp_url || item.image_url} alt={item.alt_text || item.title || 'Classroom session'} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  {item.title && (
-                    <div className="p-4">
-                      <p className="text-xs font-semibold text-amber-400">{item.title}</p>
-                      {item.caption && <p className="text-xs text-slate-400 mt-0.5">{item.caption}</p>}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* GALLERY PREVIEW */}
-      {galleryItems.length > 0 && (
-        <section className="py-20 bg-white dark:bg-slate-950">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-              <div>
-                <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">Moments and Milestones</span>
-                <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">Campus and Event Gallery</h2>
-              </div>
-              <a href="/gallery" className="mt-4 md:mt-0 inline-flex items-center gap-1.5 font-semibold text-emerald-700 dark:text-emerald-400 hover:text-amber-500 text-sm">
-                View complete gallery <ArrowRight className="w-4 h-4" />
-              </a>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-              {galleryItems.map((img) => (
-                <a key={img.id} href="/gallery" className="group relative rounded-xl overflow-hidden aspect-square bg-slate-100 dark:bg-slate-800 shadow-sm block">
-                  <img src={img.thumbnail_url || img.webp_url || img.image_url} alt={img.alt_text || img.title || 'Gallery image'} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                  {img.instagram_post_url && (
-                    <div className="absolute top-2 right-2 p-1.5 rounded-full bg-slate-900/70 text-white">
-                      <Instagram className="w-3 h-3" />
-                    </div>
-                  )}
+              <div className="pt-2">
+                <a
+                  href="/about"
+                  className="inline-flex items-center gap-2 font-bold text-sm text-emerald-700 dark:text-emerald-400 hover:text-amber-500 transition"
+                >
+                  <span>Read our story & meet the founder</span>
+                  <ArrowRight className="w-4 h-4" />
                 </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* TESTIMONIALS - only real DB data, never fake */}
-      {testimonials.length > 0 && (
-        <section className="py-20 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-14">
-              <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">Student Testimonials</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">Words from Our Students and Parents</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((t) => (
-                <div key={t.id} className="bg-white dark:bg-slate-950 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-1 text-amber-400 mb-4">
-                      {Array.from({ length: t.rating || 5 }).map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-amber-400" />
-                      ))}
-                    </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">"{t.text}"</p>
-                  </div>
-                  <div className="flex items-center gap-3 pt-6 mt-4 border-t border-slate-100 dark:border-slate-800">
-                    {t.photo_url ? (
-                      <img src={t.photo_url} alt={t.student_name} className="w-10 h-10 rounded-full object-cover" />
-                    ) : (
-                      <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 font-bold flex items-center justify-center text-sm">
-                        {t.student_name?.charAt(0) || 'S'}
-                      </div>
-                    )}
-                    <div>
-                      <p className="text-sm font-bold text-slate-900 dark:text-white">{t.student_name}</p>
-                      {t.course && <p className="text-xs text-slate-400">{t.course}</p>}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* BLOG PREVIEWS */}
-      {blogs.length > 0 && (
-        <section className="py-20 bg-white dark:bg-slate-950">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-              <div>
-                <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">Latest Insights</span>
-                <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">Articles and Study Guidance</h2>
               </div>
-              <a href="/blog" className="mt-4 md:mt-0 inline-flex items-center gap-1.5 font-semibold text-emerald-700 dark:text-emerald-400 hover:text-amber-500 text-sm">
-                Read all articles <ArrowRight className="w-4 h-4" />
-              </a>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {blogs.map((post) => (
-                <a key={post.id} href={`/blog/${post.slug}`} className="group bg-slate-50 dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col">
-                  <div className="h-48 overflow-hidden bg-slate-200 dark:bg-slate-800">
-                    {post.cover_url ? (
-                      <img src={post.cover_url} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    ) : (
-                      <div className="w-full h-full bg-emerald-950/80 flex items-center justify-center text-amber-400">
-                        <BookOpen className="w-12 h-12" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">
-                        {post.published_at ? new Date(post.published_at).toLocaleDateString() : ''}
-                      </span>
-                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-1 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">{post.title}</h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">{post.excerpt}</p>
-                    </div>
-                    <span className="pt-4 text-xs font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1">
-                      Read Article <ChevronRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
-      {/* INSTAGRAM CTA */}
-      <section className="py-16 bg-emerald-950 text-white border-t border-emerald-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="space-y-2 max-w-xl text-center md:text-left">
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Follow us on Instagram</h2>
-              <p className="text-sm text-emerald-200 leading-relaxed">
-                Stay updated with study tips, topper spotlights, and institute events on our official Instagram page.
+            {/* Stat Counters matching the Framer template layout */}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
+                <p className="font-display text-3xl sm:text-4xl font-extrabold text-emerald-800 dark:text-emerald-300">500+</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Students Mentored</p>
+              </div>
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
+                <p className="font-display text-3xl sm:text-4xl font-extrabold text-amber-500">98%</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Board Pass Rate</p>
+              </div>
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
+                <p className="font-display text-3xl sm:text-4xl font-extrabold text-amber-500">10+</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Years Mastery</p>
+              </div>
+              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
+                <p className="font-display text-3xl sm:text-4xl font-extrabold text-emerald-800 dark:text-emerald-300">15</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Max Batch Size</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================
+          3. TRAINING PROGRAMS / COURSES (Template numbered card design)
+          ========================================================= */}
+      <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-950">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+            <div>
+              <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+                Training Programs
+              </span>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2">
+                Find Your Path.
+              </h2>
+              <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
+                Structured, board-aligned courses crafted for concept mastery, high examination scores, and stress-free learning.
               </p>
             </div>
             <a
-              href={instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-lg bg-white text-emerald-950 font-bold text-sm shadow-lg hover:bg-amber-50 transition-colors shrink-0"
+              href="/courses"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-100/70 dark:bg-emerald-900/40 hover:bg-emerald-200/80 transition self-start md:self-end"
             >
-              <Instagram className="w-4 h-4" />
-              @ss__tutorial
-              <ExternalLink className="w-3.5 h-3.5 opacity-50" />
+              <span>All programs</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {displayPrograms.map((prog) => (
+              <div
+                key={prog.num}
+                className="group relative bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-amber-400/50 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">
+                      {prog.num}
+                    </span>
+                    <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                      {prog.badge}
+                    </span>
+                  </div>
+
+                  <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                    {prog.title}
+                  </h3>
+
+                  <p className="text-slate-500 dark:text-slate-400 text-sm mt-3 leading-relaxed">
+                    {prog.desc}
+                  </p>
+
+                  <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 space-y-2">
+                    <p className="text-[11px] font-extrabold uppercase tracking-widest text-slate-400">
+                      Key Highlights
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-700 dark:text-slate-300">
+                      {prog.skills.map((skill: string) => (
+                        <div key={skill} className="flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                          <span className="truncate">{skill}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-sm font-extrabold text-emerald-700 dark:text-emerald-400">
+                    {prog.fee}
+                  </span>
+                  <a
+                    href={`/courses/${prog.slug}`}
+                    className="inline-flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white group-hover:text-amber-500 transition"
+                  >
+                    <span>View Details</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================
+          4. WHY TRAIN WITH US (Bento Grid matching template)
+          ========================================================= */}
+      <section className="py-20 lg:py-28 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+              Why Train With Us
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Built Different. <br />
+              Teaching Different.
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+              Every detail of how we teach, who we mentor, and how we structure your student's growth is intentional.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 flex items-center justify-center">
+                <GraduationCap className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">Expert Faculty</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                  Led personally by Ankit Gupta, dedicated to breaking down complicated mathematics into simple, memorable steps.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
+              <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 flex items-center justify-center">
+                <Users className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">Small Batch Size</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                  Strictly capped at 15 to 20 students so no student is overlooked or hesitant to ask questions.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 flex items-center justify-center">
+                <Award className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">Weekly Assessments</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                  Periodic unit tests mirror actual board formats, building time-management skills and eliminating exam fear.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
+              <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 flex items-center justify-center">
+                <Zap className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-base text-slate-900 dark:text-white">Formula Cheatsheets</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                  Concise theorem summaries and formula banks provided for quick, stress-free revisions before every exam.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================
+          5. CLASS TIMINGS / WEEKLY SCHEDULE (Interactive tabs)
+          ========================================================= */}
+      <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-950">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center mb-12 space-y-2">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+              Class Timings
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Weekly Schedule
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              Find a slot that fits your routine and school timings.
+            </p>
+          </div>
+
+          {/* Day Selector Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm mb-8">
+            {Object.keys(scheduleData).map((day) => (
+              <button
+                key={day}
+                type="button"
+                onClick={() => setActiveDay(day)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  activeDay === day
+                    ? 'bg-emerald-800 text-white shadow-md'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                {day}
+              </button>
+            ))}
+          </div>
+
+          {/* Schedule Slots List for Active Day */}
+          <div className="space-y-3">
+            {scheduleData[activeDay]?.map((slot, index) => (
+              <div
+                key={index}
+                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-emerald-600/40 transition"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-extrabold flex items-center justify-center shrink-0">
+                    {slot.tag}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-slate-900 dark:text-white">{slot.title}</h4>
+                    <p className="text-xs text-slate-400 mt-0.5">Faculty: {slot.instructor}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100 dark:border-slate-800">
+                  <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5" />
+                    {slot.time}
+                  </span>
+                  <a
+                    href="/admission"
+                    className="px-4 py-1.5 rounded-full text-xs font-bold bg-amber-400 hover:bg-amber-300 text-emerald-950 transition"
+                  >
+                    Join
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================
+          6. STUDENT STORIES / TESTIMONIALS (Framer Quote card style)
+          ========================================================= */}
+      <section className="py-20 lg:py-28 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          
+          <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+            Student Stories
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2 mb-12">
+            What Our Students Say.
+          </h2>
+
+          <div className="relative p-8 sm:p-12 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-xl max-w-3xl mx-auto">
+            <div className="flex justify-center gap-1 text-amber-400 mb-6">
+              {[1, 2, 3, 4, 5].map((s) => (
+                <Star key={s} className="w-5 h-5 fill-amber-400" />
+              ))}
+            </div>
+
+            <p className="font-display text-lg sm:text-2xl text-slate-800 dark:text-slate-100 leading-relaxed font-medium italic">
+              "{testimonials[0]?.text || 'The conceptual clarity and personal attention my son received here is remarkable. Ankit Sir makes even the most difficult math word problems intuitive and fun. His board score went from 65% to 92%!'}"
+            </p>
+
+            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
+              <p className="font-bold text-base text-slate-900 dark:text-white">
+                {testimonials[0]?.student_name || 'Rahul Sharma (Parent: Sunita Sharma)'}
+              </p>
+              <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 mt-0.5">
+                {testimonials[0]?.course || 'Class 10 SSC Board - 94% in Mathematics'}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================
+          7. COMMON QUESTIONS / FAQ (Interactive Accordion)
+          ========================================================= */}
+      <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-950">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center mb-12 space-y-2">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
+              FAQ
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Common Questions
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+              Everything you need to know about joining SS Tutorial.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaqIndex === idx
+              return (
+                <div
+                  key={idx}
+                  className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                    className="w-full p-5 text-left font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between gap-4"
+                  >
+                    <span>{faq.q}</span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 ${
+                        isOpen ? 'rotate-180 text-emerald-600' : ''
+                      }`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================
+          8. BEGIN YOUR JOURNEY / HIGH-CONVERSION CTA BANNER
+          ========================================================= */}
+      <section className="py-20 lg:py-28 bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950 text-white relative overflow-hidden">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
+          
+          <span className="inline-block text-xs font-extrabold uppercase tracking-widest text-amber-400">
+            Begin Your Journey
+          </span>
+
+          <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+            Ready to Start Learning?
+          </h2>
+
+          <p className="text-base sm:text-lg text-emerald-100/90 max-w-2xl mx-auto font-normal">
+            No registration fee for demo. First class is 100% free. Just show up at our Umroli center — we'll handle the rest.
+          </p>
+
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/admission"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-sm text-emerald-950 bg-amber-400 hover:bg-amber-300 shadow-xl transition-all hover:scale-105"
+            >
+              <span>Register for Free Trial</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm text-white bg-emerald-800/80 hover:bg-emerald-700/80 border border-emerald-600/60 shadow-lg transition-all"
+            >
+              <MessageCircle className="w-4 h-4 text-emerald-300" />
+              <span>Chat on WhatsApp</span>
+            </a>
+          </div>
+
+          <div className="pt-8 text-xs text-emerald-300/80">
+            📍 002, (B) WING, VEER 10, UMROLI (EAST) • Admissions Open for Class 6 to 12
+          </div>
+
         </div>
       </section>
 

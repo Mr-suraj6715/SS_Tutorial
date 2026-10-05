@@ -1,6 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import type { User, Session } from '@supabase/supabase-js'
-import { supabase } from '../supabase/client'
 
 export type UserRole = 'admin' | 'moderator' | 'teacher' | 'student' | 'parent' | 'user'
 
@@ -10,11 +8,21 @@ export interface UserProfile {
   phone: string
   avatar_url: string | null
   role: string
+  email?: string
+}
+
+export interface AuthUser {
+  id: string
+  email: string
+  user_metadata?: {
+    full_name?: string
+    role?: string
+  }
 }
 
 interface AuthContextType {
-  user: User | null
-  session: Session | null
+  user: AuthUser | null
+  session: any | null
   profile: UserProfile | null
   role: UserRole
   loading: boolean
@@ -47,58 +55,67 @@ const AuthContext = createContext<AuthContextType>({
 })
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null)
-  const [session, setSession] = useState<Session | null>(null)
+  const [user, setUser] = useState<AuthUser | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [role, setRole] = useState<UserRole>('user')
   const [loading, setLoading] = useState<boolean>(true)
 
-  const fetchProfileAndRole = async (userId: string) => {
-    try {
-      // 1. Fetch user role from user_roles (authoritative RBAC)
-      const { data: roleData } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', userId)
-        .maybeSingle()
-
-      if (roleData?.role) {
-        setRole(roleData.role as UserRole)
-      } else {
-        setRole('user')
-      }
-
-      // 2. Fetch profile
-      const { data: profileData } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .maybeSingle()
-
-      if (profileData) {
-        setProfile(profileData as UserProfile)
-        // If role wasn't in user_roles, check profile role as fallback
-        if (!roleData?.role && profileData.role) {
-          setRole(profileData.role as UserRole)
-        }
-      }
-    } catch (e) {
-      console.warn('Error fetching profile or role:', e)
-    }
-  }
-
   const refreshAuth = async () => {
     try {
-      setLoading(true)
-      const { data } = await supabase.auth.getSession()
-      setSession(data.session)
-      setUser(data.session?.user || null)
-      if (data.session?.user) {
-        await fetchProfileAndRole(data.session.user.id)
+      const token = localStorage.getItem('ss_token')
+      if (!token) {
+        setUser(null)
+        setProfile(null)
+        setRole('user')
+        return
+      }
+
+      const res = await fetch('/api/auth/me', {
+        headers: {
+          'Authorization': 'Bearer ' + token,
+        },
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        const u = data.user
+        if (u) {
+          const authUser: AuthUser = {
+            id: u.id,
+            email: u.email,
+            user_metadata: { full_name: u.name, role: u.role },
+          }
+          const prof: UserProfile = {
+            id: u.id,
+            full_name: u.name,
+            phone: u.phone || '',
+            avatar_url: null,
+            role: u.role,
+            email: u.email,
+          }
+          setUser(authUser)
+          setProfile(prof)
+          setRole((u.role as UserRole) || 'user')
+        }
       } else {
+        // Token invalid or expired
+        localStorage.removeItem('ss_token')
+        setUser(null)
         setProfile(null)
         setRole('user')
       }
+    } catch (err) {
+      console.warn('Auth verification error:', err)
+      // Check cached user in localStorage if network glitch
+      try {
+        const cachedUserStr = localStorage.getItem('ss_user')
+        if (cachedUserStr) {
+          const u = JSON.parse(cachedUserStr)
+          setUser({ id: u.id, email: u.email, user_metadata: { full_name: u.name, role: u.role } })
+          setProfile({ id: u.id, full_name: u.name, phone: '', avatar_url: null, role: u.role, email: u.email })
+          setRole((u.role as UserRole) || 'user')
+        }
+      } catch {}
     } finally {
       setLoading(false)
     }
@@ -106,75 +123,103 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     refreshAuth()
-
-    const { data: listener } = supabase.auth.onAuthStateChange(async (_event, newSession) => {
-      setSession(newSession)
-      setUser(newSession?.user || null)
-      if (newSession?.user) {
-        await fetchProfileAndRole(newSession.user.id)
-      } else {
-        setProfile(null)
-        setRole('user')
-      }
-      setLoading(false)
-    })
-
-    return () => {
-      listener.subscription.unsubscribe()
-    }
   }, [])
 
   const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-    return { error }
+    return { error: new Error('Google Sign-In is not configured for local environment. Please use email and password.') }
   }
 
   const signInWithEmail = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    return { error }
+    try {
+      const cleanEmail = email.trim().toLowerCase()
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: cleanEmail, password }),
+      })
+
+      const data = await res.json()
+      if (!res.ok) {
+        return { error: new Error(data.error || 'Failed to sign in. Please check your credentials.') }
+      }
+
+      if (data.token) {
+        localStorage.setItem('ss_token', data.token)
+        localStorage.setItem('ss_user', JSON.stringify(data.user))
+        const authUser: AuthUser = {
+          id: data.user.id,
+          email: data.user.email,
+          user_metadata: { full_name: data.user.name, role: data.user.role },
+        }
+        setUser(authUser)
+        setProfile({
+          id: data.user.id,
+          full_name: data.user.name,
+          phone: '',
+          avatar_url: null,
+          role: data.user.role,
+          email: data.user.email,
+        })
+        setRole((data.user.role as UserRole) || 'user')
+      }
+
+      return { error: null }
+    } catch (err: any) {
+      return { error: new Error(err?.message || 'Network error during sign in.') }
+    }
   }
 
   const signUpWithEmail = async (email: string, password: string, fullName: string, desiredRole: string) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-          role: desiredRole,
-        },
-      },
-    })
-    if (error) return { error }
+    try {
+      // Prevent unauthorized admin signups
+      const safeRole = desiredRole === 'admin' ? 'student' : desiredRole
 
-    if (data.user) {
-      // Upsert profile and user_roles
-      await supabase.from('profiles').upsert({
-        id: data.user.id,
-        full_name: fullName,
-        role: desiredRole as any,
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email.trim(),
+          password,
+          full_name: fullName.trim(),
+          role: safeRole,
+        }),
       })
-      await supabase.from('user_roles').upsert({
-        user_id: data.user.id,
-        role: (desiredRole === 'admin' ? 'admin' : 'user') as any,
-      })
+
+      const data = await res.json()
+      if (!res.ok) {
+        return { error: new Error(data.error || 'Registration failed. Please try again.') }
+      }
+
+      if (data.token) {
+        localStorage.setItem('ss_token', data.token)
+        localStorage.setItem('ss_user', JSON.stringify(data.user))
+        const authUser: AuthUser = {
+          id: data.user.id,
+          email: data.user.email,
+          user_metadata: { full_name: data.user.name, role: data.user.role },
+        }
+        setUser(authUser)
+        setProfile({
+          id: data.user.id,
+          full_name: data.user.name,
+          phone: '',
+          avatar_url: null,
+          role: data.user.role,
+          email: data.user.email,
+        })
+        setRole((data.user.role as UserRole) || 'student')
+      }
+
+      return { error: null }
+    } catch (err: any) {
+      return { error: new Error(err?.message || 'Network error during registration.') }
     }
-
-    return { error: null }
   }
 
   const signOut = async () => {
-    await supabase.auth.signOut()
+    localStorage.removeItem('ss_token')
+    localStorage.removeItem('ss_user')
     setUser(null)
-    setSession(null)
     setProfile(null)
     setRole('user')
   }
@@ -188,7 +233,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     <AuthContext.Provider
       value={{
         user,
-        session,
+        session: null,
         profile,
         role,
         loading,

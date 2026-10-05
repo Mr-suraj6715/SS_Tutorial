@@ -20,13 +20,11 @@ export const GalleryPage: React.FC = () => {
     const fetchGallery = async () => {
       try {
         setLoading(true)
-        const { data, error } = await supabase
-          .from('gallery')
-          .select('*')
-          .eq('is_published', true)
-          .order('display_order', { ascending: true })
-
-        if (data) setImages(data)
+        const res = await fetch('/api/gallery')
+        if (res.ok) {
+          const data = await res.json()
+          setImages(data.gallery || [])
+        }
       } catch (err) {
         console.warn('Error fetching gallery:', err)
       } finally {

@@ -41,15 +41,22 @@ export const ContactPage: React.FC = () => {
     setIsSubmitting(true)
 
     try {
-      const { error: insertError } = await supabase.from('messages').insert({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone || null,
-        subject: formData.subject || 'General Inquiry',
-        message: formData.message,
+      const res = await fetch('/api/content/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          subject: formData.subject || 'General Inquiry',
+          message: formData.message,
+        }),
       })
 
-      if (insertError) throw insertError
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || 'Failed to submit inquiry')
+      }
 
       setSubmitted(true)
       setFormData({

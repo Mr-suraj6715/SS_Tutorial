@@ -50,13 +50,15 @@ export const AdmissionPage: React.FC = () => {
     if (bId) setSelectedBatchId(bId)
 
     const fetchCourses = async () => {
-      const { data } = await supabase
-        .from('courses')
-        .select('id, title, category')
-        .eq('is_active', true)
-        .order('display_order', { ascending: true })
-
-      if (data) setCourses(data)
+      try {
+        const res = await fetch('/api/courses')
+        if (res.ok) {
+          const data = await res.json()
+          setCourses(data.courses || [])
+        }
+      } catch (e) {
+        console.warn('Could not fetch courses from backend:', e)
+      }
     }
 
     fetchCourses()
@@ -70,13 +72,16 @@ export const AdmissionPage: React.FC = () => {
         return
       }
 
-      const { data } = await supabase
-        .from('batches')
-        .select('id, name, schedule')
-        .eq('course_id', selectedCourseId)
-        .eq('is_active', true)
-
-      if (data) setBatches(data)
+      try {
+        const res = await fetch('/api/batches')
+        if (res.ok) {
+          const data = await res.json()
+          const matched = (data.batches || []).filter((b: any) => b.course_id === selectedCourseId)
+          setBatches(matched)
+        }
+      } catch (e) {
+        console.warn('Could not fetch batches from backend:', e)
+      }
     }
 
     fetchBatches()
@@ -94,20 +99,25 @@ export const AdmissionPage: React.FC = () => {
     setIsSubmitting(true)
 
     try {
-      const { error: insertError } = await supabase.from('admissions').insert({
-        student_name: formData.student_name,
-        parent_name: formData.parent_name,
-        phone: formData.phone,
-        email: formData.email,
-        address: formData.address,
-        course_id: selectedCourseId,
-        batch_id: selectedBatchId || null,
-        status: 'pending',
-        documents: uploadedDocuments,
-        applied_at: new Date().toISOString(),
+      const res = await fetch('/api/admissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          student_name: formData.student_name,
+          parent_name: formData.parent_name,
+          phone: formData.phone,
+          email: formData.email,
+          address: formData.address,
+          course_id: selectedCourseId,
+          batch_id: selectedBatchId || null,
+          documents: uploadedDocuments,
+        }),
       })
 
-      if (insertError) throw insertError
+      const data = await res.json()
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to submit admission application')
+      }
 
       setSubmitted(true)
     } catch (err: any) {

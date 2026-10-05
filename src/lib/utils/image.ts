@@ -91,51 +91,71 @@ export async function processImageForWeb(file: File): Promise<ProcessedImages> {
 }
 
 /**
- * Uploads an image with automatic WebP and Thumbnail generation to Supabase 'media' bucket
+ * Uploads an image with automatic WebP and Thumbnail generation to local server /api/upload
  */
 export async function uploadOptimizedImage(
   file: File,
-  folder: string = 'general'
+  _folder: string = 'general'
 ): Promise<{ imageUrl: string; webpUrl: string; thumbnailUrl: string }> {
-  const fileExt = file.name.split('.').pop() || 'jpg'
-  const baseId = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+  try {
+    // Process image into WebP and Thumbnail blobs
+    const { webpBlob, thumbnailBlob } = await processImageForWeb(file)
 
-  // Process image
-  const { webpBlob, thumbnailBlob } = await processImageForWeb(file)
+    const formData = new FormData()
+    // Append original, webp, and thumbnail
+    formData.append('files', file, file.name)
+    const webpFileName = file.name.replace(/\.[^/.]+$/, '') + '.webp'
+    formData.append('files', webpBlob, webpFileName)
+    const thumbFileName = file.name.replace(/\.[^/.]+$/, '') + '_thumb.webp'
+    formData.append('files', thumbnailBlob, thumbFileName)
 
-  // 1. Upload original
-  const origPath = `${baseId}.${fileExt}`
-  const { error: origErr } = await supabase.storage.from('media').upload(origPath, file, {
-    cacheControl: '3600',
-    upsert: true,
-  })
-  if (origErr) throw origErr
+    const token = localStorage.getItem('ss_token')
+    const headers: Record<string, string> = {}
+    if (token) headers['Authorization'] = 'Bearer ' + token
 
-  // 2. Upload WebP variant
-  const webpPath = `${baseId}.webp`
-  const { error: webpErr } = await supabase.storage.from('media').upload(webpPath, webpBlob, {
-    contentType: 'image/webp',
-    cacheControl: '31536000',
-    upsert: true,
-  })
-  if (webpErr) throw webpErr
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      headers,
+      body: formData,
+    })
 
-  // 3. Upload Thumbnail
-  const thumbPath = `${baseId}_thumb.webp`
-  const { error: thumbErr } = await supabase.storage.from('media').upload(thumbPath, thumbnailBlob, {
-    contentType: 'image/webp',
-    cacheControl: '31536000',
-    upsert: true,
-  })
-  if (thumbErr) throw thumbErr
+    if (!res.ok) {
+      throw new Error(`Upload failed with status ${res.status}`)
+    }
 
-  const { data: origData } = supabase.storage.from('media').getPublicUrl(origPath)
-  const { data: webpData } = supabase.storage.from('media').getPublicUrl(webpPath)
-  const { data: thumbData } = supabase.storage.from('media').getPublicUrl(thumbPath)
+    const data = await res.json()
+    const files = data.files || []
 
-  return {
-    imageUrl: origData.publicUrl,
-    webpUrl: webpData.publicUrl,
-    thumbnailUrl: thumbData.publicUrl,
+    const origUrl = files[0]?.url || data.url
+    const webpUrl = files[1]?.url || origUrl
+    const thumbUrl = files[2]?.url || webpUrl
+
+    return {
+      imageUrl: origUrl,
+      webpUrl: webpUrl,
+      thumbnailUrl: thumbUrl,
+    }
+  } catch (err) {
+    console.warn('Backend upload error, attempting single file upload fallback:', err)
+    
+    // Direct single upload fallback
+    const singleData = new FormData()
+    singleData.append('file', file)
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      body: singleData,
+    })
+
+    if (res.ok) {
+      const data = await res.json()
+      return {
+        imageUrl: data.url,
+        webpUrl: data.url,
+        thumbnailUrl: data.url,
+      }
+    }
+
+    throw err
   }
 }
+

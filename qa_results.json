@@ -1,0 +1,170 @@
+{
+  "results": [
+    {
+      "tc": "TC-25",
+      "name": "API Health Check",
+      "status": "PASS",
+      "note": "Status 200: {\"status\":\"ok\",\"timestamp\":\"2026-10-04T05:53:34.207Z\",\"db\":\"sqlite\"}"
+    },
+    {
+      "tc": "TC-01",
+      "name": "Student Login",
+      "status": "PASS",
+      "note": "Token received. Role=student, Name=Test Student"
+    },
+    {
+      "tc": "TC-02",
+      "name": "Parent Login",
+      "status": "PASS",
+      "note": "Token received. Role=parent"
+    },
+    {
+      "tc": "TC-03",
+      "name": "Teacher Login",
+      "status": "PASS",
+      "note": "Token received. Role=teacher"
+    },
+    {
+      "tc": "TC-04",
+      "name": "Admin Login",
+      "status": "FAIL",
+      "note": "None of the tried passwords worked — admin password needs to be checked in seeder"
+    },
+    {
+      "tc": "TC-05",
+      "name": "Logout / Token Invalidation",
+      "status": "PASS",
+      "note": "Invalid token correctly rejected with 401"
+    },
+    {
+      "tc": "TC-06",
+      "name": "Session Persistence (JWT /me)",
+      "status": "PASS",
+      "note": "User verified: student.test@example.com, role=student"
+    },
+    {
+      "tc": "TC-07",
+      "name": "Role-Based Authentication",
+      "status": "PASS",
+      "note": "Student=student, Parent=parent, Teacher=teacher roles all confirmed"
+    },
+    {
+      "tc": "TC-08",
+      "name": "Student Profile View",
+      "status": "PARTIAL",
+      "note": "No dedicated profile endpoint found. Checking /api/auth/me: {\"error\":\"Forbidden\"}"
+    },
+    {
+      "tc": "TC-09",
+      "name": "Parent Linked Student Info",
+      "status": "PARTIAL",
+      "note": "Endpoints not found (404, 404). Link exists in DB but no API endpoint yet."
+    },
+    {
+      "tc": "TC-10",
+      "name": "Teacher Profile View",
+      "status": "PASS",
+      "note": "Teacher confirmed: Test Teacher, teacher.test@example.com"
+    },
+    {
+      "tc": "TC-11",
+      "name": "Course Access (Public)",
+      "status": "PASS",
+      "note": "6 courses returned without auth. OK."
+    },
+    {
+      "tc": "TC-12",
+      "name": "Study Material Access",
+      "status": "PARTIAL",
+      "note": "Endpoints not found (500, 404). May not be implemented in backend."
+    },
+    {
+      "tc": "TC-13",
+      "name": "Assignment Functionality",
+      "status": "PARTIAL",
+      "note": "Endpoints not found (404, 404). Backend route may be missing."
+    },
+    {
+      "tc": "TC-14",
+      "name": "Attendance View",
+      "status": "PARTIAL",
+      "note": "Endpoints returned 404, 404. May not be implemented."
+    },
+    {
+      "tc": "TC-15",
+      "name": "Fee/Payment Status",
+      "status": "PARTIAL",
+      "note": "Endpoints returned 404, 404."
+    },
+    {
+      "tc": "TC-16",
+      "name": "Notice Board",
+      "status": "PASS",
+      "note": "Notices: {\"notices\":[{\"id\":\"not-1\",\"title\":\"Upcoming Monthly Mock Assessment\",\"content\":\""
+    },
+    {
+      "tc": "TC-17",
+      "name": "Admin Access Guard (No Auth)",
+      "status": "FAIL",
+      "note": "Admin endpoints exposed without auth! Status: 404, 404"
+    },
+    {
+      "tc": "TC-18",
+      "name": "RBAC — Student Cannot Access Admin",
+      "status": "PARTIAL",
+      "note": "Admin route returns 404 — route may not exist yet (404)"
+    },
+    {
+      "tc": "TC-19",
+      "name": "RBAC — Teacher Cannot Access Admin",
+      "status": "PARTIAL",
+      "note": "Admin route returns 404 — no dedicated admin route implemented"
+    },
+    {
+      "tc": "TC-20",
+      "name": "Public Sign-up Security (No Admin)",
+      "status": "PASS",
+      "note": "Admin sign-up correctly blocked: \"Forbidden: Admin accounts cannot be created via public sign-up. Please log in using existing administrator credentials.\""
+    },
+    {
+      "tc": "TC-21",
+      "name": "Admission Form Submission",
+      "status": "PASS",
+      "note": "Admission created. ID: adm-1791093215206-cijr9"
+    },
+    {
+      "tc": "TC-22",
+      "name": "Contact Form Submission",
+      "status": "FAIL",
+      "note": "Both endpoints failed: 404, 404"
+    },
+    {
+      "tc": "TC-23",
+      "name": "Gallery Page Load (API)",
+      "status": "PASS",
+      "note": "0 gallery items returned"
+    },
+    {
+      "tc": "TC-24",
+      "name": "API 404 Route Handling",
+      "status": "PASS",
+      "note": "Non-existent API route returns 404"
+    },
+    {
+      "tc": "TC-BONUS",
+      "name": "Wrong Password Rejection",
+      "status": "PASS",
+      "note": "Incorrect password correctly rejected with 401"
+    }
+  ],
+  "summary": {
+    "pass": 15,
+    "fail": 3,
+    "partial": 8,
+    "bugs": [
+      "TC-04: Admin Login — None of the tried passwords worked — admin password needs to be checked in seeder",
+      "TC-17: Admin Access Guard (No Auth) — Admin endpoints exposed without auth! Status: 404, 404",
+      "TC-22: Contact Form Submission — Both endpoints failed: 404, 404"
+    ]
+  }
+}
