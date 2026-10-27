@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   GraduationCap,
   User,
@@ -206,7 +206,7 @@ export const AdmissionPage: React.FC = () => {
                     required
                     value={formData.student_name}
                     onChange={(e) => setFormData({ ...formData, student_name: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                     placeholder="Enter student's legal name"
                   />
                 </div>
@@ -220,7 +220,7 @@ export const AdmissionPage: React.FC = () => {
                     required
                     value={formData.parent_name}
                     onChange={(e) => setFormData({ ...formData, parent_name: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                     placeholder="Parent or Guardian name"
                   />
                 </div>
@@ -234,7 +234,7 @@ export const AdmissionPage: React.FC = () => {
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                     placeholder="e.g. +91 9876543210"
                   />
                 </div>
@@ -248,7 +248,7 @@ export const AdmissionPage: React.FC = () => {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                     placeholder="e.g. student@example.com"
                   />
                 </div>
@@ -261,7 +261,7 @@ export const AdmissionPage: React.FC = () => {
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                     placeholder="House/Street, City, Postal Code"
                   />
                 </div>
@@ -289,7 +289,7 @@ export const AdmissionPage: React.FC = () => {
                       setSelectedCourseId(e.target.value)
                       setSelectedBatchId('')
                     }}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                   >
                     <option value="">-- Select Course --</option>
                     {courses.map((c) => (
@@ -308,7 +308,7 @@ export const AdmissionPage: React.FC = () => {
                     value={selectedBatchId}
                     onChange={(e) => setSelectedBatchId(e.target.value)}
                     disabled={!selectedCourseId || batches.length === 0}
-                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none disabled:opacity-50"
+                    className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none disabled:opacity-50"
                   >
                     <option value="">
                       {!selectedCourseId

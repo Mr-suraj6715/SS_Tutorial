@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { supabase, isSupabaseConfigured } from '../supabase/client'
 
 export type UserRole = 'admin' | 'moderator' | 'teacher' | 'student' | 'parent' | 'user'
 
@@ -126,7 +127,95 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [])
 
   const signInWithGoogle = async () => {
-    return { error: new Error('Google Sign-In is not configured for local environment. Please use email and password.') }
+    try {
+      const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+
+      // 1. Google Identity Services (OAuth2 popup flow with Client ID)
+      if (googleClientId && typeof window !== 'undefined' && (window as any).google?.accounts?.oauth2) {
+        return new Promise<{ error: Error | null }>((resolve) => {
+          try {
+            const client = (window as any).google.accounts.oauth2.initTokenClient({
+              client_id: googleClientId,
+              scope: 'email profile openid',
+              callback: async (tokenResponse: any) => {
+                if (tokenResponse?.error) {
+                  resolve({ error: new Error(tokenResponse.error_description || tokenResponse.error) })
+                  return
+                }
+                try {
+                  const userInfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                    headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+                  })
+                  if (!userInfoRes.ok) {
+                    resolve({ error: new Error('Failed to retrieve Google profile details.') })
+                    return
+                  }
+                  const profileData = await userInfoRes.json()
+
+                  const res = await fetch('/api/auth/google', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      email: profileData.email,
+                      name: profileData.name || profileData.given_name || profileData.email.split('@')[0],
+                    }),
+                  })
+                  const data = await res.json()
+                  if (!res.ok) {
+                    resolve({ error: new Error(data.error || 'Google sign in failed.') })
+                    return
+                  }
+                  if (data.token) {
+                    localStorage.setItem('ss_token', data.token)
+                    localStorage.setItem('ss_user', JSON.stringify(data.user))
+                    setUser({
+                      id: data.user.id,
+                      email: data.user.email,
+                      user_metadata: { full_name: data.user.name, role: data.user.role },
+                    })
+                    setProfile({
+                      id: data.user.id,
+                      full_name: data.user.name,
+                      phone: '',
+                      avatar_url: null,
+                      role: data.user.role,
+                      email: data.user.email,
+                    })
+                    setRole((data.user.role as UserRole) || 'student')
+                  }
+                  resolve({ error: null })
+                } catch (e: any) {
+                  resolve({ error: new Error(e?.message || 'Google token exchange failed.') })
+                }
+              },
+            })
+            client.requestAccessToken()
+          } catch (initErr: any) {
+            resolve({ error: new Error('Google Sign-In initialization failed: ' + initErr.message) })
+          }
+        })
+      }
+
+      // 2. Supabase OAuth fallback if Supabase is active
+      if (isSupabaseConfigured) {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: `${window.location.origin}/auth`,
+          },
+        })
+        return { error: error ? new Error(error.message) : null }
+      }
+
+      // 3. Inform user to provide VITE_GOOGLE_CLIENT_ID
+      return {
+        error: new Error(
+          'Google Sign-In is awaiting configuration. Please set VITE_GOOGLE_CLIENT_ID in your .env file.'
+        ),
+      }
+    } catch (err: any) {
+      return { error: new Error(err?.message || 'Google Sign-In error') }
+    }
   }
 
   const signInWithEmail = async (email: string, password: string) => {

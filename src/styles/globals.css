@@ -3,40 +3,40 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 155 45% 12%;
+    --foreground: 222 47% 11%; /* #0f172a slate-900 */
 
-    /* Deep Forest Green Primary Palette */
-    --primary: 154 58% 22%;
-    --primary-foreground: 0 0% 98%;
-    --primary-light: 152 40% 94%;
-    --primary-hover: 154 62% 18%;
+    /* Academic Deep Teal Primary Palette (#154d68) */
+    --primary: 200 66% 25%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 174 60% 95%; /* soft mint-teal tint */
+    --primary-hover: 200 70% 19%;
 
-    /* Warm Amber Accent Palette */
-    --accent: 38 92% 50%;
-    --accent-foreground: 38 95% 15%;
-    --accent-light: 40 94% 94%;
-    --accent-hover: 38 90% 44%;
+    /* Soft Teal & Cyan Accent Palette */
+    --accent: 173 80% 36%; /* teal-600 */
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 173 70% 96%;
+    --accent-hover: 173 84% 30%;
 
     --card: 0 0% 100%;
-    --card-foreground: 155 45% 12%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 155 45% 12%;
+    --popover-foreground: 222 47% 11%;
 
-    --secondary: 150 25% 95%;
-    --secondary-foreground: 154 58% 22%;
+    --secondary: 173 40% 96%;
+    --secondary-foreground: 200 66% 25%;
 
-    --muted: 150 15% 94%;
-    --muted-foreground: 150 10% 45%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 150 20% 88%;
-    --input: 150 20% 88%;
-    --ring: 154 58% 22%;
+    --border: 214 32% 91%; /* slate-200 */
+    --input: 214 32% 91%;
+    --ring: 200 66% 25%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
   }
 
   .dark {
@@ -120,71 +120,70 @@
 }
 
 /* ==========================================================
-   Universal Form Controls - Visible Writing Text & Options
+   Universal Form Controls - Visible Black Writing Text & Inputs
    ========================================================== */
+/* Default font color for anything the user types or enters: crisp visible black */
 input,
 select,
-textarea {
-  color: #0f172a; /* High contrast dark text for light backgrounds */
+textarea,
+[contenteditable="true"] {
+  color: #000000 !important; /* Pure visible black for all typed content */
+  -webkit-text-fill-color: #000000 !important;
+  font-weight: 500;
 }
 
+/* Ensure placeholder is visible but differentiated from entered black text */
 input::placeholder,
 textarea::placeholder {
-  color: #64748b; /* Visible slate placeholder in light mode */
-  opacity: 1;
-}
-
-select option {
-  background-color: #ffffff;
-  color: #0f172a;
-}
-
-/* Explicit dark background elements */
-input.bg-slate-800,
-input.bg-slate-900,
-input.bg-slate-950,
-select.bg-slate-800,
-select.bg-slate-900,
-textarea.bg-slate-800,
-textarea.bg-slate-900 {
-  color: #f8fafc !important;
-}
-
-/* Dark mode inputs, selects, textareas, and dropdown options */
-.dark input,
-.dark select,
-.dark textarea {
-  color: #f8fafc !important; /* Bright crisp white text for dark mode */
-}
-
-.dark input::placeholder,
-.dark textarea::placeholder {
-  color: #94a3b8 !important; /* Visible muted slate placeholder in dark mode */
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
   opacity: 1 !important;
+  font-weight: 400;
 }
 
-.dark select option {
-  background-color: #0f172a !important;
+/* Dropdown options visible black on white */
+select option {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Autofill styling to preserve visible black text */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #000000 !important;
+  color: #000000 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Explicit dark background elements only (e.g. dark modals or dark login panels) */
+input[class*="bg-slate-800"],
+input[class*="bg-slate-900"],
+input[class*="bg-slate-950"],
+input[class*="bg-black"],
+textarea[class*="bg-slate-800"],
+textarea[class*="bg-slate-900"],
+textarea[class*="bg-slate-950"],
+textarea[class*="bg-black"],
+select[class*="bg-slate-800"],
+select[class*="bg-slate-900"],
+select[class*="bg-slate-950"],
+select[class*="bg-black"] {
   color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
 }
 
-/* Browser/OS dark mode preference */
-@media (prefers-color-scheme: dark) {
-  input,
-  select,
-  textarea {
-    color: #f8fafc !important;
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    color: #94a3b8 !important;
-    opacity: 1 !important;
-  }
-
-  select option {
-    background-color: #0f172a !important;
-    color: #f8fafc !important;
-  }
+input[class*="bg-slate-800"]::placeholder,
+input[class*="bg-slate-900"]::placeholder,
+textarea[class*="bg-slate-800"]::placeholder,
+textarea[class*="bg-slate-900"]::placeholder {
+  color: #94a3b8 !important;
+  -webkit-text-fill-color: #94a3b8 !important;
 }
 

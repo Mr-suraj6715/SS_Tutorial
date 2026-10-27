@@ -17,6 +17,11 @@ import {
   GraduationCap,
   ShieldCheck,
   Zap,
+  Compass,
+  TrendingUp,
+  Calculator,
+  FlaskConical,
+  FileCheck,
 } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
@@ -222,328 +227,398 @@ export const HomePage: React.FC = () => {
   })) : defaultPrograms
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 selection:bg-amber-400 selection:text-emerald-950">
+    <div className="flex flex-col min-h-screen bg-white font-sans text-slate-900 selection:bg-teal-100 selection:text-teal-900">
 
       {/* =========================================================
-          1. HERO SECTION (Template style: badge + bold typography + dual CTAs + stats)
+          1. HERO SECTION (Full-Width Edge-to-Edge)
           ========================================================= */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-emerald-950 via-emerald-900 to-slate-950 text-white pt-16 pb-24 lg:pt-24 lg:pb-32">
-        {/* Subtle grid pattern background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+      <section className="relative w-full overflow-hidden min-h-[480px] sm:min-h-[540px] lg:min-h-[600px] flex items-center justify-center">
+        {/* Full-bleed Background Educational Photo */}
+        <img
+          src={settings.hero_image_url || '/hero-students.jpg'}
+          alt="Students studying together in library"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        {/* Soft subtle scrim overlay so text is crystal clear */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/50 to-slate-950/40" />
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          
-          {/* Top Pill Badge (Matches template's "NEW OFFER | 100% Free Class") */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/80 border border-emerald-700/60 shadow-inner mb-8 text-xs font-semibold text-emerald-200">
-            <span className="px-2 py-0.5 rounded-full bg-amber-400 text-emerald-950 font-bold uppercase tracking-wider text-[10px]">
-              {settings.homepage_hero_badge ? settings.homepage_hero_badge.split('|')[0] : 'New Batch 2026-27'}
-            </span>
-            <span className="flex items-center gap-1 text-emerald-100">
-              {settings.homepage_hero_badge && settings.homepage_hero_badge.includes('|') ? settings.homepage_hero_badge.split('|')[1] : 'Your First Demo Class is 100% Free'}
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            </span>
-          </div>
-
-          {/* Main Display Headline (Matching template's "Martial Arts Worth the Journey.") */}
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] max-w-4xl mx-auto text-white whitespace-pre-wrap">
-            {settings.homepage_hero_title || (
-              <>
-                Academic Excellence <br className="hidden sm:inline" />
-                Worth the <span className="text-amber-400 underline decoration-amber-400/40 decoration-wavy underline-offset-8">Journey.</span>
-              </>
-            )}
+        {/* Overlaid Center Content */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white py-16 sm:py-20 lg:py-24">
+          <h1 className="font-bold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.15] drop-shadow-md">
+            {settings.homepage_hero_title && !/^s+$/i.test(settings.homepage_hero_title.trim())
+              ? settings.homepage_hero_title
+              : "Empower Your Child's Academic Journey."}
           </h1>
 
-          {/* Subheading */}
-          <p className="mt-6 text-base sm:text-lg lg:text-xl text-emerald-100/90 max-w-2xl mx-auto font-normal leading-relaxed whitespace-pre-wrap">
-            {settings.homepage_hero_subtitle || 'Forge unwavering discipline, master board exams, and honor conceptual clarity. Your journey to top scores starts exactly here at SS Tutorial.'}
+          <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-white/95 max-w-xl mx-auto font-normal leading-relaxed drop-shadow-sm">
+            {settings.homepage_hero_subtitle ||
+              "Trusted Tutoring for Excellence & Growth. Expert guidance from passionate educators."}
           </p>
 
-          {/* Dual Action Buttons */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="/courses"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-emerald-950 bg-amber-400 hover:bg-amber-300 shadow-xl hover:shadow-amber-400/20 hover:-translate-y-0.5 transition-all duration-200"
-            >
-              <span>Explore Courses</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
+          {/* Dual Action Buttons matching reference: deep teal filled pill + clean outline pill */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
             <a
               href="/admission"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-sm text-white bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-700/60 hover:-translate-y-0.5 transition-all duration-200 backdrop-blur-sm"
+              className="px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base text-white bg-[#154d68] hover:bg-[#0e3a50] shadow-md transition-all hover:scale-[1.02]"
             >
-              <Calendar className="w-4 h-4 text-amber-300" />
-              <span>Book a Free Demo</span>
+              Get Started Today
+            </a>
+            <a
+              href="/courses"
+              className="px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base text-teal-900 bg-white/95 hover:bg-white border border-teal-600/40 shadow-sm backdrop-blur-sm transition-all hover:scale-[1.02]"
+            >
+              Learn More
             </a>
           </div>
-
-          {/* Social Links Pill Bar */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-xs text-emerald-300/80 font-medium">
-            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-300 transition">
-              <Instagram className="w-4 h-4 text-pink-400" />
-              <span>Instagram: @ss__tutorial</span>
-            </a>
-            <span className="w-1 h-1 rounded-full bg-emerald-700" />
-            <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-300 transition">
-              <Youtube className="w-4 h-4 text-red-400" />
-              <span>YouTube: @SS__tutorial2025</span>
-            </a>
-            <span className="w-1 h-1 rounded-full bg-emerald-700 hidden sm:inline-block" />
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-emerald-300">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" /> SSC & CBSE Board Syllabus
-            </span>
-          </div>
-
         </div>
       </section>
 
       {/* =========================================================
-          2. LEGACY / STORY SECTION ("Forged in Tradition. Built for Today.")
+          2. OUR APPROACH (Directly matching reference image)
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+      <section className="py-14 sm:py-20 bg-white border-b border-slate-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 text-center tracking-tight">
+            Our Approach
+          </h2>
+
+          <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-100 text-center">
+            {/* Feature 1: Personalized Learning */}
+            <div className="py-6 md:py-0 md:px-8 flex flex-col items-center">
+              <div className="w-12 h-12 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center mb-4 border border-teal-100/60 shadow-xs">
+                <Compass className="w-6 h-6 stroke-[2]" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                Personalized Learning
+              </h3>
+              <p className="text-sm text-slate-500 mt-2 max-w-xs leading-relaxed">
+                Tailored plans for each student's unique needs.
+              </p>
+            </div>
+
+            {/* Feature 2: Expert Tutors */}
+            <div className="py-6 md:py-0 md:px-8 flex flex-col items-center">
+              <div className="w-12 h-12 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center mb-4 border border-teal-100/60 shadow-xs">
+                <GraduationCap className="w-6 h-6 stroke-[2]" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                Expert Tutors
+              </h3>
+              <p className="text-sm text-slate-500 mt-2 max-w-xs leading-relaxed">
+                Highly qualified and background-checked mentors.
+              </p>
+            </div>
+
+            {/* Feature 3: Proven Results */}
+            <div className="py-6 md:py-0 md:px-8 flex flex-col items-center">
+              <div className="w-12 h-12 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center mb-4 border border-teal-100/60 shadow-xs">
+                <TrendingUp className="w-6 h-6 stroke-[2]" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                Proven Results
+              </h3>
+              <p className="text-sm text-slate-500 mt-2 max-w-xs leading-relaxed">
+                Boost confidence and achieve academic success.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          3. EXPLORE OUR PROGRAMS (Directly matching reference image)
+          ========================================================= */}
+      <section className="py-16 sm:py-24 bg-[#fafcfb]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Explore Our Programs
+            </h2>
+            <p className="text-slate-500 text-sm sm:text-base mt-2">
+              Structured, board-aligned courses crafted for deep conceptual understanding and high examination scores.
+            </p>
+          </div>
+
+          {/* 4 Clean Rounded Program Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Card 1: Math */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-teal-200 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center font-bold text-base mb-5">
+                  <Calculator className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900">Math</h3>
+                <p className="text-slate-500 text-sm mt-2 leading-relaxed">
+                  Tailored plans for each student's unique math needs.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100">
+                <a
+                  href="/courses"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-800 hover:text-teal-950 transition-colors"
+                >
+                  <span>Learn More</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Card 2: Science */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-teal-200 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-teal-50 text-teal-700 border border-teal-100 flex items-center justify-center mb-5">
+                  <FlaskConical className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900">Science</h3>
+                <p className="text-slate-500 text-sm mt-2 leading-relaxed">
+                  Highly qualified and background-checked mentors.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100">
+                <a
+                  href="/courses"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-800 hover:text-teal-950 transition-colors"
+                >
+                  <span>Learn More</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Card 3: English */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-teal-200 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-sky-50 text-sky-700 border border-sky-100 flex items-center justify-center mb-5">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900">English</h3>
+                <p className="text-slate-500 text-sm mt-2 leading-relaxed">
+                  Boost confidence and english academic success.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100">
+                <a
+                  href="/courses"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-800 hover:text-teal-950 transition-colors"
+                >
+                  <span>Learn More</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Card 4: Test Prep */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:shadow-md hover:border-teal-200 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-100 flex items-center justify-center mb-5">
+                  <FileCheck className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900">Test Prep</h3>
+                <p className="text-slate-500 text-sm mt-2 leading-relaxed">
+                  Boost students and test prep, and academic competitions.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100">
+                <a
+                  href="/courses"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-teal-800 hover:text-teal-950 transition-colors"
+                >
+                  <span>Learn More</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Link to Full Courses */}
+          <div className="mt-12 text-center">
+            <a
+              href="/courses"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:border-teal-300 hover:text-teal-900 shadow-xs transition-all"
+            >
+              <span>View All Board Courses & Batches</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================
+          4. ABOUT OUR FOUNDER & CENTER STORY
+          ========================================================= */}
+      <section className="py-16 sm:py-24 bg-white border-b border-slate-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
+            {/* Founder Image & Card */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="relative w-full max-w-sm rounded-3xl overflow-hidden bg-gradient-to-b from-teal-50/60 to-slate-50 border border-slate-200/80 shadow-md">
+                <img
+                  src={settings.founder_image_url || '/founder.jpg'}
+                  alt={settings.founder_name || 'Ankit Gupta'}
+                  className="w-full h-80 sm:h-96 object-cover object-top hover:scale-[1.02] transition-transform duration-300"
+                />
+                <div className="absolute bottom-0 inset-x-0 p-5 bg-gradient-to-t from-slate-950/90 via-slate-950/60 to-transparent text-white">
+                  <h3 className="text-xl font-bold tracking-tight">
+                    {settings.founder_name || 'Ankit Gupta'}
+                  </h3>
+                  <p className="text-xs font-semibold text-teal-300 mt-0.5">
+                    {settings.founder_title || 'Founder & Director, SS Tutorial'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Story & Stat Counters */}
             <div className="lg:col-span-7 space-y-6">
-              <span className="inline-block text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-                Years of Excellence
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-                Forged in Dedication. <br className="hidden sm:inline" />
-                Built for Today’s Students.
-              </h2>
-              <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
-                Located at Umroli (East), SS Tutorial has been the community’s trusted destination for authentic mathematics and school curriculum coaching. Founded by <strong className="text-slate-900 dark:text-white font-semibold">{settings.founder_name || 'Ankit Gupta'}</strong> with a passion to demystify complex math concepts and build lifelong academic confidence.
+              <div>
+                <span className="inline-block text-xs font-bold uppercase tracking-wider text-teal-700">
+                  Meet Our Founder & Director
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight mt-1">
+                  Dedicated Mentorship. <br />
+                  Built for Today’s Students.
+                </h2>
+              </div>
+
+              <p className="text-slate-600 text-base leading-relaxed">
+                {settings.founder_bio ||
+                  'Dedicated educator and founder of SS Tutorial, passionate about simplifying mathematics and guiding students toward academic excellence through conceptual clarity and disciplined practice.'}
               </p>
-              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
-                Whether you seek board exam preparation, competitive foundation, or foundational textbook solutions — our classroom is your academic home. Every student, from Class 6 to Class 12, receives personalized attention and disciplined mentorship.
+
+              <p className="text-slate-500 text-sm leading-relaxed">
+                Located at Umroli (East), SS Tutorial has been the community’s trusted destination for Class 6 to 12 CBSE & SSC coaching. Every batch is strictly limited to 15-20 students so no learner gets left behind.
               </p>
+
+              {/* Clean Stat Counters */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                <div className="p-4 rounded-2xl bg-[#fafcfb] border border-slate-200/80 text-center">
+                  <p className="text-2xl sm:text-3xl font-extrabold text-teal-800">500+</p>
+                  <p className="text-[11px] font-medium text-slate-500 mt-0.5">Students Mentored</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-[#fafcfb] border border-slate-200/80 text-center">
+                  <p className="text-2xl sm:text-3xl font-extrabold text-teal-800">98%</p>
+                  <p className="text-[11px] font-medium text-slate-500 mt-0.5">Board Pass Rate</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-[#fafcfb] border border-slate-200/80 text-center">
+                  <p className="text-2xl sm:text-3xl font-extrabold text-teal-800">10+</p>
+                  <p className="text-[11px] font-medium text-slate-500 mt-0.5">Years Mastery</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-[#fafcfb] border border-slate-200/80 text-center">
+                  <p className="text-2xl sm:text-3xl font-extrabold text-teal-800">15-20</p>
+                  <p className="text-[11px] font-medium text-slate-500 mt-0.5">Max Batch Size</p>
+                </div>
+              </div>
 
               <div className="pt-2">
                 <a
                   href="/about"
-                  className="inline-flex items-center gap-2 font-bold text-sm text-emerald-700 dark:text-emerald-400 hover:text-amber-500 transition"
+                  className="inline-flex items-center gap-2 font-semibold text-sm text-teal-800 hover:text-teal-950 transition-colors"
                 >
-                  <span>Read our story & meet the founder</span>
+                  <span>Read our complete story & meet the faculty</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
             </div>
 
-            {/* Stat Counters matching the Framer template layout */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
-                <p className="font-display text-3xl sm:text-4xl font-extrabold text-emerald-800 dark:text-emerald-300">500+</p>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Students Mentored</p>
-              </div>
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
-                <p className="font-display text-3xl sm:text-4xl font-extrabold text-amber-500">98%</p>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Board Pass Rate</p>
-              </div>
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
-                <p className="font-display text-3xl sm:text-4xl font-extrabold text-amber-500">10+</p>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Years Mastery</p>
-              </div>
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-center space-y-1">
-                <p className="font-display text-3xl sm:text-4xl font-extrabold text-emerald-800 dark:text-emerald-300">15</p>
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Max Batch Size</p>
-              </div>
-            </div>
-
           </div>
-
         </div>
       </section>
 
       {/* =========================================================
-          3. TRAINING PROGRAMS / COURSES (Template numbered card design)
+          5. WHY LEARN WITH US
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-950">
+      <section className="py-16 sm:py-24 bg-[#fafcfb]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
-            <div>
-              <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-                Training Programs
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2">
-                Find Your Path.
-              </h2>
-              <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
-                Structured, board-aligned courses crafted for concept mastery, high examination scores, and stress-free learning.
-              </p>
-            </div>
-            <a
-              href="/courses"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-100/70 dark:bg-emerald-900/40 hover:bg-emerald-200/80 transition self-start md:self-end"
-            >
-              <span>All programs</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {displayPrograms.map((prog) => (
-              <div
-                key={prog.num}
-                className="group relative bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-amber-400/50 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="font-mono text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest">
-                      {prog.num}
-                    </span>
-                    <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-                      {prog.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
-                    {prog.title}
-                  </h3>
-
-                  <p className="text-slate-500 dark:text-slate-400 text-sm mt-3 leading-relaxed">
-                    {prog.desc}
-                  </p>
-
-                  <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 space-y-2">
-                    <p className="text-[11px] font-extrabold uppercase tracking-widest text-slate-400">
-                      Key Highlights
-                    </p>
-                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-700 dark:text-slate-300">
-                      {prog.skills.map((skill: string) => (
-                        <div key={skill} className="flex items-center gap-1.5">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                          <span className="truncate">{skill}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-sm font-extrabold text-emerald-700 dark:text-emerald-400">
-                    {prog.fee}
-                  </span>
-                  <a
-                    href={`/courses/${prog.slug}`}
-                    className="inline-flex items-center gap-1.5 font-bold text-xs text-slate-900 dark:text-white group-hover:text-amber-500 transition"
-                  >
-                    <span>View Details</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* =========================================================
-          4. WHY TRAIN WITH US (Bento Grid matching template)
-          ========================================================= */}
-      <section className="py-20 lg:py-28 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-              Why Train With Us
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Built Different. <br />
-              Teaching Different.
+          <div className="text-center max-w-2xl mx-auto mb-14 space-y-2">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Why Learn With Us
             </h2>
-            <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
-              Every detail of how we teach, who we mentor, and how we structure your student's growth is intentional.
+            <p className="text-slate-500 text-sm sm:text-base leading-relaxed">
+              Every detail of how we teach, mentor, and support your child's growth is intentional.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 flex items-center justify-center">
-                <GraduationCap className="w-6 h-6" />
+            <div className="p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-4">
+              <div className="w-11 h-11 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center border border-teal-100/60">
+                <GraduationCap className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">Expert Faculty</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-                  Led personally by Ankit Gupta, dedicated to breaking down complicated mathematics into simple, memorable steps.
+                <h3 className="font-bold text-base text-slate-900">Expert Faculty</h3>
+                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                  Led personally by Ankit Gupta, dedicated to breaking down complicated mathematics into simple steps.
                 </p>
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 flex items-center justify-center">
-                <Users className="w-6 h-6" />
+            <div className="p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-4">
+              <div className="w-11 h-11 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center border border-sky-100/60">
+                <Users className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">Small Batch Size</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                <h3 className="font-bold text-base text-slate-900">Small Batch Size</h3>
+                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
                   Strictly capped at 15 to 20 students so no student is overlooked or hesitant to ask questions.
                 </p>
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 flex items-center justify-center">
-                <Award className="w-6 h-6" />
+            <div className="p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-4">
+              <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-100/60">
+                <Award className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">Weekly Assessments</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-                  Periodic unit tests mirror actual board formats, building time-management skills and eliminating exam fear.
+                <h3 className="font-bold text-base text-slate-900">Weekly Assessments</h3>
+                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                  Periodic unit tests mirror actual board formats, building time-management skills and exam confidence.
                 </p>
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-6">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400 flex items-center justify-center">
-                <Zap className="w-6 h-6" />
+            <div className="p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-4">
+              <div className="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center border border-indigo-100/60">
+                <Zap className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">Formula Cheatsheets</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-                  Concise theorem summaries and formula banks provided for quick, stress-free revisions before every exam.
+                <h3 className="font-bold text-base text-slate-900">Formula Cheatsheets</h3>
+                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                  Concise theorem summaries and formula banks provided for quick, stress-free revisions.
                 </p>
               </div>
             </div>
-
           </div>
 
         </div>
       </section>
 
       {/* =========================================================
-          5. CLASS TIMINGS / WEEKLY SCHEDULE (Interactive tabs)
+          6. CLASS TIMINGS / WEEKLY SCHEDULE
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-950">
+      <section className="py-16 sm:py-24 bg-white border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center mb-12 space-y-2">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-              Class Timings
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Weekly Schedule
+          <div className="text-center mb-10 space-y-2">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Weekly Batch Schedule
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-xs sm:text-sm text-slate-500">
               Find a slot that fits your routine and school timings.
             </p>
           </div>
 
           {/* Day Selector Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm mb-8">
+          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full bg-slate-50 border border-slate-200/80 max-w-fit mx-auto mb-8">
             {Object.keys(scheduleData).map((day) => (
               <button
                 key={day}
                 type="button"
                 onClick={() => setActiveDay(day)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
                   activeDay === day
-                    ? 'bg-emerald-800 text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-[#154d68] text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 {day}
@@ -551,33 +626,33 @@ export const HomePage: React.FC = () => {
             ))}
           </div>
 
-          {/* Schedule Slots List for Active Day */}
+          {/* Schedule Slots */}
           <div className="space-y-3">
             {scheduleData[activeDay]?.map((slot, index) => (
               <div
                 key={index}
-                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-emerald-600/40 transition"
+                className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-teal-300 transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono text-xs font-extrabold flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-800 text-xs font-bold flex items-center justify-center shrink-0 border border-teal-100">
                     {slot.tag}
                   </div>
                   <div>
-                    <h4 className="font-bold text-sm text-slate-900 dark:text-white">{slot.title}</h4>
-                    <p className="text-xs text-slate-400 mt-0.5">Faculty: {slot.instructor}</p>
+                    <h4 className="font-bold text-sm text-slate-900">{slot.title}</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Faculty: {slot.instructor}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100 dark:border-slate-800">
-                  <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100">
+                  <span className="text-xs font-semibold text-teal-800 flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5" />
                     {slot.time}
                   </span>
                   <a
                     href="/admission"
-                    className="px-4 py-1.5 rounded-full text-xs font-bold bg-amber-400 hover:bg-amber-300 text-emerald-950 transition"
+                    className="px-4 py-1.5 rounded-full text-xs font-semibold bg-[#154d68] hover:bg-[#0e3a50] text-white transition-colors"
                   >
-                    Join
+                    Join Batch
                   </a>
                 </div>
               </div>
@@ -588,34 +663,31 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* =========================================================
-          6. STUDENT STORIES / TESTIMONIALS (Framer Quote card style)
+          7. STUDENT STORIES / TESTIMONIALS
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+      <section className="py-16 sm:py-24 bg-[#fafcfb] border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           
-          <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-            Student Stories
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2 mb-12">
-            What Our Students Say.
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mb-10">
+            What Our Students & Parents Say
           </h2>
 
-          <div className="relative p-8 sm:p-12 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-xl max-w-3xl mx-auto">
+          <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200/80 shadow-sm max-w-3xl mx-auto">
             <div className="flex justify-center gap-1 text-amber-400 mb-6">
               {[1, 2, 3, 4, 5].map((s) => (
                 <Star key={s} className="w-5 h-5 fill-amber-400" />
               ))}
             </div>
 
-            <p className="font-display text-lg sm:text-2xl text-slate-800 dark:text-slate-100 leading-relaxed font-medium italic">
+            <p className="text-base sm:text-xl text-slate-700 leading-relaxed font-medium italic">
               "{testimonials[0]?.text || 'The conceptual clarity and personal attention my son received here is remarkable. Ankit Sir makes even the most difficult math word problems intuitive and fun. His board score went from 65% to 92%!'}"
             </p>
 
-            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800">
-              <p className="font-bold text-base text-slate-900 dark:text-white">
+            <div className="mt-8 pt-6 border-t border-slate-100">
+              <p className="font-bold text-sm sm:text-base text-slate-900">
                 {testimonials[0]?.student_name || 'Rahul Sharma (Parent: Sunita Sharma)'}
               </p>
-              <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 mt-0.5">
+              <p className="text-xs font-semibold text-teal-700 mt-0.5">
                 {testimonials[0]?.course || 'Class 10 SSC Board - 94% in Mathematics'}
               </p>
             </div>
@@ -625,20 +697,17 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* =========================================================
-          7. COMMON QUESTIONS / FAQ (Interactive Accordion)
+          8. FREQUENTLY ASKED QUESTIONS
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-slate-50 dark:bg-slate-950">
+      <section className="py-16 sm:py-24 bg-white border-b border-slate-100">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center mb-12 space-y-2">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-amber-600 dark:text-amber-400">
-              FAQ
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              Common Questions
+          <div className="text-center mb-10 space-y-2">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+              Frequently Asked Questions
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-              Everything you need to know about joining SS Tutorial.
+            <p className="text-xs sm:text-sm text-slate-500">
+              Everything you need to know about admissions and classes at SS Tutorial.
             </p>
           </div>
 
@@ -648,22 +717,22 @@ export const HomePage: React.FC = () => {
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm"
+                  className="rounded-2xl bg-white border border-slate-200/80 overflow-hidden shadow-xs"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                    className="w-full p-5 text-left font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between gap-4"
+                    className="w-full p-5 text-left font-bold text-sm text-slate-900 flex items-center justify-between gap-4"
                   >
                     <span>{faq.q}</span>
                     <ChevronDown
                       className={`w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 ${
-                        isOpen ? 'rotate-180 text-emerald-600' : ''
+                        isOpen ? 'rotate-180 text-teal-700' : ''
                       }`}
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800">
+                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
                       {faq.a}
                     </div>
                   )}
@@ -676,46 +745,43 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* =========================================================
-          8. BEGIN YOUR JOURNEY / HIGH-CONVERSION CTA BANNER
+          9. HIGH CONVERSION CTA BANNER
           ========================================================= */}
-      <section className="py-20 lg:py-28 bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950 text-white relative overflow-hidden">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-          
-          <span className="inline-block text-xs font-extrabold uppercase tracking-widest text-amber-400">
-            Begin Your Journey
-          </span>
+      <section className="py-14 sm:py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-[32px] bg-gradient-to-r from-[#154d68] to-teal-800 text-white p-10 sm:p-14 text-center shadow-lg relative overflow-hidden">
+            <div className="relative z-10 space-y-5">
+              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                Ready to Empower Your Child's Academic Journey?
+              </h2>
 
-          <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-            Ready to Start Learning?
-          </h2>
+              <p className="text-sm sm:text-base text-teal-50/90 max-w-xl mx-auto font-normal">
+                No registration fee for demo. Your first trial class is 100% free with Ankit Sir.
+              </p>
 
-          <p className="text-base sm:text-lg text-emerald-100/90 max-w-2xl mx-auto font-normal">
-            No registration fee for demo. First class is 100% free. Just show up at our Umroli center — we'll handle the rest.
-          </p>
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-3.5">
+                <a
+                  href="/admission"
+                  className="px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base text-[#154d68] bg-white hover:bg-teal-50 shadow-md transition-all hover:scale-105"
+                >
+                  Register for Free Trial
+                </a>
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base text-white bg-teal-900/60 hover:bg-teal-900/80 border border-teal-300/40 shadow-sm transition-all"
+                >
+                  <MessageCircle className="w-4 h-4 text-teal-200" />
+                  <span>Chat on WhatsApp</span>
+                </a>
+              </div>
 
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="/admission"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-sm text-emerald-950 bg-amber-400 hover:bg-amber-300 shadow-xl transition-all hover:scale-105"
-            >
-              <span>Register for Free Trial</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm text-white bg-emerald-800/80 hover:bg-emerald-700/80 border border-emerald-600/60 shadow-lg transition-all"
-            >
-              <MessageCircle className="w-4 h-4 text-emerald-300" />
-              <span>Chat on WhatsApp</span>
-            </a>
+              <div className="pt-4 text-xs text-teal-100/80">
+                📍 002, (B) WING, VEER 10, UMROLI (EAST) • Admissions Open for Class 6 to 12
+              </div>
+            </div>
           </div>
-
-          <div className="pt-8 text-xs text-emerald-300/80">
-            📍 002, (B) WING, VEER 10, UMROLI (EAST) • Admissions Open for Class 6 to 12
-          </div>
-
         </div>
       </section>
 

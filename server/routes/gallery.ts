@@ -10,7 +10,7 @@ router.get('/', (req: Request, res: Response) => {
   let sql = 'SELECT * FROM gallery WHERE 1=1';
   const params: any[] = [];
 
-  if (placement) {
+  if (placement && placement !== 'all') {
     sql += ' AND placement = ?';
     params.push(placement);
   }
@@ -21,6 +21,16 @@ router.get('/', (req: Request, res: Response) => {
 
   const items = query(sql, params);
   res.json({ gallery: items });
+});
+
+// GET /api/gallery/:id
+router.get('/:id', (req: Request, res: Response) => {
+  const item = get('SELECT * FROM gallery WHERE id = ?', [req.params.id]);
+  if (!item) {
+    res.status(404).json({ error: 'Gallery item not found' });
+    return;
+  }
+  res.json({ item });
 });
 
 // POST /api/gallery (admin)
@@ -58,14 +68,14 @@ router.post('/', authenticate, authorize('admin'), (req: Request, res: Response)
       thumbnail_url || image_url,
       webp_url || image_url,
       placement || 'gallery',
-      display_order || 0,
+      display_order !== undefined ? Number(display_order) : 0,
       instagram_post_url || '',
       is_published === undefined || is_published === null ? 1 : is_published ? 1 : 0,
     ]
   );
 
   const created = get('SELECT * FROM gallery WHERE id = ?', [id]);
-  res.status(201).json({ item: created });
+  res.status(201).json({ item: created, message: 'Gallery item uploaded successfully' });
 });
 
 // PATCH /api/gallery/:id (admin)
@@ -76,14 +86,31 @@ router.patch('/:id', authenticate, authorize('admin'), (req: Request, res: Respo
     return;
   }
 
-  const fields = ['title', 'caption', 'alt_text', 'placement', 'display_order', 'is_published'];
+  const fields = [
+    'title',
+    'caption',
+    'alt_text',
+    'image_url',
+    'thumbnail_url',
+    'webp_url',
+    'placement',
+    'display_order',
+    'instagram_post_url',
+    'is_published',
+  ];
   const updates: string[] = [];
   const vals: any[] = [];
 
   for (const f of fields) {
     if (req.body[f] !== undefined) {
       updates.push(`${f} = ?`);
-      vals.push(req.body[f]);
+      if (f === 'is_published') {
+        vals.push(req.body[f] ? 1 : 0);
+      } else if (f === 'display_order') {
+        vals.push(Number(req.body[f]) || 0);
+      } else {
+        vals.push(req.body[f]);
+      }
     }
   }
 
@@ -93,13 +120,18 @@ router.patch('/:id', authenticate, authorize('admin'), (req: Request, res: Respo
   }
 
   const updated = get('SELECT * FROM gallery WHERE id = ?', [req.params.id]);
-  res.json({ item: updated });
+  res.json({ item: updated, message: 'Gallery item updated successfully' });
 });
 
 // DELETE /api/gallery/:id (admin)
 router.delete('/:id', authenticate, authorize('admin'), (req: Request, res: Response) => {
+  const item = get('SELECT id FROM gallery WHERE id = ?', [req.params.id]);
+  if (!item) {
+    res.status(404).json({ error: 'Gallery item not found' });
+    return;
+  }
   run('DELETE FROM gallery WHERE id = ?', [req.params.id]);
-  res.json({ message: 'Gallery item deleted' });
+  res.json({ message: 'Gallery item deleted successfully' });
 });
 
 export default router;

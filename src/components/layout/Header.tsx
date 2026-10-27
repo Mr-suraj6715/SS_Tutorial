@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Menu, X, GraduationCap, User, LogIn, LayoutDashboard } from 'lucide-react'
+import { Menu, X, LayoutDashboard } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { useAuth } from '@/lib/hooks/useAuth'
 
@@ -31,47 +31,42 @@ export const Header: React.FC<HeaderProps> = ({ currentPath = '/' }) => {
   }
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-emerald-950/95 backdrop-blur-md border-b border-emerald-900/60 shadow-lg transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          
-          {/* Logo / Brand Name */}
-          <a href="/" className="flex items-center gap-3 group">
-            <div className="h-12 w-12 rounded-xl bg-white/95 p-1 shadow-md flex items-center justify-center overflow-hidden shrink-0 group-hover:scale-105 transition-transform border border-emerald-800/40">
+    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-100 transition-colors shadow-sm">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Single row: logo LEFT | nav CENTERED | buttons RIGHT */}
+        <div className="flex items-center h-16 sm:h-[68px] relative">
+
+          {/* ── Brand (left) ── */}
+          <a href="/" className="flex items-center gap-2.5 shrink-0 group z-10">
+            <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-white border border-slate-200/90 p-0.5 shadow-sm flex items-center justify-center overflow-hidden shrink-0 group-hover:scale-105 transition-transform duration-200">
               <img
                 src={settings.logo_url || '/logo.png'}
                 alt={settings.institute_name || 'SS Tutorial'}
                 className="h-full w-full object-contain"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-xl sm:text-2xl text-white tracking-tight leading-tight group-hover:text-amber-400 transition">
+            <div className="flex flex-col justify-center leading-none">
+              <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 group-hover:text-teal-900 transition-colors whitespace-nowrap">
                 {settings.institute_name || 'SS Tutorial'}
               </span>
-              {settings.tagline && settings.tagline.trim() !== '' ? (
-                <span className="text-[11px] text-emerald-300 font-medium tracking-wider uppercase">
-                  {settings.tagline}
-                </span>
-              ) : (
-                <span className="text-[11px] text-amber-400/90 font-medium tracking-wider">
-                  @ss__tutorial
-                </span>
-              )}
+              <span className="text-[8.5px] sm:text-[9px] font-bold text-teal-800 tracking-widest uppercase whitespace-nowrap mt-0.5">
+                {settings.tagline?.replace(/~$/, '').trim() || 'ACHIEVING EXCELLENCE TOGETHER'}
+              </span>
             </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+          {/* ── Desktop Navigation (absolutely centered) ── */}
+          <nav className="hidden lg:flex items-center gap-0 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => {
               const isActive = currentPath === link.href
               return (
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                  className={`px-3 py-1.5 rounded-full text-[13px] font-medium transition-all whitespace-nowrap ${
                     isActive
-                      ? 'text-amber-400 bg-emerald-900/60'
-                      : 'text-emerald-100/90 hover:text-amber-300 hover:bg-emerald-900/30'
+                      ? 'text-teal-900 bg-teal-50 font-semibold'
+                      : 'text-slate-600 hover:text-teal-900 hover:bg-slate-50'
                   }`}
                 >
                   {link.name}
@@ -80,90 +75,77 @@ export const Header: React.FC<HeaderProps> = ({ currentPath = '/' }) => {
             })}
           </nav>
 
-          {/* Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* ── Right Actions (ml-auto pushes to far right) ── */}
+          <div className="hidden lg:flex items-center gap-2 ml-auto z-10">
             <a
-              href="/admission"
-              className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-emerald-950 bg-amber-400 hover:bg-amber-300 shadow-md transition-colors"
+              href={user ? getDashboardHref() : '/auth'}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 transition-all whitespace-nowrap"
             >
-              Apply Now
+              <LayoutDashboard className="w-3.5 h-3.5 text-teal-700 shrink-0" />
+              <span>Dashboard</span>
             </a>
 
-            {user ? (
-              <a
-                href={getDashboardHref()}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-emerald-200 bg-emerald-900/80 hover:bg-emerald-800 border border-emerald-700/50 transition"
-              >
-                <LayoutDashboard className="w-4 h-4 text-amber-400" />
-                <span>Dashboard</span>
-              </a>
-            ) : (
-              <a
-                href="/auth"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-emerald-200 hover:text-white hover:bg-emerald-900/50 transition"
-              >
-                <LogIn className="w-4 h-4" />
-                <span>Sign In</span>
-              </a>
-            )}
+            <a
+              href="/contact"
+              className="inline-flex items-center justify-center px-5 py-2 rounded-full text-xs font-semibold text-white bg-[#154d68] hover:bg-[#0e3a50] shadow-sm transition-all whitespace-nowrap"
+            >
+              Contact Us
+            </a>
           </div>
 
-          {/* Mobile Hamburger Toggle */}
-          <div className="flex lg:hidden items-center gap-2">
+          {/* ── Mobile Hamburger ── */}
+          <div className="flex lg:hidden items-center ml-auto">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-emerald-200 hover:text-white hover:bg-emerald-900/60 focus:outline-none"
+              className="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none transition"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
+
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* ── Mobile Drawer ── */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-emerald-950/98 border-b border-emerald-900 px-4 pt-2 pb-6 space-y-2 shadow-2xl animate-in slide-in-from-top-2">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2.5 rounded-lg text-base font-medium text-emerald-100 hover:text-amber-400 hover:bg-emerald-900/40 transition"
-            >
-              {link.name}
-            </a>
-          ))}
-
-          <div className="pt-4 border-t border-emerald-900/80 flex flex-col gap-2.5">
-            <a
-              href="/admission"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-3 rounded-lg font-semibold text-emerald-950 bg-amber-400 hover:bg-amber-300 shadow-md transition-colors"
-            >
-              Apply for Admission
-            </a>
-
-            {user ? (
+        <div className="lg:hidden bg-white border-b border-slate-100 px-4 pt-3 pb-6 space-y-1 shadow-xl animate-in slide-in-from-top-2">
+          {navLinks.map((link) => {
+            const isActive = currentPath === link.href
+            return (
               <a
-                href={getDashboardHref()}
+                key={link.name}
+                href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg font-medium text-emerald-200 bg-emerald-900/80 border border-emerald-700/50"
+                className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition ${
+                  isActive
+                    ? 'text-teal-900 bg-teal-50 font-semibold'
+                    : 'text-slate-700 hover:text-teal-800 hover:bg-slate-50'
+                }`}
               >
-                <User className="w-4 h-4 text-amber-400" />
-                <span>My Dashboard</span>
+                {link.name}
               </a>
-            ) : (
-              <a
-                href="/auth"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg font-medium text-emerald-200 bg-emerald-900/40"
-              >
-                <LogIn className="w-4 h-4" />
-                <span>Student / Admin Sign In</span>
-              </a>
-            )}
+            )
+          })}
+
+          <div className="pt-4 border-t border-slate-100 flex flex-col gap-2.5">
+            <a
+              href={user ? getDashboardHref() : '/auth'}
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 transition"
+            >
+              <LayoutDashboard className="w-4 h-4 text-teal-700" />
+              <span>Dashboard</span>
+            </a>
+
+            <a
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-2.5 rounded-full font-semibold text-sm text-white bg-[#154d68] hover:bg-[#0e3a50] shadow-sm transition"
+            >
+              Contact Us
+            </a>
           </div>
         </div>
       )}

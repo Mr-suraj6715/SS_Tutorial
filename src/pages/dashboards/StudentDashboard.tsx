@@ -55,7 +55,7 @@ export const StudentDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      
+
       {/* Dashboard Top Header */}
       <div className="bg-emerald-950 text-white border-b border-emerald-900 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -70,9 +70,7 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <a href="/" className="text-xs text-emerald-200 hover:text-white transition">
-              Back to Website
-            </a>
+
             <button
               type="button"
               onClick={() => signOut()}
@@ -100,11 +98,10 @@ export const StudentDashboard: React.FC = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap ${
-                  isActive
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap ${isActive
                     ? 'bg-emerald-800 text-white shadow-md'
                     : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-                }`}
+                  }`}
               >
                 <Icon className="w-4 h-4" />
                 <span>{tab.label}</span>
@@ -194,13 +191,12 @@ export const StudentDashboard: React.FC = () => {
                         <td className="p-3 text-slate-500">{row.batches?.name || 'Class Batch'}</td>
                         <td className="p-3">
                           <span
-                            className={`inline-block px-2.5 py-0.5 rounded-full font-bold uppercase text-[10px] ${
-                              row.status === 'present'
+                            className={`inline-block px-2.5 py-0.5 rounded-full font-bold uppercase text-[10px] ${row.status === 'present'
                                 ? 'bg-emerald-100 text-emerald-800'
                                 : row.status === 'late'
-                                ? 'bg-amber-100 text-amber-800'
-                                : 'bg-red-100 text-red-800'
-                            }`}
+                                  ? 'bg-amber-100 text-amber-800'
+                                  : 'bg-red-100 text-red-800'
+                              }`}
                           >
                             {row.status}
                           </span>
@@ -241,13 +237,12 @@ export const StudentDashboard: React.FC = () => {
                         <td className="p-3 text-slate-500">{f.due_date ? new Date(f.due_date).toLocaleDateString() : 'N/A'}</td>
                         <td className="p-3">
                           <span
-                            className={`inline-block px-2.5 py-0.5 rounded-full font-bold uppercase text-[10px] ${
-                              f.status === 'paid'
+                            className={`inline-block px-2.5 py-0.5 rounded-full font-bold uppercase text-[10px] ${f.status === 'paid'
                                 ? 'bg-emerald-100 text-emerald-800'
                                 : f.status === 'partial'
-                                ? 'bg-amber-100 text-amber-800'
-                                : 'bg-red-100 text-red-800'
-                            }`}
+                                  ? 'bg-amber-100 text-amber-800'
+                                  : 'bg-red-100 text-red-800'
+                              }`}
                           >
                             {f.status}
                           </span>

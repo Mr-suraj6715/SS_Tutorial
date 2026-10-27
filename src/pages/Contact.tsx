@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   MapPin,
   Phone,
@@ -87,7 +87,7 @@ export const ContactPage: React.FC = () => {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
+          <span className="text-xs font-bold text-teal-700 uppercase tracking-widest">
             Get in Touch
           </span>
           <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
@@ -266,7 +266,7 @@ export const ContactPage: React.FC = () => {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                        className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                         placeholder="e.g. Rahul Sharma"
                       />
                     </div>
@@ -279,7 +279,7 @@ export const ContactPage: React.FC = () => {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                        className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                         placeholder="e.g. rahul@example.com"
                       />
                     </div>
@@ -294,7 +294,7 @@ export const ContactPage: React.FC = () => {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                        className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                         placeholder="e.g. +91 9876543210"
                       />
                     </div>
@@ -306,7 +306,7 @@ export const ContactPage: React.FC = () => {
                         type="text"
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                        className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                         placeholder="e.g. Admission Inquiry for Class 10"
                       />
                     </div>
@@ -321,7 +321,7 @@ export const ContactPage: React.FC = () => {
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                      className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
                       placeholder="Please let us know which courses or batches you are interested in..."
                     />
                   </div>
@@ -335,7 +335,7 @@ export const ContactPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl font-bold text-sm text-emerald-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-md transition flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full py-3.5 rounded-full font-semibold text-sm text-white bg-[#154d68] hover:bg-[#0e3a50] shadow-md transition flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     <Send className="w-4 h-4" />
                     <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>

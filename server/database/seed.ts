@@ -248,13 +248,13 @@ export const seedDatabase = async () => {
   // 12. Site Settings
   const settings = [
     { key: 'institute_name', value: 'SS Tutorial', desc: 'Institute branding title' },
-    { key: 'tagline', value: 'ACHIEVING EXCELLENCE TOGETHER ~', desc: 'Main tagline' },
+    { key: 'tagline', value: 'ACHIEVING EXCELLENCE TOGETHER', desc: 'Main tagline' },
     { key: 'about', value: 'Welcome to SS TUTORIAL CLASSES - Your Ultimate Math Learning Hub! We simplify complex topics and help you master math with fun, clarity, and confidence. Specializing in SSC Board & CBSE coaching for School Classes up to Class 12.', desc: 'Institute description' },
     { key: 'founder_name', value: 'Ankit Gupta', desc: 'Founder name' },
     { key: 'founder_title', value: 'Founder & Director', desc: 'Founder title' },
     { key: 'founder_bio', value: 'Dedicated educator and founder of SS Tutorial, passionate about simplifying mathematics and guiding students toward academic excellence through conceptual clarity and disciplined practice.', desc: 'Founder biography' },
     { key: 'founder_image_url', value: '/founder.jpg', desc: 'Founder profile image' },
-    { key: 'notice_ticker', value: "Education Can't SNATCH By Anyone ~ Admissions Open for Class 6 to 12 (CBSE & SSC)", desc: 'Top notice bar' },
+    { key: 'notice_ticker', value: "Education Can't SNATCH By Anyone", desc: 'Top notice bar' },
     { key: 'address', value: '002, (B) WING, VEER 10, UMROLI (EAST)', desc: 'Official institute address' },
     { key: 'youtube_url', value: 'https://www.youtube.com/@SS__tutorial2025', desc: 'Official YouTube channel' },
     { key: 'instagram_url', value: 'https://www.instagram.com/ss__tutorial', desc: 'Official Instagram profile' },

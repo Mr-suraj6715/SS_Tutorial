@@ -21,31 +21,31 @@ export const Footer: React.FC = () => {
   const instagramUrl = settings.instagram_url || 'https://www.instagram.com/ss__tutorial'
 
   return (
-    <footer className="bg-emerald-950 text-emerald-100 border-t border-emerald-900/80 pt-16 pb-12">
+    <footer className="bg-slate-50 text-slate-600 border-t border-slate-200/80 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Main 4-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-emerald-900">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-200">
 
           {/* Col 1: Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="h-11 w-11 rounded-xl bg-white/95 p-1 shadow-md flex items-center justify-center overflow-hidden shrink-0 border border-emerald-800/40">
+              <div className="h-11 w-11 rounded-xl bg-white border border-slate-200/80 p-0.5 shadow-xs flex items-center justify-center overflow-hidden shrink-0">
                 <img
                   src={settings.logo_url || '/logo.png'}
                   alt={settings.institute_name || 'SS Tutorial'}
                   className="h-full w-full object-contain"
                 />
               </div>
-              <span className="font-bold text-xl text-white">
-                {settings.institute_name || 'SS Tutorial'}
+              <span className="font-extrabold text-xl tracking-tight text-slate-900">
+                {settings.institute_name || 'SS TUTORIAL'}
               </span>
             </div>
 
             {settings.about && settings.about.trim() !== '' ? (
-              <p className="text-sm text-emerald-200/80 leading-relaxed line-clamp-3">{settings.about}</p>
+              <p className="text-sm text-slate-500 leading-relaxed line-clamp-3">{settings.about}</p>
             ) : (
-              <p className="text-sm text-emerald-200/80 leading-relaxed">
+              <p className="text-sm text-slate-500 leading-relaxed">
                 Dedicated coaching institute empowering students with excellence, conceptual clarity, and disciplined learning.
               </p>
             )}
@@ -54,30 +54,30 @@ export const Footer: React.FC = () => {
               href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-900 text-emerald-100 text-xs font-semibold hover:bg-emerald-800 border border-emerald-700/50 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-slate-700 text-xs font-semibold hover:text-teal-800 border border-slate-200 shadow-xs hover:border-teal-300 transition-all"
             >
-              <Instagram className="w-3.5 h-3.5" />
+              <Instagram className="w-3.5 h-3.5 text-pink-500" />
               Follow @ss__tutorial
             </a>
           </div>
 
           {/* Col 2: Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">
               Quick Links
             </h3>
             <ul className="space-y-2.5 text-sm">
               {[
                 { label: 'All Courses', href: '/courses' },
                 { label: 'Apply for Admission', href: '/admission' },
-                { label: 'Results and Toppers', href: '/results' },
+                { label: 'Results & Toppers', href: '/results' },
                 { label: 'Campus Gallery', href: '/gallery' },
                 { label: 'Video Lectures', href: '/videos' },
                 { label: 'Educational Blog', href: '/blog' },
               ].map(({ label, href }) => (
                 <li key={href}>
-                  <a href={href} className="hover:text-amber-300 transition-colors flex items-center gap-1.5">
-                    <ArrowRight className="w-3.5 h-3.5 text-emerald-500 shrink-0" /> {label}
+                  <a href={href} className="text-slate-600 hover:text-teal-800 transition-colors flex items-center gap-1.5">
+                    <ArrowRight className="w-3.5 h-3.5 text-teal-600 shrink-0" /> {label}
                   </a>
                 </li>
               ))}
@@ -86,52 +86,52 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Contact Info */}
           <div>
-            <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-wider mb-4">
-              Contact and Hours
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">
+              Contact & Hours
             </h3>
-            <ul className="space-y-3 text-sm text-emerald-200/90">
+            <ul className="space-y-3 text-sm text-slate-600">
               {settings.address && settings.address.trim() !== '' && (
                 <li className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-1" />
+                  <MapPin className="w-4 h-4 text-teal-600 shrink-0 mt-1" />
                   <span>{settings.address}</span>
                 </li>
               )}
               {settings.phone && settings.phone.trim() !== '' && (
                 <li className="flex items-center gap-2.5">
-                  <Phone className="w-4 h-4 text-amber-400 shrink-0" />
-                  <a href={`tel:${settings.phone}`} className="hover:text-amber-300 transition-colors">
+                  <Phone className="w-4 h-4 text-teal-600 shrink-0" />
+                  <a href={`tel:${settings.phone}`} className="hover:text-teal-800 transition-colors">
                     {settings.phone}
                   </a>
                 </li>
               )}
               {settings.email && settings.email.trim() !== '' && (
                 <li className="flex items-center gap-2.5">
-                  <Mail className="w-4 h-4 text-amber-400 shrink-0" />
-                  <a href={`mailto:${settings.email}`} className="hover:text-amber-300 transition-colors">
+                  <Mail className="w-4 h-4 text-teal-600 shrink-0" />
+                  <a href={`mailto:${settings.email}`} className="hover:text-teal-800 transition-colors">
                     {settings.email}
                   </a>
                 </li>
               )}
               {settings.working_hours && settings.working_hours.trim() !== '' && (
                 <li className="flex items-center gap-2.5">
-                  <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+                  <Clock className="w-4 h-4 text-teal-600 shrink-0" />
                   <span>{settings.working_hours}</span>
                 </li>
               )}
               {!settings.address && !settings.phone && !settings.email && (
-                <li className="text-emerald-400/60 italic text-xs">
+                <li className="text-slate-400 italic text-xs">
                   Contact details will appear here once configured in the Admin Dashboard.
                 </li>
               )}
             </ul>
           </div>
 
-          {/* Col 4: Social + Admin */}
+          {/* Col 4: Social + Connect */}
           <div>
-            <h3 className="text-sm font-semibold text-amber-400 uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">
               Connect With Us
             </h3>
-            <p className="text-xs text-emerald-200/80 mb-4 leading-relaxed">
+            <p className="text-xs text-slate-500 mb-4 leading-relaxed">
               Stay connected for exam updates, study materials, and topper highlights.
             </p>
 
@@ -140,35 +140,35 @@ export const Footer: React.FC = () => {
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 hover:text-white flex items-center justify-center transition-colors"
+                className="w-9 h-9 rounded-full bg-white hover:bg-teal-50 text-slate-600 hover:text-teal-800 border border-slate-200 flex items-center justify-center transition-colors shadow-xs"
                 aria-label="Instagram @ss__tutorial"
               >
                 <Instagram className="w-4 h-4" />
               </a>
               {settings.facebook_url && (
                 <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 hover:text-white flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-white hover:bg-teal-50 text-slate-600 hover:text-teal-800 border border-slate-200 flex items-center justify-center transition-colors shadow-xs"
                   aria-label="Facebook">
                   <Facebook className="w-4 h-4" />
                 </a>
               )}
               {settings.youtube_url && (
                 <a href={settings.youtube_url} target="_blank" rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 hover:text-white flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-white hover:bg-teal-50 text-slate-600 hover:text-teal-800 border border-slate-200 flex items-center justify-center transition-colors shadow-xs"
                   aria-label="YouTube">
-                  <Youtube className="w-4 h-4" />
+                  <Youtube className="w-4 h-4 text-red-600" />
                 </a>
               )}
               {settings.twitter_url && (
                 <a href={settings.twitter_url} target="_blank" rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 hover:text-white flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-white hover:bg-teal-50 text-slate-600 hover:text-teal-800 border border-slate-200 flex items-center justify-center transition-colors shadow-xs"
                   aria-label="Twitter / X">
                   <Twitter className="w-4 h-4" />
                 </a>
               )}
               {settings.linkedin_url && (
                 <a href={settings.linkedin_url} target="_blank" rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 hover:text-white flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-white hover:bg-teal-50 text-slate-600 hover:text-teal-800 border border-slate-200 flex items-center justify-center transition-colors shadow-xs"
                   aria-label="LinkedIn">
                   <Linkedin className="w-4 h-4" />
                 </a>
@@ -178,15 +178,15 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-emerald-400/80">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
             &copy; {currentYear} {settings.institute_name || 'SS Tutorial'}. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <a href="/privacy-policy" className="hover:text-amber-300 transition-colors">Privacy Policy</a>
-            <a href="/terms" className="hover:text-amber-300 transition-colors">Terms and Conditions</a>
+            <a href="/privacy-policy" className="hover:text-teal-800 transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-teal-800 transition-colors">Terms & Conditions</a>
             {settings.footer_note && settings.footer_note.trim() !== '' && (
-              <span className="text-emerald-300">{settings.footer_note}</span>
+              <span className="text-teal-700">{settings.footer_note}</span>
             )}
           </div>
         </div>

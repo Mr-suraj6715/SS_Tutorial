@@ -25,7 +25,7 @@ export const GalleryPage: React.FC = () => {
           .select('*')
           .eq('is_published', true)
           .order('display_order', { ascending: true })
-          
+
         if (error) throw error
         if (data) setImages(data)
       } catch (err) {
@@ -46,14 +46,14 @@ export const GalleryPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
           <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             Moments & Milestones
           </span>
           <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
-            Campus Photo Gallery
+            Classes Photo Gallery
           </h1>
           <p className="text-slate-600 text-sm sm:text-base mt-2">
             A glimpse into life at SS Tutorial, classroom sessions, academic celebrations, and student milestones.
@@ -67,11 +67,10 @@ export const GalleryPage: React.FC = () => {
               key={tab}
               type="button"
               onClick={() => setFilter(tab)}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition ${
-                filter === tab
+              className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition ${filter === tab
                   ? 'bg-emerald-800 text-white shadow-md'
                   : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-              }`}
+                }`}
             >
               {tab === 'all' ? 'All Images' : tab}
             </button>

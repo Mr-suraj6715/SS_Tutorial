@@ -19,14 +19,21 @@ router.get('/:key', (_req: Request, res: Response) => {
   res.json({ setting: row });
 });
 
-// PATCH /api/settings  (admin) — bulk update
-router.patch('/', authenticate, authorize('admin'), (req: Request, res: Response) => {
+// PATCH & POST /api/settings  (admin) — single or bulk update
+const updateSettingsHandler = (req: Request, res: Response) => {
+  if (req.body.key !== undefined && req.body.value !== undefined) {
+    run('INSERT OR REPLACE INTO site_settings (key, value) VALUES (?, ?)', [req.body.key, String(req.body.value)]);
+    res.json({ message: 'Setting updated', key: req.body.key, value: req.body.value });
+    return;
+  }
   const updates: Record<string, string> = req.body;
   for (const [key, value] of Object.entries(updates)) {
     run('INSERT OR REPLACE INTO site_settings (key, value) VALUES (?, ?)', [key, String(value)]);
   }
   res.json({ message: 'Settings updated', count: Object.keys(updates).length });
-});
+};
+router.patch('/', authenticate, authorize('admin'), updateSettingsHandler);
+router.post('/', authenticate, authorize('admin'), updateSettingsHandler);
 
 // PUT /api/settings/:key  (admin)
 router.put('/:key', authenticate, authorize('admin'), (req: Request, res: Response) => {

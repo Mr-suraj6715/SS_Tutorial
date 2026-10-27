@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { NoticeTicker } from '@/components/layout/NoticeTicker'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { NoticeTicker } from '@/components/layout/NoticeTicker'
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton'
 import { HomePage } from '@/pages/Home'
 import { AboutPage } from '@/pages/About'

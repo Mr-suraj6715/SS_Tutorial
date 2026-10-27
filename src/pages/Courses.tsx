@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BookOpen, Clock, Users, ChevronDown, ChevronRight, Search } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { fetchAcademicCourses, AcademicCourse } from '@/lib/services/coursesService'
@@ -120,7 +120,7 @@ export const CoursesPage: React.FC = () => {
               placeholder="Search courses or subjects..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-lg text-xs bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+              className="w-full pl-9 pr-4 py-2 rounded-lg text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600"
             />
           </div>
         </div>
@@ -236,13 +236,13 @@ export const CoursesPage: React.FC = () => {
                           <div className="mt-4 flex gap-2">
                             <a
                               href={`/courses/${course.slug}`}
-                              className="flex-1 text-center px-3 py-2 rounded-lg text-xs font-semibold border border-emerald-700 text-emerald-700 hover:bg-emerald-50:bg-emerald-950 transition"
+                              className="flex-1 text-center px-3 py-2 rounded-full text-xs font-semibold border border-teal-700/60 text-teal-800 hover:bg-teal-50 transition"
                             >
                               View Details
                             </a>
                             <a
                               href={`/admission?course_id=${course.id}`}
-                              className="flex-1 text-center px-3 py-2 rounded-lg text-xs font-bold text-emerald-950 bg-amber-400 hover:bg-amber-300 transition"
+                              className="flex-1 text-center px-3 py-2 rounded-full text-xs font-semibold text-white bg-[#154d68] hover:bg-[#0e3a50] transition shadow-xs"
                             >
                               Enquire Now
                             </a>

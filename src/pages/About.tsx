@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   GraduationCap,
   Target,
@@ -144,15 +144,15 @@ export const AboutPage: React.FC = () => {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-emerald-950 text-white p-8 text-center">
-                <GraduationCap className="w-16 h-16 text-amber-400 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold">{settings.institute_name}</h3>
-                <p className="text-xs text-emerald-300 mt-2">Connect with our community on Instagram</p>
+              <div className="relative rounded-3xl overflow-hidden border border-teal-800/40 shadow-xl bg-[#154d68] text-white p-8 text-center">
+                <GraduationCap className="w-16 h-16 text-teal-200 mx-auto mb-4" />
+                <h3 className="text-2xl font-bold">{settings.institute_name || 'SS Tutorial'}</h3>
+                <p className="text-xs text-teal-200/90 mt-2">Connect with our community on Instagram</p>
                 <a
                   href={settings.instagram_url || 'https://www.instagram.com/ss__tutorial'}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-amber-600 text-white font-semibold text-xs shadow-md hover:scale-105 transition"
+                  className="mt-6 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-[#154d68] hover:bg-teal-50 font-semibold text-xs shadow-md transition-all hover:scale-105"
                 >
                   @ss__tutorial on Instagram
                 </a>
@@ -314,18 +314,18 @@ export const AboutPage: React.FC = () => {
               <img
                 src={settings.founder_image_url}
                 alt={settings.founder_name || 'Founder'}
-                className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover object-top border-4 border-emerald-700 shrink-0 shadow-lg"
+                className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover object-top border-4 border-teal-700 shrink-0 shadow-lg"
               />
             ) : (
-              <div className="w-32 h-32 rounded-full bg-emerald-950 flex items-center justify-center shrink-0 border-4 border-emerald-700">
-                <GraduationCap className="w-14 h-14 text-amber-400" />
+              <div className="w-32 h-32 rounded-full bg-teal-50 flex items-center justify-center shrink-0 border-4 border-teal-600">
+                <GraduationCap className="w-14 h-14 text-teal-800" />
               </div>
             )}
             <div>
               <h3 className="text-2xl font-bold text-slate-900">
                 {settings.founder_name || 'Ankit Gupta'}
               </h3>
-              <p className="text-sm font-semibold text-emerald-700 mt-1">
+              <p className="text-sm font-semibold text-teal-800 mt-1">
                 {settings.founder_title || 'Founder & Director, SS Tutorial'}
               </p>
               {settings.founder_bio && settings.founder_bio.trim() !== '' ? (

@@ -5,11 +5,13 @@ import { config } from './config/env.js';
 import { db } from './database/connection.js';
 import { initSchema } from './database/schema.js';
 import { seedDatabase } from './database/seed.js';
+import { initSupabase, checkSupabaseHealth, isUsingSupabase } from './database/supabase.js';
 
 // Routes
 import authRouter      from './routes/auth.js';
 import usersRouter     from './routes/users.js';
 import coursesRouter   from './routes/courses.js';
+import subjectsRouter  from './routes/subjects.js';
 import batchesRouter   from './routes/batches.js';
 import feesRouter      from './routes/fees.js';
 import attendanceRouter from './routes/attendance.js';
@@ -38,14 +40,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.resolve(process.cwd(), 'server/data/uploads')));
 
 // ── Health check ──────────────────────────────────────────────────────────
-app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString(), db: 'sqlite' });
+app.get('/api/health', async (_req, res) => {
+  const sbStatus = await checkSupabaseHealth();
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    db: sbStatus.online ? 'supabase' : 'sqlite',
+    database_status: {
+      active: sbStatus.online ? 'supabase' : 'sqlite',
+      supabase: sbStatus,
+      sqlite: { online: true, path: config.DB_PATH }
+    }
+  });
 });
 
 // ── API Routes ────────────────────────────────────────────────────────────
 app.use('/api/auth',        authRouter);
 app.use('/api/users',       usersRouter);
 app.use('/api/courses',     coursesRouter);
+app.use('/api/subjects',    subjectsRouter);
 app.use('/api/batches',     batchesRouter);
 app.use('/api/fees',        feesRouter);
 app.use('/api/attendance',  attendanceRouter);
@@ -57,6 +70,7 @@ app.use('/api/dashboard',   dashboardRouter);
 app.use('/api/admissions',  admissionsRouter);
 app.use('/api/upload',      uploadRouter);
 app.use('/api/gallery',     galleryRouter);
+app.use('/api/content/messages', contactRouter);
 app.use('/api/content',     contentRouter);
 app.use('/api/contact',     contactRouter);
 app.use('/api/messages',    contactRouter);
@@ -75,11 +89,14 @@ async function start() {
   try {
     initSchema();
     await seedDatabase();
+    initSupabase();
+    const sbStatus = await checkSupabaseHealth();
     app.listen(config.PORT, () => {
       console.log('\n========================================');
       console.log(' SS Tutorial Backend API');
       console.log(' Running on: http://localhost:' + config.PORT);
-      console.log(' DB: ' + config.DB_PATH);
+      console.log(' Primary DB: ' + (sbStatus.online ? 'Supabase (' + config.SUPABASE_URL + ')' : 'Local SQLite (Offline Resilient)'));
+      console.log(' SQLite Path: ' + config.DB_PATH);
       console.log('========================================\n');
     });
   } catch (err) {
