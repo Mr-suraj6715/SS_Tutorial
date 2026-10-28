@@ -3,7 +3,7 @@ services:
     name: ss-tutorial-backend
     env: node
     plan: free
-    buildCommand: npm install
+    buildCommand: npm install --include=dev
     startCommand: npm run start:server
     healthCheckPath: /api/health
     autoDeploy: true
