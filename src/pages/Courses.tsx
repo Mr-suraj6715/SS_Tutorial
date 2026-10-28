@@ -86,7 +86,7 @@ export const CoursesPage: React.FC = () => {
           <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             Academic Programs
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
             Courses &amp; Batches
           </h1>
           <p className="text-slate-600 text-sm mt-3">
@@ -96,7 +96,7 @@ export const CoursesPage: React.FC = () => {
 
         {/* Board Filter + Search */}
         <div className="flex flex-col sm:flex-row items-center gap-4 mb-10 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             <span className="text-xs font-bold text-slate-500 mr-1">Board:</span>
             {['All', ...BOARDS].map((b) => (
               <button
@@ -113,7 +113,7 @@ export const CoursesPage: React.FC = () => {
               </button>
             ))}
           </div>
-          <div className="relative flex-1 min-w-0 sm:max-w-xs">
+          <div className="relative w-full sm:w-auto sm:flex-1 min-w-0 sm:max-w-xs">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"

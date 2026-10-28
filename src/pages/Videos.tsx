@@ -51,7 +51,7 @@ export const VideosPage: React.FC = () => {
           <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             Media & Learning
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
             Video Lectures & Instagram Reels
           </h1>
           <p className="text-slate-600 text-sm sm:text-base mt-2">
@@ -60,7 +60,7 @@ export const VideosPage: React.FC = () => {
         </div>
 
         {/* Filter */}
-        <div className="flex items-center justify-center gap-2 mb-10">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
           <button
             type="button"
             onClick={() => setFilter('all')}

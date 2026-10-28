@@ -137,7 +137,7 @@ export const AdmissionPage: React.FC = () => {
           <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             Admissions Open
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
             Student Enrollment Form
           </h1>
           <p className="text-slate-600 text-sm mt-2">
@@ -146,7 +146,7 @@ export const AdmissionPage: React.FC = () => {
         </div>
 
         {submitted ? (
-          <div className="bg-white rounded-3xl p-10 sm:p-12 border border-slate-200 shadow-xl text-center space-y-6">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-12 border border-slate-200 shadow-xl text-center space-y-6">
             <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-10 h-10" />
             </div>
@@ -156,7 +156,7 @@ export const AdmissionPage: React.FC = () => {
             <p className="text-slate-600 text-sm max-w-lg mx-auto leading-relaxed">
               Your application is under review with status <strong className="text-amber-500">Pending</strong>. Our admissions counselor will contact you and your parents shortly regarding batch confirmation, fee schedule, and orientation details.
             </p>
-            <div className="pt-4 flex justify-center gap-4">
+            <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
               <a
                 href="/"
                 className="px-6 py-2.5 rounded-xl font-bold text-xs text-white bg-emerald-800 hover:bg-emerald-700 transition"
@@ -185,7 +185,7 @@ export const AdmissionPage: React.FC = () => {
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-xl space-y-10"
+            className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-12 border border-slate-200 shadow-xl space-y-8 sm:space-y-10"
           >
             {/* Section 1: Student Information */}
             <div>
@@ -235,7 +235,7 @@ export const AdmissionPage: React.FC = () => {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                    placeholder="e.g. +91 9876543210"
+                    placeholder="e.g. +91 7738820436"
                   />
                 </div>
 

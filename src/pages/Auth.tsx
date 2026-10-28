@@ -116,7 +116,7 @@ export const AuthPage: React.FC = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="bg-white py-8 px-6 sm:px-10 rounded-3xl shadow-2xl border border-emerald-800/40">
+        <div className="bg-white py-6 px-5 sm:py-8 sm:px-10 rounded-2xl sm:rounded-3xl shadow-2xl border border-emerald-800/40">
           
           {/* Mode Switcher Tabs */}
           <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-xl mb-6">

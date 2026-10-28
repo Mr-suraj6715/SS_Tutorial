@@ -96,11 +96,11 @@ export const Footer: React.FC = () => {
                   <span>{settings.address}</span>
                 </li>
               )}
-              {settings.phone && settings.phone.trim() !== '' && (
+              {(settings.phone || '7738820436') && (
                 <li className="flex items-center gap-2.5">
                   <Phone className="w-4 h-4 text-teal-600 shrink-0" />
-                  <a href={`tel:${settings.phone}`} className="hover:text-teal-800 transition-colors">
-                    {settings.phone}
+                  <a href={`tel:${settings.phone || '7738820436'}`} className="hover:text-teal-800 transition-colors">
+                    {settings.phone || '7738820436'}
                   </a>
                 </li>
               )}

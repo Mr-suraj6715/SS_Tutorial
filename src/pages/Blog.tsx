@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BookOpen, Calendar, User, ArrowRight } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
@@ -44,7 +44,7 @@ export const BlogPage: React.FC = () => {
           <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             Study Guidance
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
             Articles & Academic Insights
           </h1>
           <p className="text-slate-600 text-sm sm:text-base mt-2">
@@ -76,7 +76,7 @@ export const BlogPage: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-5 sm:p-6">
                     <div className="flex items-center gap-4 text-xs text-slate-400 mb-3">
                       {post.published_at && (
                         <span className="flex items-center gap-1">

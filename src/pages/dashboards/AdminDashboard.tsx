@@ -2039,7 +2039,7 @@ export const AdminDashboard: React.FC = () => {
           </a>
         </div>
 
-        <nav className="p-4 space-y-1 overflow-y-auto flex-1 text-xs">
+        <nav className="p-3 md:p-4 flex md:flex-col gap-1.5 md:gap-0 md:space-y-1 overflow-x-auto md:overflow-x-visible md:overflow-y-auto shrink-0 text-xs no-scrollbar">
           {[
             { id: 'overview', label: 'Overview', icon: LayoutDashboard },
             { id: 'admissions', label: 'Admissions', icon: FileCheck },
@@ -2066,7 +2066,7 @@ export const AdminDashboard: React.FC = () => {
                 key={item.id}
                 type="button"
                 onClick={() => setActiveTab(item.id as any)}
-                className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-semibold transition cursor-pointer ${
+                className={`flex items-center gap-2 md:gap-3 px-3 py-2 md:px-3.5 md:py-2.5 rounded-xl font-semibold transition cursor-pointer whitespace-nowrap shrink-0 md:shrink md:w-full ${
                   active
                     ? 'bg-amber-400 text-emerald-950 shadow-md font-bold'
                     : 'text-emerald-100 hover:bg-emerald-900/60 hover:text-white'
@@ -2109,7 +2109,7 @@ export const AdminDashboard: React.FC = () => {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-6 md:p-10 overflow-y-auto max-w-7xl mx-auto w-full">
+      <main className="flex-1 p-4 sm:p-6 md:p-10 overflow-y-auto max-w-7xl mx-auto w-full">
         {/* Flash Notice */}
         {notification && (
           <div
@@ -2773,7 +2773,7 @@ export const AdminDashboard: React.FC = () => {
                         value={userFormData.phone}
                         onChange={(e) => setUserFormData({ ...userFormData, phone: e.target.value })}
                         className="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900"
-                        placeholder="9876543210"
+                        placeholder="7738820436"
                       />
                     </div>
 

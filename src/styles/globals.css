@@ -82,7 +82,23 @@
     color: hsl(var(--foreground));
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
+
+  html {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}
+
+/* Hide scrollbars for smooth touch scrollable tab strips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Custom Institute Aesthetic Classes */

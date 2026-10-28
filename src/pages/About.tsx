@@ -82,7 +82,7 @@ export const AboutPage: React.FC = () => {
           <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">
             Excellence & Values
           </span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mt-2 text-white">
+          <h1 className="text-2xl sm:text-5xl font-extrabold tracking-tight mt-2 text-white">
             About {settings.institute_name || 'SS Tutorial'}
           </h1>
           <p className="text-base sm:text-lg text-emerald-200 mt-4 leading-relaxed">
@@ -100,7 +100,7 @@ export const AboutPage: React.FC = () => {
               <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
                 Our Story & Heritage
               </span>
-              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                 Empowering Students with Knowledge and Dedication
               </h2>
               

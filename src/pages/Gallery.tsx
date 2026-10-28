@@ -52,7 +52,7 @@ export const GalleryPage: React.FC = () => {
           <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             Moments & Milestones
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
             Classes Photo Gallery
           </h1>
           <p className="text-slate-600 text-sm sm:text-base mt-2">
@@ -61,7 +61,7 @@ export const GalleryPage: React.FC = () => {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center justify-center gap-2 mb-10 overflow-x-auto pb-2">
+        <div className="flex items-center justify-start sm:justify-center gap-2 mb-10 overflow-x-auto pb-2 px-1 no-scrollbar">
           {['all', 'gallery', 'classroom', 'results', 'hero'].map((tab) => (
             <button
               key={tab}

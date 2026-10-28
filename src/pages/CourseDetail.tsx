@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   BookOpen,
   Calendar,
@@ -93,13 +93,13 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Breadcrumb & Title */}
-        <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-slate-950 text-white rounded-3xl p-8 sm:p-12 mb-10 shadow-xl border border-emerald-800">
+        <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-slate-950 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-12 mb-10 shadow-xl border border-emerald-800">
           {course.category && (
             <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-400 text-emerald-950 uppercase tracking-wider mb-4">
               {course.category}
             </span>
           )}
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">{course.title}</h1>
+          <h1 className="text-2xl sm:text-5xl font-extrabold tracking-tight">{course.title}</h1>
           <p className="text-emerald-200 mt-4 text-base sm:text-lg max-w-3xl leading-relaxed">
             {course.description}
           </p>
@@ -126,7 +126,7 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
           <div className="lg:col-span-8 space-y-10">
             
             {/* Syllabus Section */}
-            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+            <div className="bg-white rounded-2xl p-5 sm:p-8 border border-slate-200 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 mb-6">
                 Curriculum & Syllabus
               </h2>
@@ -142,7 +142,7 @@ export const CourseDetailPage: React.FC<CourseDetailProps> = ({ slug }) => {
             </div>
 
             {/* Active Batches Table */}
-            <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+            <div className="bg-white rounded-2xl p-5 sm:p-8 border border-slate-200 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 mb-6">
                 Upcoming & Ongoing Batches
               </h2>

@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Calendar, User, ArrowLeft, BookOpen, Share2 } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
@@ -78,7 +78,7 @@ export const BlogDetailPage: React.FC<BlogDetailProps> = ({ slug }) => {
 
         {/* Title Header */}
         <div className="space-y-4 mb-8">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {post.title}
           </h1>
 
@@ -110,7 +110,7 @@ export const BlogDetailPage: React.FC<BlogDetailProps> = ({ slug }) => {
         )}
 
         {/* Post Content */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-12 border border-slate-200 shadow-sm">
           {post.excerpt && (
             <p className="text-lg font-medium text-slate-700 italic mb-8 pb-6 border-b border-slate-100 leading-relaxed">
               "{post.excerpt}"

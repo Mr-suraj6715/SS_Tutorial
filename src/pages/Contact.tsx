@@ -74,7 +74,7 @@ export const ContactPage: React.FC = () => {
     }
   }
 
-  const rawNumber = settings.whatsapp_number ? settings.whatsapp_number.replace(/[^0-9]/g, '') : ''
+  const rawNumber = (settings.whatsapp_number || '7738820436').replace(/[^0-9]/g, '')
   const whatsappUrl = rawNumber
     ? `https://wa.me/${rawNumber}?text=${encodeURIComponent(
         settings.whatsapp_message || 'Hello SS Tutorial, I would like to inquire about courses.'
@@ -90,7 +90,7 @@ export const ContactPage: React.FC = () => {
           <span className="text-xs font-bold text-teal-700 uppercase tracking-widest">
             Get in Touch
           </span>
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
             Contact SS Tutorial
           </h1>
           <p className="text-slate-600 text-sm sm:text-base mt-2">
@@ -122,15 +122,15 @@ export const ContactPage: React.FC = () => {
                   </div>
                 )}
 
-                {settings.phone && (
+                {(settings.phone || '7738820436') && (
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
                       <Phone className="w-4 h-4" />
                     </div>
                     <div>
                       <p className="font-semibold text-slate-800">Phone</p>
-                      <a href={`tel:${settings.phone}`} className="text-emerald-700 text-xs mt-0.5 hover:underline">
-                        {settings.phone}
+                      <a href={`tel:${settings.phone || '7738820436'}`} className="text-emerald-700 text-xs mt-0.5 hover:underline">
+                        {settings.phone || '7738820436'}
                       </a>
                     </div>
                   </div>
@@ -229,7 +229,7 @@ export const ContactPage: React.FC = () => {
 
           {/* Right Column: Contact Inquiry Form */}
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-md">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-10 border border-slate-200 shadow-md">
               <h2 className="text-2xl font-bold text-slate-900 mb-2">
                 Send Us an Inquiry
               </h2>
@@ -295,7 +295,7 @@ export const ContactPage: React.FC = () => {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-                        placeholder="e.g. +91 9876543210"
+                        placeholder="e.g. +91 7738820436"
                       />
                     </div>
                     <div>

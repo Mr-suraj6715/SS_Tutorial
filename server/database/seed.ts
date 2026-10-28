@@ -25,10 +25,10 @@ export const seedDatabase = async () => {
 
   // Admin
   run(`INSERT INTO users (id, email, password_hash, full_name, phone, role) VALUES (?, ?, ?, ?, ?, ?)`,
-    [adminId, 'admin@sstutorial.com', adminHash, 'Institute Administrator', '9876543210', 'admin']);
+    [adminId, 'admin@sstutorial.com', adminHash, 'Institute Administrator', '7738820436', 'admin']);
   run(`INSERT INTO user_roles (id, user_id, role) VALUES (?, ?, ?)`, ['ur-1', adminId, 'admin']);
   run(`INSERT INTO profiles (id, full_name, phone, role) VALUES (?, ?, ?, ?)`,
-    [adminId, 'Institute Administrator', '9876543210', 'admin']);
+    [adminId, 'Institute Administrator', '7738820436', 'admin']);
 
   // Teacher (Aniket Gupta)
   run(`INSERT INTO users (id, email, password_hash, full_name, phone, role) VALUES (?, ?, ?, ?, ?, ?)`,
@@ -258,8 +258,8 @@ export const seedDatabase = async () => {
     { key: 'address', value: '002, (B) WING, VEER 10, UMROLI (EAST)', desc: 'Official institute address' },
     { key: 'youtube_url', value: 'https://www.youtube.com/@SS__tutorial2025', desc: 'Official YouTube channel' },
     { key: 'instagram_url', value: 'https://www.instagram.com/ss__tutorial', desc: 'Official Instagram profile' },
-    { key: 'whatsapp_number', value: '9876543210', desc: 'WhatsApp support number' },
-    { key: 'phone', value: '9876543210', desc: 'Primary contact phone' },
+    { key: 'whatsapp_number', value: '7738820436', desc: 'WhatsApp support number' },
+    { key: 'phone', value: '7738820436', desc: 'Primary contact phone' },
     { key: 'email', value: 'contact@sstutorial.com', desc: 'Official contact email' },
     { key: 'working_hours', value: 'Mon - Sat: 8:00 AM - 8:00 PM', desc: 'Office working hours' }
   ];

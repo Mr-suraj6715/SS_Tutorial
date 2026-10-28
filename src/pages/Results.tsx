@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Award, Trophy, Star, Sparkles } from 'lucide-react'
 import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { supabase } from '@/lib/supabase/client'
@@ -63,7 +63,7 @@ export const ResultsPage: React.FC = () => {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-700 text-xs font-bold mb-3 border border-amber-300">
             <Trophy className="w-3.5 h-3.5" /> Proven Track Record of Success
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
             Our Top Scorers & Achievements
           </h1>
           <p className="text-slate-600 text-sm sm:text-base mt-3">
@@ -96,7 +96,7 @@ export const ResultsPage: React.FC = () => {
                       </div>
                     )}
                   </div>
-                  <div className="p-6">
+                  <div className="p-5 sm:p-6">
                     {ach.category && (
                       <span className="text-xs font-bold uppercase text-amber-600 tracking-wider">
                         {ach.category}

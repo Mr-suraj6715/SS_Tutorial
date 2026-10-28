@@ -37,19 +37,19 @@ export const Header: React.FC<HeaderProps> = ({ currentPath = '/' }) => {
         <div className="flex items-center h-16 sm:h-[68px] relative">
 
           {/* ── Brand (left) ── */}
-          <a href="/" className="flex items-center gap-2.5 shrink-0 group z-10">
-            <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl bg-white border border-slate-200/90 p-0.5 shadow-sm flex items-center justify-center overflow-hidden shrink-0 group-hover:scale-105 transition-transform duration-200">
+          <a href="/" className="flex items-center gap-2 sm:gap-2.5 shrink-0 group z-10 max-w-[calc(100vw-70px)] sm:max-w-none">
+            <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-xl bg-white border border-slate-200/90 p-0.5 shadow-sm flex items-center justify-center overflow-hidden shrink-0 group-hover:scale-105 transition-transform duration-200">
               <img
                 src={settings.logo_url || '/logo.png'}
                 alt={settings.institute_name || 'SS Tutorial'}
                 className="h-full w-full object-contain"
               />
             </div>
-            <div className="flex flex-col justify-center leading-none">
-              <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 group-hover:text-teal-900 transition-colors whitespace-nowrap">
+            <div className="flex flex-col justify-center leading-none min-w-0">
+              <span className="font-extrabold text-sm sm:text-lg tracking-tight text-slate-900 group-hover:text-teal-900 transition-colors truncate sm:whitespace-nowrap">
                 {settings.institute_name || 'SS Tutorial'}
               </span>
-              <span className="text-[8.5px] sm:text-[9px] font-bold text-teal-800 tracking-widest uppercase whitespace-nowrap mt-0.5">
+              <span className="text-[7.5px] sm:text-[9px] font-bold text-teal-800 tracking-wider sm:tracking-widest uppercase truncate sm:whitespace-nowrap mt-0.5">
                 {settings.tagline?.replace(/~$/, '').trim() || 'ACHIEVING EXCELLENCE TOGETHER'}
               </span>
             </div>
@@ -110,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath = '/' }) => {
 
       {/* ── Mobile Drawer ── */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-100 px-4 pt-3 pb-6 space-y-1 shadow-xl animate-in slide-in-from-top-2">
+        <div className="lg:hidden bg-white border-b border-slate-100 px-4 pt-3 pb-6 space-y-1 shadow-xl animate-in slide-in-from-top-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
           {navLinks.map((link) => {
             const isActive = currentPath === link.href
             return (

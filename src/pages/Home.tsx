@@ -101,7 +101,7 @@ export const HomePage: React.FC = () => {
 
   const instagramUrl = settings.instagram_url || 'https://www.instagram.com/ss__tutorial'
   const youtubeUrl = settings.youtube_url || 'https://www.youtube.com/@SS__tutorial2025'
-  const whatsappNumber = settings.whatsapp_number || '9876543210'
+  const whatsappNumber = settings.whatsapp_number || '7738820436'
   const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(settings.whatsapp_message || 'Hello SS Tutorial, I want to book a free demo class.')}`
 
   // Weekly Schedule Data
@@ -244,7 +244,7 @@ export const HomePage: React.FC = () => {
 
         {/* Overlaid Center Content */}
         <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white py-16 sm:py-20 lg:py-24">
-          <h1 className="font-bold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.15] drop-shadow-md">
+          <h1 className="font-bold text-2xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.15] drop-shadow-md">
             {settings.homepage_hero_title && !/^s+$/i.test(settings.homepage_hero_title.trim())
               ? settings.homepage_hero_title
               : "Empower Your Child's Academic Journey."}
@@ -256,16 +256,16 @@ export const HomePage: React.FC = () => {
           </p>
 
           {/* Dual Action Buttons matching reference: deep teal filled pill + clean outline pill */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
             <a
               href="/admission"
-              className="px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base text-white bg-[#154d68] hover:bg-[#0e3a50] shadow-md transition-all hover:scale-[1.02]"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base text-white bg-[#154d68] hover:bg-[#0e3a50] shadow-md transition-all hover:scale-[1.02] text-center"
             >
               Get Started Today
             </a>
             <a
               href="/courses"
-              className="px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base text-teal-900 bg-white/95 hover:bg-white border border-teal-600/40 shadow-sm backdrop-blur-sm transition-all hover:scale-[1.02]"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base text-teal-900 bg-white/95 hover:bg-white border border-teal-600/40 shadow-sm backdrop-blur-sm transition-all hover:scale-[1.02] text-center"
             >
               Learn More
             </a>
@@ -491,7 +491,7 @@ export const HomePage: React.FC = () => {
               </p>
 
               {/* Clean Stat Counters */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 pt-2">
                 <div className="p-4 rounded-2xl bg-[#fafcfb] border border-slate-200/80 text-center">
                   <p className="text-2xl sm:text-3xl font-extrabold text-teal-800">500+</p>
                   <p className="text-[11px] font-medium text-slate-500 mt-0.5">Students Mentored</p>
@@ -609,7 +609,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Day Selector Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full bg-slate-50 border border-slate-200/80 max-w-fit mx-auto mb-8">
+          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl sm:rounded-full bg-slate-50 border border-slate-200/80 max-w-fit mx-auto mb-8">
             {Object.keys(scheduleData).map((day) => (
               <button
                 key={day}
@@ -749,7 +749,7 @@ export const HomePage: React.FC = () => {
           ========================================================= */}
       <section className="py-14 sm:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[32px] bg-gradient-to-r from-[#154d68] to-teal-800 text-white p-10 sm:p-14 text-center shadow-lg relative overflow-hidden">
+          <div className="rounded-2xl sm:rounded-[32px] bg-gradient-to-r from-[#154d68] to-teal-800 text-white p-6 sm:p-14 text-center shadow-lg relative overflow-hidden">
             <div className="relative z-10 space-y-5">
               <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
                 Ready to Empower Your Child's Academic Journey?
@@ -759,10 +759,10 @@ export const HomePage: React.FC = () => {
                 No registration fee for demo. Your first trial class is 100% free with Ankit Sir.
               </p>
 
-              <div className="pt-2 flex flex-wrap items-center justify-center gap-3.5">
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-3.5">
                 <a
                   href="/admission"
-                  className="px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base text-[#154d68] bg-white hover:bg-teal-50 shadow-md transition-all hover:scale-105"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-sm sm:text-base text-[#154d68] bg-white hover:bg-teal-50 shadow-md transition-all hover:scale-105 text-center"
                 >
                   Register for Free Trial
                 </a>
@@ -770,7 +770,7 @@ export const HomePage: React.FC = () => {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base text-white bg-teal-900/60 hover:bg-teal-900/80 border border-teal-300/40 shadow-sm transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base text-white bg-teal-900/60 hover:bg-teal-900/80 border border-teal-300/40 shadow-sm transition-all text-center"
                 >
                   <MessageCircle className="w-4 h-4 text-teal-200" />
                   <span>Chat on WhatsApp</span>
