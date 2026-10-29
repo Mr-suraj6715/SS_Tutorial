@@ -33,7 +33,7 @@ export interface SiteSettings {
 export const defaultSettings: SiteSettings = {
   institute_name: 'SS Tutorial',
   tagline: 'ACHIEVING EXCELLENCE TOGETHER',
-  about: 'Welcome to SS TUTORIAL CLASSES - Your Ultimate Math Learning Hub! We simplify complex topics and help you master math with fun, clarity, and confidence. Specializing in SSC Board & CBSE coaching for School Classes and High School.',
+  about: 'Welcome to SS TUTORIAL CLASSES - Your Ultimate Math Learning Hub! We simplify complex topics and help you master math with fun, clarity, and confidence. Specializing in SSC Board & CBSE coaching for Class 1st to 12th.',
   founder_name: 'Ankit Gupta',
   founder_title: 'Founder & Director',
   founder_bio: 'Dedicated educator and founder of SS Tutorial, passionate about simplifying mathematics and guiding students toward academic excellence through conceptual clarity and disciplined practice.',
@@ -42,7 +42,7 @@ export const defaultSettings: SiteSettings = {
   address: '002, (B) WING, VEER 10, UMROLI (EAST)',
   phone: '7738820436',
   email: '',
-  working_hours: 'Mon - Sat: 8:00 AM - 8:00 PM',
+  working_hours: 'Mon - Sat: 9:00 AM - 7:00 PM',
   whatsapp_number: '7738820436',
   whatsapp_message: 'Hello SS Tutorial, I would like to inquire about courses and admissions.',
   footer_note: '© SS Tutorial. All Rights Reserved.',
@@ -55,7 +55,7 @@ export const defaultSettings: SiteSettings = {
   twitter_url: '',
   linkedin_url: '',
   meta_title: 'SS Tutorial | Achieving Excellence Together',
-  meta_description: 'Welcome to SS Tutorial - Your Ultimate Math Learning Hub. Located at 002, (B) Wing, Veer 10, Umroli (East). Follow us on Instagram @ss__tutorial and YouTube @SS__tutorial2025.',
+  meta_description: 'Welcome to SS Tutorial - Premier coaching for Class 1 to 12 SSC and CBSE Board. Located at 002, (B) Wing, Veer 10, Umroli (East). Follow us on Instagram @ss__tutorial and YouTube @SS__tutorial2025.',
 }
 
 interface SiteSettingsContextType {
@@ -68,7 +68,7 @@ interface SiteSettingsContextType {
 const SiteSettingsContext = createContext<SiteSettingsContextType>({
   settings: defaultSettings,
   loading: false,
-  refreshSettings: async () => {},
+  refreshSettings: async () => { },
   updateSetting: async () => false,
 })
 

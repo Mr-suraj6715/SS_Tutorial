@@ -52,7 +52,7 @@ export const HomePage: React.FC = () => {
   useEffect(() => {
     updatePageMeta({
       title: settings.meta_title || `${settings.institute_name || 'SS Tutorial'} | Achieving Excellence Together`,
-      description: settings.meta_description || 'Premier coaching for Class 6 to 12 SSC and CBSE Board. Master mathematics with concept clarity and personalized attention.',
+      description: settings.meta_description || 'Premier coaching for Class 1 to 12 SSC and CBSE Board. Master mathematics with concept clarity and personalized attention.',
     }, settings.institute_name)
 
     const fetchData = async () => {
@@ -149,7 +149,7 @@ export const HomePage: React.FC = () => {
     faqs = settings.faqs_json ? JSON.parse(settings.faqs_json) : [
       {
         q: 'Which school boards and classes do you cater to?',
-        a: 'We specialize in Maharashtra State Board (SSC) and CBSE Board curriculum for Class 6, 7, 8, 9, 10, as well as Class 11 & 12. Our primary emphasis is on Mathematics, Science, and fundamental concept-building.',
+        a: 'We specialize in Maharashtra State Board (SSC) and CBSE Board curriculum for Class 1st to 12th. Our primary emphasis is on Mathematics, Science, and fundamental concept-building.',
       },
       {
         q: 'Do I have to pay anything for the trial demo class?',
@@ -207,8 +207,8 @@ export const HomePage: React.FC = () => {
     },
     {
       num: 'No. 04',
-      badge: 'Class 6 - 8 School Classes',
-      title: 'Junior Math & Science Excellence',
+      badge: 'Class 1st to 8th Primary & School Classes',
+      title: 'Class 1 to 8 Foundational Math & Science',
       desc: 'Fun, disciplined learning designed specifically for young students to eliminate math fear and build rock-solid basics.',
       skills: ['Fractions & Integers', 'Mental Math Fun', 'Science Exploration', 'Homework Guidance'],
       slug: 'class-6-8-math',
@@ -487,7 +487,7 @@ export const HomePage: React.FC = () => {
               </p>
 
               <p className="text-slate-500 text-sm leading-relaxed">
-                Located at Umroli (East), SS Tutorial has been the community’s trusted destination for Class 6 to 12 CBSE & SSC coaching. Every batch is strictly limited to 15-20 students so no learner gets left behind.
+                Located at Umroli (East), SS Tutorial has been the community’s trusted destination for Class 1 to 12 CBSE & SSC coaching. Every batch is strictly limited to 15-20 students so no learner gets left behind.
               </p>
 
               {/* Clean Stat Counters */}
@@ -778,7 +778,7 @@ export const HomePage: React.FC = () => {
               </div>
 
               <div className="pt-4 text-xs text-teal-100/80">
-                📍 002, (B) WING, VEER 10, UMROLI (EAST) • Admissions Open for Class 6 to 12
+                📍 002, (B) WING, VEER 10, UMROLI (EAST) • Admissions Open for Class 1 to 12
               </div>
             </div>
           </div>

@@ -4,9 +4,23 @@ import { useSiteSettings } from '@/lib/hooks/useSiteSettings'
 import { fetchAcademicCourses, AcademicCourse } from '@/lib/services/coursesService'
 import { updatePageMeta } from '@/lib/utils/seo'
 
-interface Course extends AcademicCourse {}
+interface Course extends AcademicCourse { }
 
-const CLASS_ORDER = ['School Classes', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12']
+const CLASS_ORDER = [
+  'School Classes',
+  'Class 1',
+  'Class 2',
+  'Class 3',
+  'Class 4',
+  'Class 5',
+  'Class 6',
+  'Class 7',
+  'Class 8',
+  'Class 9',
+  'Class 10',
+  'Class 11',
+  'Class 12',
+]
 const BOARDS = ['CBSE', 'SSC']
 
 export const CoursesPage: React.FC = () => {
@@ -21,7 +35,7 @@ export const CoursesPage: React.FC = () => {
     updatePageMeta(
       {
         title: 'Courses',
-        description: `Explore CBSE and SSC board courses for Class 6 to Class 12 at ${settings.institute_name}.`,
+        description: `Explore CBSE and SSC board courses for Class 1 to Class 12 at ${settings.institute_name}.`,
       },
       settings.institute_name
     )
@@ -90,7 +104,7 @@ export const CoursesPage: React.FC = () => {
             Courses &amp; Batches
           </h1>
           <p className="text-slate-600 text-sm mt-3">
-            Structured academic coaching for Class 6 to Class 12 under CBSE and SSC boards.
+            Structured academic coaching for Class 1st to Class 12th under CBSE and SSC boards.
           </p>
         </div>
 
@@ -103,11 +117,10 @@ export const CoursesPage: React.FC = () => {
                 key={b}
                 type="button"
                 onClick={() => setActiveBoard(b)}
-                className={`px-4 py-2 rounded-lg text-xs font-semibold transition ${
-                  activeBoard === b
+                className={`px-4 py-2 rounded-lg text-xs font-semibold transition ${activeBoard === b
                     ? 'bg-emerald-800 text-white shadow'
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200:bg-slate-700'
-                }`}
+                  }`}
               >
                 {b === 'All' ? 'All Boards' : b + ' Board'}
               </button>
@@ -139,7 +152,7 @@ export const CoursesPage: React.FC = () => {
           <div className="space-y-6">
             {Object.entries(coursesByClass).map(([cls, clsCourses]) => (
               <div key={cls} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                
+
                 {/* Class Header */}
                 <button
                   type="button"
@@ -199,7 +212,7 @@ export const CoursesPage: React.FC = () => {
                           {course.description && (
                             <p className="text-xs text-slate-500 mb-3 line-clamp-2">{course.description}</p>
                           )}
-                          
+
                           {/* Subjects */}
                           {course.subjects && (
                             <div className="mb-3">

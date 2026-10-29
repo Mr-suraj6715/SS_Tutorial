@@ -63,13 +63,18 @@ export const seedDatabase = async () => {
 
   // 3. Classes
   const classList = [
-    { id: 'c-6', name: 'Class 6', standard: '6th', board: 'SSC', order: 1 },
-    { id: 'c-7', name: 'Class 7', standard: '7th', board: 'SSC', order: 2 },
-    { id: 'c-8', name: 'Class 8', standard: '8th', board: 'SSC', order: 3 },
-    { id: 'c-9', name: 'Class 9', standard: '9th', board: 'SSC', order: 4 },
-    { id: 'c-10', name: 'Class 10', standard: '10th', board: 'SSC', order: 5 },
-    { id: 'c-11', name: 'Class 11', standard: '11th', board: 'Both', order: 6 },
-    { id: 'c-12', name: 'Class 12', standard: '12th', board: 'Both', order: 7 },
+    { id: 'c-1', name: 'Class 1', standard: '1st', board: 'Both', order: 1 },
+    { id: 'c-2', name: 'Class 2', standard: '2nd', board: 'Both', order: 2 },
+    { id: 'c-3', name: 'Class 3', standard: '3rd', board: 'Both', order: 3 },
+    { id: 'c-4', name: 'Class 4', standard: '4th', board: 'Both', order: 4 },
+    { id: 'c-5', name: 'Class 5', standard: '5th', board: 'Both', order: 5 },
+    { id: 'c-6', name: 'Class 6', standard: '6th', board: 'Both', order: 6 },
+    { id: 'c-7', name: 'Class 7', standard: '7th', board: 'Both', order: 7 },
+    { id: 'c-8', name: 'Class 8', standard: '8th', board: 'Both', order: 8 },
+    { id: 'c-9', name: 'Class 9', standard: '9th', board: 'Both', order: 9 },
+    { id: 'c-10', name: 'Class 10', standard: '10th', board: 'Both', order: 10 },
+    { id: 'c-11', name: 'Class 11', standard: '11th', board: 'Both', order: 11 },
+    { id: 'c-12', name: 'Class 12', standard: '12th', board: 'Both', order: 12 },
   ];
   for (const c of classList) {
     run(`INSERT INTO classes (id, name, standard, board, display_order) VALUES (?, ?, ?, ?, ?)`,
@@ -249,7 +254,7 @@ export const seedDatabase = async () => {
   const settings = [
     { key: 'institute_name', value: 'SS Tutorial', desc: 'Institute branding title' },
     { key: 'tagline', value: 'ACHIEVING EXCELLENCE TOGETHER', desc: 'Main tagline' },
-    { key: 'about', value: 'Welcome to SS TUTORIAL CLASSES - Your Ultimate Math Learning Hub! We simplify complex topics and help you master math with fun, clarity, and confidence. Specializing in SSC Board & CBSE coaching for School Classes up to Class 12.', desc: 'Institute description' },
+    { key: 'about', value: 'Welcome to SS TUTORIAL CLASSES - Your Ultimate Math Learning Hub! We simplify complex topics and help you master math with fun, clarity, and confidence. Specializing in SSC Board & CBSE coaching for Class 1st to 12th.', desc: 'Institute description' },
     { key: 'founder_name', value: 'Ankit Gupta', desc: 'Founder name' },
     { key: 'founder_title', value: 'Founder & Director', desc: 'Founder title' },
     { key: 'founder_bio', value: 'Dedicated educator and founder of SS Tutorial, passionate about simplifying mathematics and guiding students toward academic excellence through conceptual clarity and disciplined practice.', desc: 'Founder biography' },
