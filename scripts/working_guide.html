@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>SS Tutorial - Website Working & User Roles Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    @page {
+      size: A4;
+      margin: 14mm 12mm 14mm 12mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1e293b;
+      background: #ffffff;
+      line-height: 1.5;
+      font-size: 11pt;
+    }
+
+    .header-banner {
+      background: linear-gradient(135deg, #092c3e 0%, #154d68 60%, #0d6157 100%);
+      color: #ffffff;
+      padding: 24px 28px;
+      border-radius: 16px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 4px solid #f59e0b;
+    }
+
+    .brand-title {
+      font-size: 24pt;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .brand-tagline {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #5eead4;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .badge-doc {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 8px 14px;
+      border-radius: 10px;
+      text-align: right;
+    }
+
+    .badge-doc .doc-type {
+      font-size: 8.5pt;
+      color: #fde047;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .badge-doc .doc-info {
+      font-size: 9pt;
+      color: #ffffff;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .doc-intro {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid #154d68;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      font-size: 10.5pt;
+      color: #334155;
+    }
+
+    h2 {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 6px;
+    }
+
+    .role-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+
+    .role-card.visitor { border-left: 6px solid #0284c7; }
+    .role-card.student { border-left: 6px solid #10b981; }
+    .role-card.parent  { border-left: 6px solid #8b5cf6; }
+    .role-card.teacher { border-left: 6px solid #f59e0b; }
+    .role-card.admin   { border-left: 6px solid #dc2626; }
+
+    .role-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .role-name {
+      font-size: 12.5pt;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .role-pill {
+      font-size: 8pt;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pill-blue   { background: #e0f2fe; color: #0369a1; }
+    .pill-green  { background: #dcfce7; color: #15803d; }
+    .pill-purple { background: #f3e8ff; color: #6b21a8; }
+    .pill-amber  { background: #fef3c7; color: #b45309; }
+    .pill-red    { background: #fee2e2; color: #b91c1c; }
+
+    .role-desc {
+      font-size: 9.5pt;
+      color: #64748b;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    ul.features-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.features-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 6px;
+      font-size: 9.8pt;
+      color: #1e293b;
+    }
+
+    ul.features-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #0d9488;
+      font-weight: 800;
+      font-size: 10pt;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      margin-bottom: 18px;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+    }
+
+    th {
+      background: #154d68;
+      color: #ffffff;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 9pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid #154d68;
+    }
+
+    td {
+      padding: 9px 12px;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .status-yes {
+      color: #15803d;
+      font-weight: 700;
+    }
+
+    .status-no {
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .workflow-box {
+      background: #fafaf9;
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+
+    .workflow-title {
+      font-weight: 700;
+      font-size: 10.5pt;
+      color: #0f172a;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .workflow-steps {
+      font-size: 9.3pt;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    .footer-bar {
+      margin-top: 26px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8.5pt;
+      color: #64748b;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER BANNER ==================== -->
+  <div class="header-banner">
+    <div>
+      <div class="brand-title">SS TUTORIAL</div>
+      <div class="brand-tagline">Achieving Excellence Together</div>
+      <div style="font-size: 9pt; color: #e2e8f0; margin-top: 6px;">
+        📍 002, (B) Wing, Veer 10, Umroli (East) &nbsp;|&nbsp; 📞 +91 7738820436
+      </div>
+    </div>
+    <div class="badge-doc">
+      <div class="doc-type">Official Guide</div>
+      <div class="doc-info">Website Working & Roles</div>
+      <div style="font-size: 8pt; color: #cbd5e1; margin-top: 2px;">Version 2.0 (2026)</div>
+    </div>
+  </div>
+
+  <div class="doc-intro">
+    <strong>📋 Overview:</strong> Is document me <strong>SS Tutorial Coaching Website & Management System</strong> ki poori functioning, architecture aur sabhi <strong>5 User Roles</strong> (Visitor, Student, Parent, Teacher, Admin) ke adhikaar (permissions) aur daily workflows ko vistaar se explain kiya gaya hai.
+  </div>
+
+  <!-- ==================== SECTION 1 ==================== -->
+  <h2>1. Har User Role Ka Kaam (Who Can Do What)</h2>
+
+  <!-- ROLE 1: Public Visitor -->
+  <div class="role-card visitor">
+    <div class="role-header">
+      <div class="role-name">1. Public Visitor (Bina Login Ke Koi Bhi)</div>
+      <span class="role-pill pill-blue">Open Access</span>
+    </div>
+    <div class="role-desc">Naye students, parents ya visitors jo coaching ke baare me jankari lene website par aate hain.</div>
+    <ul class="features-list">
+      <li><strong>Home Page Explore Karna:</strong> Coaching ka introduction, Ankit Sir (Director) ki profile, batch schedule aur reviews dekhna.</li>
+      <li><strong>Courses & Syllabus Check Karna:</strong> Class 6th se 12th tak CBSE aur SSC boards ke courses, subject details aur batch timings dekhna.</li>
+      <li><strong>Online Admission Form Bharna:</strong> Student details aur required documents upload karke admission ke liye apply karna (status: Pending review).</li>
+      <li><strong>Direct WhatsApp Chat:</strong> Floating WhatsApp button se direct <strong>+91 7738820436</strong> par judna.</li>
+      <li><strong>Toppers & Results Dekhna:</strong> Pichhle saalo ke board exam toppers, high score marks aur awards dekhna.</li>
+      <li><strong>Campus Photo Gallery & Video Lectures:</strong> Classrooms ki photos, YouTube videos aur Instagram reels dekhna.</li>
+      <li><strong>Inquiry Form Send Karna:</strong> Contact page par message bhejna jo turant institute ke Admin ke paas jata hai.</li>
+    </ul>
+  </div>
+
+  <!-- ROLE 2: Student -->
+  <div class="role-card student">
+    <div class="role-header">
+      <div class="role-name">2. Student Portal (Enrolled Vidyarthi)</div>
+      <span class="role-pill pill-green">Student Login</span>
+    </div>
+    <div class="role-desc">Enrolled student apne registered email aur password se login karke apna portal access karta hai.</div>
+    <ul class="features-list">
+      <li><strong>Personalized Dashboard:</strong> Enrolled batch, course name aur profile details dekhna.</li>
+      <li><strong>Attendance Tracker:</strong> Roz ki attendance — kitne din Present, Absent ya Late rahe aur total attendance percentage (%).</li>
+      <li><strong>Exam Results & Scorecard:</strong> Weekly tests, unit tests aur preliminary exams me kitne marks mile aur passing marks kya the dekhna.</li>
+      <li><strong>Study Material Download:</strong> Faculty dwara upload kiye gaye chapter notes, formula cheatsheets aur question papers download karna.</li>
+      <li><strong>Fees & Balance Status:</strong> Total course fees, jama ki gayi fees aur bacha hua pending balance dekhna.</li>
+    </ul>
+  </div>
+
+  <!-- ROLE 3: Parent -->
+  <div class="role-card parent">
+    <div class="role-header">
+      <div class="role-name">3. Parent Portal (Abhibhavak)</div>
+      <span class="role-pill pill-purple">Parent Login</span>
+    </div>
+    <div class="role-desc">Parents apne bachhe ki padhai, attendance aur fee details par ghar baithe nazar rakh sakte hain.</div>
+    <ul class="features-list">
+      <li><strong>Multiple Child Selector:</strong> Agar ek se zyada bachhe coaching me padhte hain, toh unhe dropdown se switch karke dekhna.</li>
+      <li><strong>Daily Attendance Report:</strong> Bachha aaj coaching gaya ya nahi (Present / Absent / Late) date-wise check karna.</li>
+      <li><strong>Test Marks & Progress:</strong> Har test ke evaluated marks aur overall academic growth monitor karna.</li>
+      <li><strong>Fees Status & Receipts:</strong> Fees payment history aur aage ki due date check karna.</li>
+    </ul>
+  </div>
+
+  <!-- Page Break for clean reading -->
+  <div class="page-break"></div>
+
+  <!-- ROLE 4: Teacher -->
+  <div class="role-card teacher">
+    <div class="role-header">
+      <div class="role-name">4. Teacher / Faculty Portal (Shikshak)</div>
+      <span class="role-pill pill-amber">Faculty Login</span>
+    </div>
+    <div class="role-desc">Teachers apne assigned batches aur students ki daily academic activities manage karte hain.</div>
+    <ul class="features-list">
+      <li><strong>Assigned Batches View:</strong> Unhe kaun sa batch padhana hai aur unme kitne students registered hain dekhna.</li>
+      <li><strong>Daily Attendance Entry:</strong> Apne batch ke students ko single-click me <strong>Present / Absent / Late</strong> mark karna aur submit karna.</li>
+      <li><strong>Upload Study Materials:</strong> PDF notes, formula sheets aur assignment files upload karna jo enrolled students ko turant mil jati hain.</li>
+      <li><strong>Enter Exam Marks:</strong> Conduct kiye gaye test ke liye sabhi students ke marks enter aur save karna.</li>
+    </ul>
+  </div>
+
+  <!-- ROLE 5: Admin -->
+  <div class="role-card admin">
+    <div class="role-header">
+      <div class="role-name">5. Admin Command Center (Director / Main Administrator)</div>
+      <span class="role-pill pill-red">Super Admin Access</span>
+    </div>
+    <div class="role-desc">Institute Director ke paas website, users, academic records aur settings ka 100% full control hota hai.</div>
+    <ul class="features-list">
+      <li><strong>Command Center (Overview):</strong> Real-time total students, pending admissions, unread inquiries aur revenue stats dekhna.</li>
+      <li><strong>Admissions Manager:</strong> Online form se aayi hui nayi applications review karna, unhe Approve ya Reject karna aur batch assign karna.</li>
+      <li><strong>Users & Roles Manager:</strong> Naye Teachers, Students ya Parents create karna, passwords reset karna aur role privileges change karna.</li>
+      <li><strong>Courses & Subjects Manager:</strong> Naye courses banana, syllabus likhna, subjects define karna aur course fee decide karna.</li>
+      <li><strong>Batches Manager:</strong> Naye morning/evening batches create karna, timing schedule set karna, teacher assign karna aur seat capacity limit lagana.</li>
+      <li><strong>Fees & Dues Management:</strong> Invoices create karna, offline/online aayi hui fees ko Paid mark karna aur pending balance track karna.</li>
+      <li><strong>Exams & Toppers:</strong> Naye exams create karna (Total Marks, Passing Marks), results publish karna aur toppers ko website par highlight karna.</li>
+      <li><strong>Website Content Management:</strong> Gallery me naye photos upload karna, blog articles publish karna, YouTube aur Instagram Reels link add karna, testimonials approve karna.</li>
+      <li><strong>Institute Settings:</strong> Institute name, logo, official phone number (<strong>7738820436</strong>), notice ticker, maps embed aur admin credentials update karna.</li>
+      <li><strong>Live Inquiries Inbox:</strong> Website contact form se aayi sabhi enquiries ko real-time dekhna aur status update karna.</li>
+    </ul>
+  </div>
+
+  <!-- ==================== SECTION 2 ==================== -->
+  <h2>2. Quick Roles & Feature Comparison Matrix</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Feature / Capability</th>
+        <th>Visitor</th>
+        <th>Student</th>
+        <th>Parent</th>
+        <th>Teacher</th>
+        <th>Admin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Website & Course Catalog View</td>
+        <td class="status-yes">✔ Yes</td>
+        <td class="status-yes">✔ Yes</td>
+        <td class="status-yes">✔ Yes</td>
+        <td class="status-yes">✔ Yes</td>
+        <td class="status-yes">✔ Yes</td>
+      </tr>
+      <tr>
+        <td>Online Admission Apply Karna</td>
+        <td class="status-yes">✔ Yes</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ Yes</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ Manage</td>
+      </tr>
+      <tr>
+        <td>Attendance Check Karna</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ Own</td>
+        <td class="status-yes">✔ Child</td>
+        <td class="status-yes">✔ Mark</td>
+        <td class="status-yes">✔ Full</td>
+      </tr>
+      <tr>
+        <td>Exam Marks & Progress Dekhna</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ Own</td>
+        <td class="status-yes">✔ Child</td>
+        <td class="status-yes">✔ Enter</td>
+        <td class="status-yes">✔ Full</td>
+      </tr>
+      <tr>
+        <td>Study Material Download Karna</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ Yes</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ Upload</td>
+        <td class="status-yes">✔ Full</td>
+      </tr>
+      <tr>
+        <td>Fee Status & Invoices Check Karna</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ View</td>
+        <td class="status-yes">✔ View</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ Manage</td>
+      </tr>
+      <tr>
+        <td>Courses / Batches Create & Edit</td>
+        <td class="status-no">—</td>
+        <td class="status-no">—</td>
+        <td class="status-no">—</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ Admin Only</td>
+      </tr>
+      <tr>
+        <td>Website Settings & Phone (7738820436)</td>
+        <td class="status-no">—</td>
+        <td class="status-no">—</td>
+        <td class="status-no">—</td>
+        <td class="status-no">—</td>
+        <td class="status-yes">✔ Admin Only</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ==================== SECTION 3 ==================== -->
+  <h2>3. Coaching Ka Daily Operational Workflow</h2>
+
+  <div class="workflow-box">
+    <div class="workflow-title">📌 Admission Workflow (Kaise Hota Hai):</div>
+    <div class="workflow-steps">
+      1. Parent/Student website ke <strong>/admission</strong> page par jaakar online form bharte hain.<br>
+      2. Form submit hote hi Admin ke dashboard me <strong>Real-Time SSE Alert</strong> aata hai.<br>
+      3. Admin application review karta hai aur use "Approved" mark karke specific Class/Batch me allot kar deta hai.<br>
+      4. Student ka account active ho jata hai aur student portal access mil jata hai.
+    </div>
+  </div>
+
+  <div class="workflow-box">
+    <div class="workflow-title">📌 Daily Class & Attendance Workflow:</div>
+    <div class="workflow-steps">
+      1. Teacher coaching aakar Teacher Portal login karta hai aur apna Batch select karta hai.<br>
+      2. Har student ko single click me Present/Absent/Late mark karke "Save Attendance" dabata hai.<br>
+      3. Student aur Parent ke Portal par attendance turant update ho jati hai.
+    </div>
+  </div>
+
+  <div class="workflow-box">
+    <div class="workflow-title">📌 Exams & Study Materials Workflow:</div>
+    <div class="workflow-steps">
+      1. Admin ya Teacher naya test schedule karte hain (e.g. "Maths Chapter 1 Unit Test").<br>
+      2. Test conduct hone ke baad teacher marks portal me enter kar deta hai.<br>
+      3. Student aur Parent apne login me marks, percentage aur remarks dekh sakte hain.
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <div class="footer-bar">
+    <div><strong>SS TUTORIAL</strong> • Umroli (East) • Math & Science Coaching (Class 6 - 12)</div>
+    <div>Helpline: <strong>+91 7738820436</strong> | info@sstutorial.com</div>
+  </div>
+
+</body>
+</html>
