@@ -178,10 +178,32 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p className="text-center md:text-left">
             &copy; {currentYear} {settings.institute_name || 'SS Tutorial'}. All rights reserved.
           </p>
+
+          {/* Darvyx Agency Credit Badge */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#152a22] border border-[#114a38] shadow-sm select-none hover:border-[#1c7a5c] transition-all whitespace-nowrap">
+            <span className="text-[#78b5e2] text-xs font-semibold tracking-wide">
+              Made by
+            </span>
+            <img
+              src="/darvyx-logo.png"
+              alt="Darvyx"
+              className="w-5 h-5 object-contain drop-shadow-[0_0_6px_rgba(56,189,248,0.4)]"
+            />
+            <span className="text-white text-xs font-bold tracking-tight">
+              Darvyx
+            </span>
+            <span className="text-[#0e523d] text-xs font-light">
+              |
+            </span>
+            <span className="text-[#36b089] text-xs font-medium tracking-wide">
+              A Digital Agency
+            </span>
+          </div>
+
           <div className="flex items-center gap-4">
             <a href="/privacy-policy" className="hover:text-teal-800 transition-colors">Privacy Policy</a>
             <a href="/terms" className="hover:text-teal-800 transition-colors">Terms & Conditions</a>
