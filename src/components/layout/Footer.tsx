@@ -177,42 +177,36 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Bar: 3-Column Grid for Exact Center Alignment */}
-        <div className="pt-8 grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-xs text-slate-500">
-          {/* Left Column: Copyright */}
-          <p className="text-center md:text-left">
+        {/* ── FOOTER BOTTOM ATTRIBUTION ── */}
+        <div className="mt-10 pt-8 border-t border-slate-200/80 flex flex-col items-center justify-center gap-3 text-center">
+          <div className="inline-flex items-center gap-2.5 bg-[#152a22] hover:bg-[#0f1f19] border border-emerald-700/50 hover:border-cyan-500/50 px-5 py-2.5 rounded-full transition-all duration-300 shadow-md group select-none">
+            <span className="text-slate-300 text-xs font-medium">Made by</span>
+            <img
+              src="/darvyx-logo.png"
+              alt="Darvyx"
+              className="w-5 h-5 object-contain rounded transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_6px_rgba(56,189,248,0.4)]"
+            />
+            <span className="font-bold text-white text-xs tracking-wide group-hover:text-cyan-400 transition-colors">
+              Darvyx
+            </span>
+            <span className="text-emerald-300/70 text-xs font-normal border-l border-emerald-800/80 pl-2.5">
+              Your Digital Partner
+            </span>
+          </div>
+
+          <p className="text-xs text-slate-500 font-medium">
             &copy; {currentYear} {settings.institute_name || 'SS Tutorial'}. All rights reserved.
           </p>
 
-          {/* Center Column: Darvyx Agency Credit Badge (100% Dead Center) */}
-          <div className="flex justify-center items-center">
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#152a22] border border-[#114a38] shadow-sm select-none hover:border-[#1c7a5c] transition-all whitespace-nowrap">
-              <span className="text-[#78b5e2] text-xs font-semibold tracking-wide">
-                Made by
-              </span>
-              <img
-                src="/darvyx-logo.png"
-                alt="Darvyx"
-                className="w-5 h-5 object-contain drop-shadow-[0_0_6px_rgba(56,189,248,0.4)]"
-              />
-              <span className="text-white text-xs font-bold tracking-tight">
-                Darvyx
-              </span>
-              <span className="text-[#0e523d] text-xs font-light">
-                |
-              </span>
-              <span className="text-[#36b089] text-xs font-medium tracking-wide">
-                Your Digital Partner
-              </span>
-            </div>
-          </div>
-
-          {/* Right Column: Policies & Links */}
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-1">
+          <div className="flex items-center justify-center gap-4 text-xs text-slate-500">
             <a href="/privacy-policy" className="hover:text-teal-800 transition-colors">Privacy Policy</a>
+            <span className="text-slate-300">•</span>
             <a href="/terms" className="hover:text-teal-800 transition-colors">Terms & Conditions</a>
-            {settings.footer_note && settings.footer_note.trim() !== '' && (
-              <span className="text-teal-700">{settings.footer_note}</span>
+            {settings.footer_note && settings.footer_note.trim() !== '' && !settings.footer_note.includes('All Rights Reserved') && (
+              <>
+                <span className="text-slate-300">•</span>
+                <span className="text-teal-700">{settings.footer_note}</span>
+              </>
             )}
           </div>
         </div>
